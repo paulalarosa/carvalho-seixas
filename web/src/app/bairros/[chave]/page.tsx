@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Midia } from "@/components/midia";
-import { BAIRROS, IMOVEIS } from "@/lib/imoveis";
+import { BAIRROS, IMOVEIS, moeda, retratoDaRegiao } from "@/lib/imoveis";
 
 /* Rota estática: são três recortes conhecidos, então saem prontos no build
    e não custam servidor. `params` é Promise desde o Next 15. */
@@ -17,6 +17,7 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
   const b = BAIRROS.find((x) => x.chave === decodeURIComponent(chave));
   if (!b) notFound();
   const lista = IMOVEIS.filter((im) => im.regiao === b.chave);
+  const retrato = retratoDaRegiao(b.chave);
 
   return (
     <>
@@ -41,7 +42,30 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
         </div>
       </div>
 
-      <div className="trilho pb-8">
+      {/* Fita de números do bairro, tirada da carteira. A página falava do
+          bairro sem dizer nada mensurável, e é o número que faz a diferença
+          entre texto de bairro e texto de corretora. */}
+      {retrato && (
+        <dl className="trilho grid grid-cols-2 gap-y-8 border-y border-azul-500/12 py-8 sm:grid-cols-3">
+          {[
+            ["Na carteira", `${retrato.quantos} ${retrato.quantos === 1 ? "imóvel" : "imóveis"}`],
+            ["Faixa de preço", `${moeda(retrato.menor)} a ${moeda(retrato.maior)}`],
+            ["Área mediana", `${retrato.areaMediana} m²`],
+          ].map(([rotulo, valor], i) => (
+            <div
+              key={rotulo}
+              className={`flex flex-col gap-1 ${
+                i > 0 ? "sm:border-l sm:border-azul-500/10 sm:pl-6" : ""
+              }`}
+            >
+              <dt className="rotulo text-neutro-600">{rotulo}</dt>
+              <dd className="num text-xl font-semibold text-azul-500">{valor}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <div className="trilho secao pb-8">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <h2 className="text-3xl">Imóveis em {b.nome}</h2>
           <Link

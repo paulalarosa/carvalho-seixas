@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MessageCircle, ShieldCheck, ArrowRight } from "lucide-react";
+import { MessageCircle, ShieldCheck, ArrowRight, Check } from "lucide-react";
 import { Galeria } from "@/components/galeria";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Painel } from "@/components/painel";
-import { IMOVEIS, moeda, linkZap } from "@/lib/imoveis";
+import { IMOVEIS, BAIRROS, moeda, linkZap } from "@/lib/imoveis";
 import { SITE, NOME } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -21,14 +21,46 @@ export async function generateMetadata({ params }: PageProps<"/imoveis/[codigo]"
   };
 }
 
+/* O que a gente confere antes da proposta. Não é lista de serviço
+   genérica: é a etapa que essa imobiliária faz e que o anúncio de portal
+   não faz, escrita como conteúdo da página. Nenhum prazo e nenhuma
+   alíquota aqui, porque isso depende de confirmação delas. */
+const CONFERIDO = [
+  "Matrícula atualizada, com a cadeia de proprietários",
+  "Ônus, penhora e ação contra o vendedor",
+  "Dívida de condomínio e obra em rateio",
+  "IPTU e taxas em aberto",
+  "Regularidade da planta na Prefeitura",
+];
+
 /* Rótulo em cima, valor embaixo, e valor que não existe é travessão, nunca
    um número plausível: ficha com número inventado parece ficha preenchida. */
-function Item({ rotulo, valor }: { rotulo: string; valor: string | number | null }) {
+function Item({
+  rotulo,
+  valor,
+  grande,
+  fio,
+}: {
+  rotulo: string;
+  valor: string | number | null;
+  /** Corpo de leitura, para a fita de especificação da ficha. */
+  grande?: boolean;
+  /** Fio à esquerda: separa as colunas da fita sem precisar de caixa. */
+  fio?: boolean;
+}) {
   const vazio = valor === null || valor === undefined || valor === "";
   return (
-    <div className="flex flex-col gap-1">
+    <div
+      className={`flex flex-col gap-1 ${
+        fio ? "sm:border-l sm:border-azul-500/10 sm:pl-6" : ""
+      }`}
+    >
       <dt className="rotulo text-neutro-600">{rotulo}</dt>
-      <dd className={`num ${vazio ? "text-neutro-500" : "text-azul-500"}`}>
+      <dd
+        className={`num ${grande ? "text-2xl font-semibold" : ""} ${
+          vazio ? "text-neutro-500" : "text-azul-500"
+        }`}
+      >
         {vazio ? "—" : valor}
       </dd>
     </div>
@@ -42,6 +74,9 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
   const parecidos = IMOVEIS.filter(
     (x) => x.regiao === im.regiao && x.codigo !== im.codigo,
   ).slice(0, 3);
+  /* O texto do bairro é conteúdo que já existe: reaproveitar aqui evita
+     escrever de novo e mantém a página do bairro como fonte única. */
+  const bairro = BAIRROS.find((b) => b.chave === im.regiao);
 
   /* Anúncio em dado estruturado: preço, área, quartos e bairro. É assim que
      o imóvel aparece na busca com a ficha, e não como parágrafo solto. */
@@ -79,27 +114,93 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
           __html: JSON.stringify(dados).replace(/</g, "\u003c"),
         }}
       />
-      <Galeria im={im} />
+      {/* A imagem passa a IDENTIFICAR o imóvel: selo e localização em cima,
+          título e preço embaixo. Quem chega por link compartilhado sabe o
+          que está vendo sem rolar a página. */}
+      <Galeria
+        im={im}
+        capa={
+          <>
+            <div className="flex flex-wrap items-center gap-2">
+              {im.fechado && (
+                <span className="tinta rotulo rounded-full px-3 py-1.5">Vendido</span>
+              )}
+              {im.selos.map((s) => (
+                <span key={s} className="tinta rotulo rounded-full px-3 py-1.5">
+                  {s}
+                </span>
+              ))}
+            </div>
+            <div className="max-w-[46rem]">
+              {/* Região só quando ela ACRESCENTA: na Tijuca o bairro e a
+                  região têm o mesmo nome, e "Tijuca · Tijuca" lê como
+                  defeito de dado. */}
+              <span className="rotulo text-ouro-300">
+                {im.bairro}
+                {im.bairro !== im.regiao ? ` · ${im.regiao}` : ""} · {im.codigo}
+              </span>
+              <h1 className="mt-2 font-display text-[clamp(1.7rem,4vw,3.1rem)] leading-[1.05] text-creme">
+                {im.titulo}
+              </h1>
+              <span className="num mt-3 block font-display text-2xl font-bold text-creme sm:text-3xl">
+                {moeda(im.preco)}
+                {im.porNoite && <span className="text-lg"> / noite</span>}
+              </span>
+            </div>
+          </>
+        }
+      />
+
+      {/* Fita de especificação: número grande com fio entre as colunas. É a
+          primeira coisa que quem procura imóvel compara, e estava dentro de
+          uma lista de definição no meio da página. */}
+      <dl className="trilho mt-10 grid grid-cols-2 gap-y-8 border-y border-azul-500/12 py-8 sm:grid-cols-3 lg:grid-cols-6">
+        {(
+          [
+            ["Área útil", `${im.area} m²`],
+            ["Quartos", im.quartos || null],
+            ["Suítes", im.suites || null],
+            ["Banheiros", im.banheiros || null],
+            ["Vagas", im.vagas || null],
+            ["Andar", im.andar],
+          ] as const
+        ).map(([rotulo, valor], i) => (
+          <Item key={rotulo} rotulo={rotulo} valor={valor} grande fio={i > 0} />
+        ))}
+      </dl>
 
       <div className="trilho secao grid items-start gap-12 lg:grid-cols-[1.55fr_1fr]">
         <div>
-          <span className="rotulo text-ouro-texto">{im.bairro}</span>
-          <h1 className="mt-3 text-[clamp(1.8rem,3.2vw,2.6rem)]">{im.titulo}</h1>
-          <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-neutro-600">
+          <p className="max-w-[62ch] text-[clamp(1.05rem,1.5vw,1.35rem)] leading-relaxed text-neutro-600">
             {im.resumo}
           </p>
 
-          <h2 className="mt-14 text-2xl">A ficha</h2>
-          <dl className="mt-7 grid grid-cols-2 gap-7 sm:grid-cols-4">
-            <Item rotulo="Área útil" valor={`${im.area} m²`} />
-            <Item rotulo="Quartos" valor={im.quartos || null} />
-            <Item rotulo="Suítes" valor={im.suites || null} />
-            <Item rotulo="Banheiros" valor={im.banheiros || null} />
-            <Item rotulo="Vagas" valor={im.vagas || null} />
-            <Item rotulo="Andar" valor={im.andar} />
-            <Item rotulo="Ano" valor={im.ano} />
-            <Item rotulo="Código" valor={im.codigo} />
-          </dl>
+          <h2 className="mt-14 text-2xl">O que a gente confere antes da proposta</h2>
+          <ul className="mt-7 grid gap-x-10 gap-y-4 sm:grid-cols-2">
+            {CONFERIDO.map((linha) => (
+              <li key={linha} className="flex gap-3 border-t border-azul-500/10 pt-4">
+                <Check className="mt-0.5 size-4 shrink-0 text-ouro-texto" aria-hidden />
+                <span className="text-neutro-600">{linha}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 max-w-[58ch] text-sm text-neutro-500">
+            O resultado sai por escrito, antes de qualquer sinal. Se aparecer
+            pendência, você fica sabendo antes de decidir.
+          </p>
+
+          {bairro && (
+            <>
+              <h2 className="mt-14 text-2xl">Sobre o {bairro.nome}</h2>
+              <p className="mt-5 max-w-[62ch] text-neutro-600">{bairro.texto}</p>
+              <Link
+                href={`/bairros/${encodeURIComponent(bairro.chave)}/`}
+                className="mt-6 inline-flex items-center gap-2 rounded-full border border-azul-500/20 px-5 py-2.5 text-sm font-semibold text-azul-500 transition-colors hover:bg-azul-500/6"
+              >
+                Ver o {bairro.nome} <ArrowRight className="size-4" aria-hidden />
+              </Link>
+            </>
+          )}
         </div>
 
         {/* A coluna de preço acompanha a rolagem: é a ação da página. */}
@@ -128,6 +229,11 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
           <p className="mt-3 flex items-center gap-2 text-sm text-neutro-600">
             <span className="size-2 rounded-full bg-[#1F6B4A]" aria-hidden />
             Resposta em minutos, das 9h às 19h.
+          </p>
+
+          <p className="num mt-6 text-sm text-neutro-500">
+            Código {im.codigo}
+            {im.ano ? ` · Ano ${im.ano}` : ""}
           </p>
 
           <div className="mt-7 flex gap-3 rounded-2xl border-l-4 border-l-azul-400 bg-azul-50 p-5 text-sm">

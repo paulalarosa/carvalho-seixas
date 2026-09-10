@@ -337,6 +337,26 @@ export function linkZap(im?: Imovel) {
   return `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
 }
 
+/* Retrato numérico de uma região, DERIVADO da carteira: quantos imóveis,
+   faixa de preço e área mediana. Número derivado não envelhece, porque se
+   a carteira muda a frase muda sozinha, e é o oposto de "4.500 clientes
+   satisfeitos" escrito à mão numa tela de portfólio.
+
+   Mediana, não média: uma cobertura de 300 m² no meio de conjugados puxa a
+   média para um número que não descreve nada. */
+export function retratoDaRegiao(regiao: Regiao) {
+  const lista = IMOVEIS.filter((im) => im.regiao === regiao && !im.porNoite);
+  if (!lista.length) return null;
+  const precos = lista.map((im) => im.preco).sort((a, b) => a - b);
+  const areas = lista.map((im) => im.area).sort((a, b) => a - b);
+  return {
+    quantos: lista.length,
+    menor: precos[0],
+    maior: precos[precos.length - 1],
+    areaMediana: areas[Math.floor(areas.length / 2)],
+  };
+}
+
 export function contar(regiao?: Regiao | null, finalidade?: Finalidade | null) {
   return IMOVEIS.filter(
     (im) =>

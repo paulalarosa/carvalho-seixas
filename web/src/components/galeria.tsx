@@ -26,7 +26,10 @@ function roteiro(im: Imovel): Quadro[] {
   return lista;
 }
 
-export function Galeria({ im }: { im: Imovel }) {
+/* `capa` é o conteúdo que fica SOBRE a imagem: selo, bairro, código,
+   título e preço. Vem de fora porque é a página que sabe o que identifica
+   o imóvel, e a galeria só sabe trocar de quadro. */
+export function Galeria({ im, capa }: { im: Imovel; capa?: React.ReactNode }) {
   const quadros = roteiro(im);
   const [i, setI] = useState(0);
   const toqueX = useRef<number | null>(null);
@@ -68,8 +71,9 @@ export function Galeria({ im }: { im: Imovel }) {
         onPointerUp={fim}
       >
         {/* A primeira imagem da ficha é o LCP: é a única da página que entra
-            com prioridade. */}
-        <div className="relative aspect-[21/9] w-full max-md:aspect-4/3">
+            com prioridade. Proporção mais alta que a de antes (era 21/9)
+            porque agora existe texto dentro dela. */}
+        <div className="relative aspect-[16/9] w-full max-md:aspect-4/5">
           <Midia
             foto={quadros[i].foto}
             alt={im.alt}
@@ -79,6 +83,25 @@ export function Galeria({ im }: { im: Imovel }) {
             prioridade={i === 0}
           />
         </div>
+
+        {capa && (
+          <>
+            {/* Véu em gradiente, não desfoque: é a página que mais rola, e
+                `backdrop-filter` em elemento desse tamanho foi metade do
+                travamento que ela reclamou. */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to top, rgba(9,22,42,.86) 0%, rgba(9,22,42,.42) 34%, rgba(9,22,42,0) 62%), linear-gradient(to bottom, rgba(9,22,42,.5), transparent 34%)",
+              }}
+            />
+            <div className="absolute inset-0 flex flex-col justify-between p-6 text-creme sm:p-9">
+              {capa}
+            </div>
+          </>
+        )}
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-between p-5">
           {[
@@ -97,9 +120,11 @@ export function Galeria({ im }: { im: Imovel }) {
           ))}
         </div>
 
+        {/* Contador no ALTO à direita: embaixo ele disputava lugar com o
+            preço, e preço é o que a pessoa procura primeiro. */}
         <span
           aria-live="polite"
-          className="tinta num absolute bottom-5 right-5 rounded-full px-4 py-2 text-sm"
+          className="tinta num absolute right-5 top-5 rounded-full px-4 py-2 text-sm"
         >
           {i + 1} / {quadros.length}
         </span>

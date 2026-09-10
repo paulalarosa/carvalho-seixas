@@ -63,16 +63,22 @@ export default function Home() {
               data-entra="frentes"
               className="mt-5 grid grid-cols-3 gap-4 border-t border-white/18 pt-4 sm:mt-8 sm:gap-6 sm:pt-6"
             >
+              {/* Rótulo curto sempre, complemento só a partir de `sm`:
+                  medido, a 390px cada coluna fica com 84px e "sócias, CRECI
+                  e CNAI" quebra em três linhas. */}
               {[
-                [String(IMOVEIS.length), "imóveis na carteira"],
-                ["4", "regiões no Rio"],
-                ["2", "sócias, CRECI e CNAI"],
-              ].map(([n, rotulo]) => (
+                [String(IMOVEIS.length), "imóveis", " na carteira"],
+                ["4", "regiões", " no Rio"],
+                ["2", "sócias", ", CRECI e CNAI"],
+              ].map(([n, rotulo, resto]) => (
                 <div key={rotulo}>
                   <dt className="num text-2xl font-semibold text-creme sm:text-3xl">
                     {n}
                   </dt>
-                  <dd className="rotulo mt-1 text-azul-200">{rotulo}</dd>
+                  <dd className="rotulo mt-1 text-azul-200">
+                    {rotulo}
+                    <span className="hidden sm:inline">{resto}</span>
+                  </dd>
                 </div>
               ))}
             </dl>
