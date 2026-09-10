@@ -1,0 +1,793 @@
+/* Carvalho & Seixas · componentes
+   Tudo aqui sai de tokens. Nenhum valor cru de cor, espaco, raio ou duracao.
+   Nome de classe em portugues, igual aos tokens. O nome do componente em
+   ingles fica documentado na guideline, para o lado React.
+
+   Estado visual mora no CSS, nunca em classe ligada por script:
+   :hover, :focus-visible, :disabled, [aria-current], [aria-expanded], :checked. */
+
+/* ============================================================ NUCLEO */
+
+/* --- Icone ------------------------------------------------- Icon --- */
+.cs-icone{
+  width: 1.25em; height: 1.25em; flex: none;
+  color: currentColor; vertical-align: -.2em;
+}
+.cs-icone--p{ width: 1em; height: 1em }
+.cs-icone--g{ width: 1.75em; height: 1.75em }
+
+/* Contentor de icone e sempre redondo. Pilula so em status. */
+.cs-icone-caixa{
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  background: var(--cs-azul-50); color: var(--cs-azul);
+  flex: none;
+}
+.cs-icone-caixa--ouro{ background: var(--cs-ouro-50); color: var(--cs-ouro-texto) }
+.cs-icone-caixa--solida{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-icone-caixa--g{ width: 3.5rem; height: 3.5rem }
+
+/* --- Botao ----------------------------------------------- Button --- */
+.cs-botao{
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--e-3);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo); line-height: 1;
+  min-height: 2.75rem; padding: 0 var(--e-7);
+  border: 1px solid transparent; border-radius: var(--r-pilula);
+  background: var(--acao-fundo); color: var(--acao-texto);
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  box-shadow: var(--sombra-1);
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida),
+              transform var(--d-rapido) var(--ea-saida),
+              box-shadow var(--d-rapido) var(--ea-saida),
+              color var(--d-rapido) var(--ea-saida);
+}
+.cs-botao:hover{ background: var(--acao-fundo-hover); transform: translateY(-1px);
+  box-shadow: var(--sombra-2) }
+.cs-botao:active{ transform: none }
+@media (prefers-reduced-motion: reduce){
+  .cs-botao:hover{ transform: none }
+}
+.cs-botao:active{ background: var(--acao-fundo-ativo) }
+.cs-botao:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-botao:disabled,.cs-botao[aria-disabled="true"]{
+  background: var(--cs-neutro-300); color: var(--cs-neutro-600);
+  cursor: not-allowed;
+}
+
+.cs-botao--ouro{ background: var(--acao-ouro-fundo); color: var(--acao-ouro-texto) }
+.cs-botao--ouro:hover{ background: var(--cs-ouro-400) }
+.cs-botao--ouro:active{ background: var(--cs-ouro-600) }
+
+.cs-botao--contorno{
+  background: transparent; color: var(--txt-forte); border-color: var(--tra-forte);
+  box-shadow: none;
+}
+.cs-botao--contorno:hover{ background: var(--cs-azul-50) }
+.cs-botao--contorno:active{ background: var(--cs-azul-100) }
+
+.cs-botao--fantasma{ background: transparent; color: var(--txt-forte); box-shadow: none }
+.cs-botao--fantasma:hover{ background: var(--cs-azul-50) }
+
+.cs-botao--zap{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-botao--zap:hover{ background: var(--cs-azul-600) }
+
+.cs-botao--g{ min-height: 3.25rem; font-size: var(--fs-corpo-g); padding: 0 var(--e-8) }
+.cs-botao--p{ min-height: 2.25rem; font-size: var(--fs-corpo-p); padding: 0 var(--e-5) }
+.cs-botao--cheio{ width: 100% }
+
+/* --- Botao de icone ---------------------------------- IconButton --- */
+.cs-botao-icone{
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; padding: 0;
+  border: 1px solid transparent; border-radius: 50%;
+  background: transparent; color: var(--txt-forte); cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida);
+}
+.cs-botao-icone:hover{ background: var(--cs-azul-50) }
+.cs-botao-icone:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-botao-icone--solido{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-botao-icone--solido:hover{ background: var(--cs-azul-600) }
+.cs-botao-icone--claro{ background: rgba(243,239,228,.9); color: var(--cs-azul); box-shadow: var(--sombra-1) }
+.cs-botao-icone--claro:hover{ background: var(--cs-creme) }
+.cs-botao-icone--p{ width: 2.25rem; height: 2.25rem }
+
+/* --- Selo de status --------------------------------------- Badge --- */
+/* Pilula so aqui: status e a unica coisa que ganha forma de pilula. */
+.cs-selo{
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: 1;
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  padding: var(--e-2) var(--e-4); border-radius: var(--r-pilula);
+  background: var(--cs-azul-50); color: var(--cs-azul);
+  border: 1px solid transparent; white-space: nowrap;
+}
+/* Sobre foto o selo leva contorno na cor da superficie, senao some. */
+.cs-selo--sobre-foto{
+  background: rgba(22,56,100,.88); color: var(--cs-creme);
+  border-color: rgba(243,239,228,.35);
+}
+.cs-selo--ouro{ background: var(--cs-ouro-100); color: var(--cs-ouro-texto) }
+.cs-selo--novo{ background: var(--est-ok-sup); color: var(--est-ok) }
+.cs-selo--exclusivo{ background: var(--cs-azul); color: var(--cs-ouro) }
+.cs-selo--fechado{ background: var(--cs-neutro-200); color: var(--cs-neutro-700) }
+
+/* --- Pastilha de filtro ------------------------------------- Tag --- */
+.cs-pastilha{
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo-p); line-height: 1;
+  min-height: 2.25rem; padding: 0 var(--e-5);
+  border: 1px solid var(--tra-medio); border-radius: var(--r-pilula);
+  background: transparent; color: var(--txt-corpo); cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-pastilha:hover{ border-color: var(--tra-forte) }
+.cs-pastilha:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-pastilha[aria-pressed="true"]{
+  background: var(--cs-azul); border-color: var(--cs-azul); color: var(--cs-creme);
+}
+.cs-pastilha:disabled{ opacity: .45; cursor: not-allowed }
+.cs-pastilha__conta{
+  font-family: var(--fam-dado); font-size: .75em; font-variant-numeric: tabular-nums;
+  opacity: .7;
+}
+.cs-pastilha__x{ display: grid; place-items: center; width: 1rem; height: 1rem; opacity: .7 }
+
+/* --- Cartao ------------------------------------------------- Card --- */
+.cs-cartao{
+  background: var(--sup-cartao); border: 1px solid var(--tra-sutil);
+  border-radius: var(--r-4); overflow: hidden;
+}
+.cs-cartao--creme{ background: var(--sup-faixa); border-color: transparent }
+.cs-cartao--azul{ background: var(--cs-azul); border-color: transparent; color: var(--cs-creme) }
+.cs-cartao--elevado{ box-shadow: var(--sombra-1); border-color: transparent }
+.cs-cartao__corpo{ padding: var(--e-7) }
+.cs-cartao__pe{
+  padding: var(--e-5) var(--e-7); border-top: 1px solid var(--tra-sutil);
+  display: flex; justify-content: flex-end; gap: var(--e-4);
+}
+
+/* ============================================================ FORMULARIO */
+
+.cs-campo{ display: flex; flex-direction: column; gap: var(--e-2) }
+.cs-campo__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo-p); color: var(--txt-forte);
+}
+.cs-campo__dica{ font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-campo__erro{
+  display: flex; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--est-erro);
+}
+
+.cs-entrada,.cs-selecao,.cs-area{
+  font-family: var(--fam-corpo); font-size: var(--fs-corpo);
+  line-height: 1.4; color: var(--txt-corpo);
+  min-height: 2.75rem; padding: var(--e-3) var(--e-5);
+  background: var(--sup-elevada);
+  border: 1px solid var(--tra-medio); border-radius: var(--r-2);
+  width: 100%;
+  transition: border-color var(--d-rapido) var(--ea-saida),
+              box-shadow var(--d-rapido) var(--ea-saida);
+}
+.cs-area{ min-height: 7rem; resize: vertical }
+.cs-entrada::placeholder,.cs-area::placeholder{ color: var(--cs-neutro-500) }
+.cs-entrada:hover,.cs-selecao:hover,.cs-area:hover{ border-color: var(--tra-forte) }
+.cs-entrada:focus-visible,.cs-selecao:focus-visible,.cs-area:focus-visible{
+  outline: none; border-color: var(--tra-forte);
+  box-shadow: 0 0 0 3px var(--cs-azul-100);
+}
+.cs-entrada:disabled,.cs-selecao:disabled,.cs-area:disabled{
+  background: var(--cs-neutro-100); color: var(--cs-neutro-500); cursor: not-allowed;
+}
+.cs-entrada[aria-invalid="true"],.cs-selecao[aria-invalid="true"]{ border-color: var(--est-erro) }
+.cs-entrada[aria-invalid="true"]:focus-visible{ box-shadow: 0 0 0 3px var(--est-erro-sup) }
+
+.cs-selecao{
+  appearance: none; padding-right: var(--e-10); cursor: pointer;
+  background-image: linear-gradient(45deg,transparent 50%,currentColor 50%),
+                    linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position: calc(100% - 20px) 52%, calc(100% - 14px) 52%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Entrada com icone dentro */
+.cs-entrada-caixa{ position: relative; display: flex; align-items: center }
+.cs-entrada-caixa .cs-icone{ position: absolute; left: var(--e-5); color: var(--cs-neutro-500) }
+.cs-entrada-caixa .cs-entrada{ padding-left: var(--e-10) }
+
+/* --- Caixa, radio e chave ---------- Checkbox, Radio, Switch --- */
+.cs-caixa,.cs-radio{
+  display: inline-flex; align-items: flex-start; gap: var(--e-3);
+  font-size: var(--fs-corpo); color: var(--txt-corpo); cursor: pointer;
+}
+.cs-caixa input,.cs-radio input{
+  appearance: none; margin: 0; flex: none;
+  width: 1.25rem; height: 1.25rem; margin-top: .18rem;
+  border: 1.5px solid var(--tra-medio); background: var(--sup-elevada);
+  cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-caixa input{ border-radius: var(--r-1) }
+.cs-radio input{ border-radius: 50% }
+.cs-caixa input:hover,.cs-radio input:hover{ border-color: var(--tra-forte) }
+.cs-caixa input:focus-visible,.cs-radio input:focus-visible{
+  outline: 2px solid var(--tra-foco); outline-offset: 2px;
+}
+.cs-caixa input:checked{
+  background: var(--cs-azul); border-color: var(--cs-azul);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F3EFE4' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5.5 5.5L20 6.5'/%3E%3C/svg%3E");
+  background-size: 78%; background-position: center; background-repeat: no-repeat;
+}
+.cs-radio input:checked{
+  border-color: var(--cs-azul); border-width: 6px;
+}
+.cs-caixa input:disabled,.cs-radio input:disabled{
+  background: var(--cs-neutro-200); border-color: var(--cs-neutro-300); cursor: not-allowed;
+}
+
+.cs-chave{ display: inline-flex; align-items: center; gap: var(--e-4); cursor: pointer }
+.cs-chave input{
+  appearance: none; margin: 0; flex: none; position: relative;
+  width: 2.75rem; height: 1.6rem; border-radius: var(--r-pilula);
+  background: var(--cs-neutro-400); cursor: pointer;
+  transition: background var(--d-padrao) var(--ea-saida);
+}
+.cs-chave input::after{
+  content: ""; position: absolute; top: .2rem; left: .2rem;
+  width: 1.2rem; height: 1.2rem; border-radius: 50%;
+  background: var(--sup-elevada); box-shadow: var(--sombra-1);
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-chave input:checked{ background: var(--cs-azul) }
+.cs-chave input:checked::after{ transform: translateX(1.15rem) }
+.cs-chave input:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* ============================================================ RETORNO */
+
+/* --- Nota informativa -------------------------------- Notice --- */
+.cs-nota{
+  display: flex; gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+  border-radius: var(--r-2);
+  border-left: 3px solid var(--est-info);
+  background: var(--est-info-sup);
+  font-size: var(--fs-corpo-p); color: var(--txt-corpo);
+}
+.cs-nota > .cs-icone{ color: var(--est-info); margin-top: .1rem }
+.cs-nota b{ display: block; color: var(--txt-forte); margin-bottom: var(--e-1) }
+.cs-nota--atencao{ border-left-color: var(--est-atencao); background: var(--est-atencao-sup) }
+.cs-nota--atencao > .cs-icone{ color: var(--est-atencao) }
+.cs-nota--erro{ border-left-color: var(--est-erro); background: var(--est-erro-sup) }
+.cs-nota--erro > .cs-icone{ color: var(--est-erro) }
+.cs-nota--ok{ border-left-color: var(--est-ok); background: var(--est-ok-sup) }
+.cs-nota--ok > .cs-icone{ color: var(--est-ok) }
+
+/* --- Aviso flutuante --------------------------------------- Toast --- */
+.cs-aviso{
+  display: flex; align-items: center; gap: var(--e-4);
+  padding: var(--e-4) var(--e-5);
+  background: var(--cs-azul); color: var(--cs-creme);
+  border-radius: var(--r-3); box-shadow: var(--sombra-3);
+  font-size: var(--fs-corpo-p); max-width: 26rem;
+}
+.cs-aviso .cs-botao-icone{ color: var(--cs-creme); margin-left: auto }
+.cs-aviso .cs-botao-icone:hover{ background: rgba(243,239,228,.15) }
+
+/* --- Dialogo ---------------------------------------------- Dialog --- */
+.cs-dialogo{
+  border: 0; padding: 0; max-width: 34rem; width: calc(100% - var(--e-8));
+  background: var(--sup-elevada); color: var(--txt-corpo);
+  border-radius: var(--r-4); box-shadow: var(--sombra-3);
+}
+.cs-dialogo::backdrop{ background: rgba(11,25,45,.55) }
+.cs-dialogo__cab{
+  display: flex; align-items: flex-start; gap: var(--e-5);
+  padding: var(--e-7) var(--e-7) var(--e-4);
+}
+.cs-dialogo__cab h2{
+  font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+  font-weight: var(--fw-forte); letter-spacing: var(--tr-titulo);
+}
+.cs-dialogo__cab .cs-botao-icone{ margin-left: auto; margin-top: -.4rem }
+.cs-dialogo__corpo{ padding: 0 var(--e-7) var(--e-7); font-size: var(--fs-corpo) }
+/* Rodape alinha a direita. Nunca space-between com um filho so. */
+.cs-dialogo__pe{
+  display: flex; justify-content: flex-end; gap: var(--e-4);
+  padding: var(--e-5) var(--e-7); border-top: 1px solid var(--tra-sutil);
+  background: var(--sup-sutil);
+}
+
+/* --- Dica ------------------------------------------------ Tooltip --- */
+.cs-dica{ position: relative; display: inline-flex }
+.cs-dica__balao{
+  position: absolute; bottom: calc(100% + var(--e-3)); left: 50%;
+  transform: translateX(-50%);
+  background: var(--cs-grafite); color: var(--cs-neutro-50);
+  font-size: var(--fs-corpo-p); line-height: 1.35;
+  padding: var(--e-3) var(--e-4); border-radius: var(--r-2);
+  width: max-content; max-width: 16rem; z-index: 20;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--d-rapido) var(--ea-saida),
+              visibility var(--d-rapido) var(--ea-saida);
+}
+.cs-dica:hover .cs-dica__balao,
+.cs-dica:focus-within .cs-dica__balao{ opacity: 1; visibility: visible }
+
+/* ============================================================ NAVEGACAO */
+
+/* --- Trilha ------------------------------------------- Breadcrumb --- */
+.cs-trilha{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-trilha a{ color: var(--txt-suave); text-decoration: none }
+.cs-trilha a:hover{ color: var(--txt-forte); text-decoration: underline }
+.cs-trilha [aria-current="page"]{ color: var(--txt-forte); font-weight: var(--fw-forte) }
+.cs-trilha .cs-icone{ width: .9em; height: .9em; opacity: .55 }
+
+/* --- Abas ---------------------------------------------------- Tabs --- */
+.cs-abas{ display: flex; gap: var(--e-7); border-bottom: 1px solid var(--tra-sutil) }
+.cs-abas__item{
+  appearance: none; background: none; border: 0; cursor: pointer;
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo); color: var(--txt-suave);
+  padding: var(--e-4) 0; position: relative;
+  transition: color var(--d-rapido) var(--ea-saida);
+}
+.cs-abas__item::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--cs-ouro); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-abas__item:hover{ color: var(--txt-forte) }
+.cs-abas__item[aria-selected="true"]{ color: var(--txt-forte) }
+.cs-abas__item[aria-selected="true"]::after{ transform: scaleX(1) }
+.cs-abas__item:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Paginacao ---------------------------------------- Pagination --- */
+.cs-paginacao{ display: flex; align-items: center; gap: var(--e-2) }
+.cs-paginacao__item{
+  display: grid; place-items: center; min-width: 2.5rem; height: 2.5rem;
+  border-radius: var(--r-2); border: 1px solid transparent;
+  background: transparent; color: var(--txt-corpo); cursor: pointer;
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums; text-decoration: none;
+}
+.cs-paginacao__item:hover{ background: var(--cs-azul-50) }
+.cs-paginacao__item[aria-current="page"]{
+  background: var(--cs-azul); color: var(--cs-creme);
+}
+.cs-paginacao__item:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Sanfona ------------------------------------------- Accordion --- */
+.cs-sanfona{ border-top: 1px solid var(--tra-sutil) }
+.cs-sanfona__item{ border-bottom: 1px solid var(--tra-sutil) }
+.cs-sanfona__item > summary{
+  display: flex; align-items: center; gap: var(--e-5);
+  padding: var(--e-6) 0; cursor: pointer; list-style: none;
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2);
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte);
+}
+.cs-sanfona__item > summary::-webkit-details-marker{ display: none }
+.cs-sanfona__item > summary:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-sanfona__item > summary .cs-icone{
+  margin-left: auto; color: var(--cs-ouro-texto);
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-sanfona__item[open] > summary .cs-icone{ transform: rotate(180deg) }
+.cs-sanfona__corpo{ padding: 0 0 var(--e-7); font-size: var(--fs-corpo); color: var(--txt-corpo) }
+
+/* ============================================================ IMOVEIS */
+
+/* --- Foto ------------------------------------------------- Photo --- */
+/* Proporcao fixa para a grade nao pular quando a foto carrega.
+   A primeira foto da pagina nao leva loading="lazy": ela e o LCP. */
+.cs-foto{
+  display: block; width: 100%; aspect-ratio: 4 / 3;
+  object-fit: cover; background: var(--cs-neutro-200);
+  border-radius: var(--r-4);
+}
+.cs-foto--larga{ aspect-ratio: 16 / 9 }
+.cs-foto--quadrada{ aspect-ratio: 1 / 1 }
+.cs-foto--reta{ border-radius: 0 }
+
+/* --- Titulo de secao ------------------------------ SectionHeading --- */
+.cs-titulo-secao{ display: flex; flex-direction: column; gap: var(--e-3); margin-bottom: var(--e-8) }
+.cs-titulo-secao__linha{ display: flex; align-items: flex-end; gap: var(--e-5); flex-wrap: wrap }
+.cs-titulo-secao h2{ margin: 0 }
+.cs-titulo-secao__acao{ margin-left: auto }
+.cs-titulo-secao p{ font-size: var(--fs-corpo-g); color: var(--txt-suave) }
+.cs-titulo-secao::after{
+  content: ""; display: block; width: 3.5rem; height: 2px; background: var(--cs-ouro);
+}
+
+/* --- Citacao ----------------------------------------------- Quote --- */
+.cs-citacao{
+  display: flex; flex-direction: column; gap: var(--e-5);
+  padding-left: var(--e-7); border-left: 2px solid var(--cs-ouro);
+}
+.cs-citacao blockquote{
+  margin: 0; font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-1); line-height: 1.35;
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte);
+}
+.cs-citacao figcaption{ font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-citacao figcaption b{ color: var(--txt-corpo) }
+
+/* --- Bloco de preco ---------------------------------- PriceBlock --- */
+/* Preco grande, e junto dele o que decide se a parcela cabe:
+   condominio e IPTU. Campo sem informacao recebe traco, nunca exemplo. */
+.cs-preco{ display: flex; flex-direction: column; gap: var(--e-3) }
+.cs-preco__valor{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-display-3); line-height: 1;
+  letter-spacing: var(--tr-display); color: var(--txt-forte);
+  font-variant-numeric: tabular-nums;
+}
+.cs-preco__extras{ display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-6) }
+.cs-preco__extra{ display: flex; align-items: baseline; gap: var(--e-2); font-size: var(--fs-corpo-p) }
+.cs-preco__extra dt{ color: var(--txt-suave) }
+.cs-preco__extra dd{
+  margin: 0; font-family: var(--fam-dado); font-variant-numeric: tabular-nums;
+  color: var(--txt-corpo);
+}
+
+/* --- Grade da ficha ------------------------------------ SpecGrid --- */
+/* Rotulo em cima, valor embaixo. Numero em tabular para as colunas alinharem. */
+.cs-ficha{
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,8rem),1fr));
+  gap: var(--e-7) var(--e-6);
+}
+.cs-ficha__item{ display: flex; flex-direction: column; gap: var(--e-1); min-width: 0 }
+.cs-ficha__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-ficha__valor{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-ficha__valor--vazio{ color: var(--cs-neutro-500) }
+
+/* --- Cartao de imovel ------------------------------ PropertyCard --- */
+.cs-imovel{
+  display: flex; flex-direction: column;
+  background: var(--sup-cartao); border: 1px solid var(--tra-sutil);
+  border-radius: var(--r-4); overflow: hidden; position: relative;
+  transition: box-shadow var(--d-padrao) var(--ea-saida),
+              transform var(--d-padrao) var(--ea-saida),
+              border-color var(--d-padrao) var(--ea-saida);
+}
+.cs-imovel:hover{
+  box-shadow: var(--sombra-3); border-color: transparent; transform: translateY(-6px);
+}
+@media (prefers-reduced-motion: reduce){
+  .cs-imovel:hover{ transform: none }
+}
+.cs-imovel:focus-within{ box-shadow: var(--sombra-2) }
+.cs-imovel__midia{ position: relative; overflow: hidden }
+.cs-imovel__midia .cs-foto{ border-radius: 0; transition: transform var(--d-lento) var(--ea-saida) }
+.cs-imovel:hover .cs-imovel__midia .cs-foto{ transform: scale(1.03) }
+.cs-imovel__selos{ position: absolute; top: var(--e-4); left: var(--e-4);
+  display: flex; flex-wrap: wrap; gap: var(--e-2) }
+.cs-imovel__favorito{ position: absolute; top: var(--e-3); right: var(--e-3) }
+.cs-imovel__corpo{ display: flex; flex-direction: column; gap: var(--e-4);
+  padding: var(--e-6); flex: 1 }
+.cs-imovel__bairro{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-ouro);
+}
+.cs-imovel__titulo{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2);
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte); margin: 0;
+}
+/* O link cobre o cartao inteiro, mas o botao de acao fica por cima dele. */
+.cs-imovel__link::after{ content: ""; position: absolute; inset: 0 }
+.cs-imovel__link{ color: inherit; text-decoration: none }
+.cs-imovel__link:focus-visible{ outline: none }
+.cs-imovel__atributos{
+  display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-5);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave); margin-top: auto;
+}
+.cs-imovel__atributo{ display: inline-flex; align-items: center; gap: var(--e-2) }
+.cs-imovel__atributo b{
+  font-family: var(--fam-dado); font-weight: 500; color: var(--txt-corpo);
+  font-variant-numeric: tabular-nums;
+}
+.cs-imovel__pe{
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e-4);
+  padding: var(--e-5) var(--e-6); border-top: 1px solid var(--tra-sutil);
+  position: relative; z-index: 1;
+}
+.cs-imovel__codigo{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  color: var(--txt-suave); font-variant-numeric: tabular-nums;
+}
+
+/* --- Barra de filtro ----------------------------------- FilterBar --- */
+/* Horizontal, no topo. Coluna lateral aperta a listagem e a foto e o que vende. */
+.cs-filtros{
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3);
+  padding: var(--e-5) 0; border-bottom: 1px solid var(--tra-sutil);
+}
+.cs-filtros__grupo{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3) }
+.cs-filtros__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave); margin-right: var(--e-2);
+}
+.cs-filtros__fim{ margin-left: auto; display: flex; align-items: center; gap: var(--e-4) }
+.cs-filtros__resultado{
+  font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+.cs-filtros__resultado b{
+  font-family: var(--fam-dado); color: var(--txt-forte); font-variant-numeric: tabular-nums;
+}
+
+/* --- Galeria --------------------------------------------- Gallery --- */
+.cs-galeria{ display: flex; flex-direction: column; gap: var(--e-4) }
+.cs-galeria__palco{ position: relative; border-radius: var(--r-4); overflow: hidden }
+.cs-galeria__palco .cs-foto{ aspect-ratio: 3 / 2; border-radius: 0 }
+.cs-galeria__nav{
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: space-between; padding: var(--e-4); pointer-events: none;
+}
+.cs-galeria__nav .cs-botao-icone{ pointer-events: auto }
+.cs-galeria__conta{
+  position: absolute; right: var(--e-4); bottom: var(--e-4);
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums;
+  background: rgba(22,56,100,.88); color: var(--cs-creme);
+  padding: var(--e-2) var(--e-4); border-radius: var(--r-pilula);
+}
+.cs-galeria__tiras{
+  display: flex; gap: var(--e-3); overflow-x: auto; padding-bottom: var(--e-2);
+  scrollbar-width: thin;
+}
+.cs-galeria__tira{
+  flex: none; width: 6.5rem; padding: 0; border: 2px solid transparent;
+  border-radius: var(--r-2); overflow: hidden; cursor: pointer; background: none;
+  transition: border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-galeria__tira .cs-foto{ border-radius: 0; aspect-ratio: 4 / 3 }
+.cs-galeria__tira[aria-current="true"]{ border-color: var(--cs-ouro) }
+.cs-galeria__tira:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Acao de WhatsApp -------------------------------- WhatsAppAction --- */
+/* A mensagem ja vai preenchida com o codigo do imovel. Sem isso a
+   corretora precisa perguntar de qual imovel se trata, e a resposta atrasa. */
+.cs-zap{ display: flex; flex-direction: column; gap: var(--e-3) }
+.cs-zap__aviso{
+  display: flex; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+.cs-zap__ponto{
+  width: .5rem; height: .5rem; border-radius: 50%; background: var(--est-ok); flex: none;
+}
+
+/* --- Barra fixa ------------------------------------------ StickyBar --- */
+.cs-barra-fixa{
+  position: sticky; bottom: 0; z-index: 30;
+  display: flex; align-items: center; gap: var(--e-5);
+  padding: var(--e-4) var(--e-6);
+  background: var(--sup-elevada); border-top: 1px solid var(--tra-sutil);
+  box-shadow: var(--sombra-3);
+  padding-bottom: calc(var(--e-4) + env(safe-area-inset-bottom, 0px));
+}
+.cs-barra-fixa__preco{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-titulo-2); color: var(--txt-forte);
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.cs-barra-fixa__rotulo{
+  display: block; font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-barra-fixa .cs-botao{ margin-left: auto }
+
+/* --- Simulador de custos --------------------------- CostSimulator --- */
+.cs-simulador{ display: flex; flex-direction: column; gap: var(--e-6) }
+.cs-simulador__linhas{ display: flex; flex-direction: column; gap: var(--e-1) }
+.cs-simulador__linha{
+  display: flex; align-items: baseline; gap: var(--e-4);
+  padding: var(--e-4) 0; border-bottom: 1px solid var(--tra-sutil);
+}
+.cs-simulador__linha dt{ color: var(--txt-corpo) }
+.cs-simulador__linha dd{
+  margin: 0 0 0 auto; font-family: var(--fam-dado);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-simulador__total{
+  display: flex; align-items: baseline; gap: var(--e-4);
+  padding-top: var(--e-5); border-top: 2px solid var(--tra-forte);
+}
+.cs-simulador__total dt{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); color: var(--txt-forte);
+}
+.cs-simulador__total dd{
+  margin: 0 0 0 auto; font-family: var(--fam-dado); font-size: var(--fs-titulo-2);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-simulador__conferido{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+
+/* --- Etapas ------------------------------------------------- Steps --- */
+.cs-etapas{ display: flex; flex-direction: column; gap: 0; list-style: none; margin: 0; padding: 0 }
+.cs-etapa{ display: grid; grid-template-columns: 3rem 1fr; gap: var(--e-6); position: relative }
+.cs-etapa::before{
+  content: ""; position: absolute; left: 1.5rem; top: 3rem; bottom: -.5rem;
+  width: 1px; background: var(--tra-sutil);
+}
+.cs-etapa:last-child::before{ display: none }
+.cs-etapa__numero{
+  display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--cs-azul); color: var(--cs-creme);
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; z-index: 1;
+}
+.cs-etapa__corpo{ padding-bottom: var(--e-9) }
+.cs-etapa__corpo h3{ margin-bottom: var(--e-2) }
+.cs-etapa__corpo p{ color: var(--txt-suave) }
+
+/* --- Registro profissional --------------------------- Credential --- */
+.cs-registro{
+  display: inline-flex; align-items: center; gap: var(--e-4);
+  padding: var(--e-4) var(--e-5);
+  border: 1px solid var(--tra-sutil); border-radius: var(--r-2);
+  background: var(--sup-sutil);
+}
+.cs-registro__rotulo{
+  display: block; font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-registro__numero{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-registro__numero--vazio{ color: var(--cs-neutro-500) }
+
+/* --- Cartao de bairro --------------------------- NeighborhoodCard --- */
+.cs-bairro{
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 16rem; padding: var(--e-7);
+  border-radius: var(--r-4); overflow: hidden; isolation: isolate;
+  color: var(--cs-creme); text-decoration: none;
+}
+.cs-bairro .cs-foto{
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border-radius: 0; z-index: -2;
+  transition: transform var(--d-lento) var(--ea-saida);
+}
+.cs-bairro::after{
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(11,25,45,.88) 0%, rgba(11,25,45,.28) 55%, rgba(11,25,45,.12) 100%);
+}
+.cs-bairro:hover .cs-foto{ transform: scale(1.05) }
+.cs-bairro:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 3px }
+/* `color` explicito: o nome e um h3, e a regra de h3 em base.css pinta com a
+   cor de texto forte. Sobre a cortina escura do cartao isso da azul sobre
+   azul, que foi exatamente como o defeito apareceu. */
+.cs-bairro__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-display-3); line-height: 1.05;
+  letter-spacing: var(--tr-display); margin: 0; color: var(--cs-creme);
+}
+.cs-bairro__conta{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums; color: var(--cs-ouro); margin-top: var(--e-2);
+}
+
+/* --- Mapa estatico -------------------------------------- StaticMap --- */
+.cs-mapa{
+  position: relative; border-radius: var(--r-4); overflow: hidden;
+  border: 1px solid var(--tra-sutil);
+}
+.cs-mapa img{ display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover }
+.cs-mapa__pino{
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-100%);
+  color: var(--cs-azul);
+}
+.cs-mapa__pe{
+  display: flex; align-items: center; gap: var(--e-3);
+  padding: var(--e-4) var(--e-5); border-top: 1px solid var(--tra-sutil);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave); background: var(--sup-sutil);
+}
+
+/* --- Estado vazio ------------------------------------- EmptyState --- */
+.cs-vazio{
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--e-5); padding: var(--e-12) var(--e-7);
+  border: 1px dashed var(--tra-medio); border-radius: var(--r-4);
+}
+.cs-vazio h3{ margin: 0 }
+.cs-vazio p{ color: var(--txt-suave); max-width: 34ch }
+.cs-vazio__acoes{ display: flex; flex-wrap: wrap; gap: var(--e-4); justify-content: center }
+
+/* --- Cena em tres dimensoes ------------------------------- Scene3D --- */
+/* A imagem de reserva ja esta no lugar antes do modulo carregar, e ela e
+   o LCP. A tela so aparece quando a cena esta pronta. */
+.cs-cena{
+  position: relative; border-radius: var(--r-4); overflow: hidden;
+  background: var(--cs-azul); aspect-ratio: 16 / 9;
+}
+.cs-cena__reserva{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: opacity var(--d-cena) var(--ea-saida);
+}
+.cs-cena[data-pronta="true"] .cs-cena__reserva{ opacity: 0 }
+.cs-cena canvas{ position: absolute; inset: 0; width: 100%; height: 100% }
+@media (prefers-reduced-motion: reduce){
+  .cs-cena canvas{ display: none }
+  .cs-cena[data-pronta="true"] .cs-cena__reserva{ opacity: 1 }
+}
+
+/* --- Revelar --------------------------------------------- Reveal --- */
+/* A entrada e feita por TRANSICAO de CSS, marcada por IntersectionObserver.
+   Nao depende de ticker de animacao: em aba oculta, pre-render ou aparelho
+   travado o observador ainda dispara e o conteudo aparece.
+   Sem JavaScript a classe `js` nunca entra e nada fica escondido. */
+.cs-revelar{ opacity: 1; transform: none }
+@media (prefers-reduced-motion: no-preference){
+  .js[data-anima="1"] .cs-revelar{
+    opacity: 0; transform: translateY(1.125rem);
+    transition: opacity var(--d-lento) var(--ea-saida),
+                transform var(--d-lento) var(--ea-saida);
+  }
+  .js[data-anima="1"] .cs-revelar[data-visivel="1"]{ opacity: 1; transform: none }
+}
+
+/* --- Vidro --------------------------------------------- Glass --- */
+/* Painel de vidro tem QUATRO partes, e faltando uma ele vira caixa cinza:
+   1. desfoque COM saturacao (sem saturar, a cor de tras sai lavada);
+   2. traco de 1px na borda, que e o corte do vidro;
+   3. realce interno no topo, que e a luz batendo na quina;
+   4. sombra longa, que e o que faz flutuar.
+
+   Qual das tres receitas usar depende do que esta ATRAS, nao do gosto:
+   `.cs-vidro` sobre cena escura, `.cs-vidro-claro` sobre o off-white,
+   `.cs-vidro-tinta` sobre imagem. Sobre cor chapada nao use vidro: nao ha
+   o que refratar e o resultado e so uma caixa mais clara. */
+.cs-vidro,.cs-vidro-claro,.cs-vidro-tinta{
+  border-radius: var(--r-5);
+  -webkit-backdrop-filter: blur(var(--vidro-desfoque)) saturate(var(--vidro-saturacao));
+  backdrop-filter: blur(var(--vidro-desfoque)) saturate(var(--vidro-saturacao));
+}
+.cs-vidro{
+  background: var(--vidro-fundo); border: 1px solid var(--vidro-traco);
+  color: var(--cs-creme);
+  box-shadow: inset 0 1px 0 var(--vidro-realce), var(--sombra-vidro);
+}
+.cs-vidro-claro{
+  background: var(--vidro-claro-fundo); border: 1px solid var(--vidro-claro-traco);
+  box-shadow: inset 0 1px 0 var(--vidro-claro-realce), var(--sombra-2);
+}
+.cs-vidro-tinta{
+  background: var(--vidro-tinta-fundo); border: 1px solid var(--vidro-tinta-traco);
+  color: var(--cs-creme);
+  box-shadow: inset 0 1px 0 var(--vidro-tinta-realce), var(--sombra-2);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+/* Sem suporte a desfoque o painel fica OPACO: legibilidade primeiro. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .cs-vidro{ background: rgba(6,22,45,.86) }
+  .cs-vidro-claro{ background: var(--sup-elevada) }
+  .cs-vidro-tinta{ background: rgba(6,20,40,.86) }
+}
+.cs-vidro--pilula,.cs-vidro-claro--pilula,.cs-vidro-tinta--pilula{
+  border-radius: var(--r-pilula);
+}

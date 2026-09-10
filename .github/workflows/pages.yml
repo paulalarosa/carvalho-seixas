@@ -1,0 +1,63 @@
+# Publica o site no GitHub Pages a cada empurrão na branch principal.
+#
+# O site é exportado estático (`output: "export"` no next.config.ts), então
+# o Pages serve arquivo puro: não há servidor Node envolvido.
+#
+# As duas variáveis abaixo existem porque página de projeto mora em
+# `usuario.github.io/REPO`: sem o prefixo, todo caminho absoluto quebraria,
+# e sem o endereço o link canônico e o sitemap sairiam apontando para
+# localhost. Os dois valores são derivados do próprio repositório, então
+# renomear o repo não quebra a publicação.
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Instalar
+        working-directory: web
+        run: npm ci
+
+      - name: Construir
+        working-directory: web
+        env:
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/out
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicacao.outputs.page_url }}
+    steps:
+      - id: publicacao
+        uses: actions/deploy-pages@v4

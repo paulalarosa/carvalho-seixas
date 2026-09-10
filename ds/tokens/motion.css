@@ -1,0 +1,30 @@
+/* Carvalho & Seixas · movimento.
+   O site usa GSAP e three.js, entao cada duracao tem o ease equivalente do
+   GSAP anotado ao lado. Use os mesmos valores nos dois lados para o
+   movimento de CSS e o de GSAP nao brigarem. */
+:root{
+  --d-instante: 90ms;
+  --d-rapido: 160ms;   /* GSAP duration .16 */
+  --d-padrao: 260ms;   /* GSAP duration .26 */
+  --d-lento: 420ms;    /* GSAP duration .42 */
+  --d-cena: 900ms;     /* entrada de secao e Flip da foto */
+
+  --ea-saida: cubic-bezier(.22,.61,.36,1);      /* GSAP power2.out */
+  --ea-entrada: cubic-bezier(.55,.06,.68,.19);  /* GSAP power2.in */
+  --ea-suave: cubic-bezier(.65,.05,.36,1);      /* GSAP power3.inOut */
+  --ea-firme: cubic-bezier(.16,1,.3,1);         /* GSAP expo.out */
+
+  --escalonar: 60ms;   /* stagger entre cartoes, ScrollTrigger.batch */
+}
+
+/* Toda animacao decorativa e a cena em tres dimensoes desligam aqui.
+   No GSAP a mesma trava vive em gsap.matchMedia(). */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --d-rapido: 0ms;
+    --d-padrao: 0ms;
+    --d-lento: 0ms;
+    --d-cena: 0ms;
+    --escalonar: 0ms;
+  }
+}

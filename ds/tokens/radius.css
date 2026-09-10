@@ -1,0 +1,22 @@
+/* Carvalho & Seixas · raio.
+   A direcao da marca no digital e ARREDONDADA E FLUTUANTE: nada de canto
+   reto em componente. O simbolo continua sendo de traco reto, e e esse
+   contraste que faz a marca aparecer em cima da interface macia.
+
+   A escala e a MESMA do app em React (`web/src/app/globals.css`), onde
+   `--radius: 1.25rem` alimenta a escala do shadcn. Mudou aqui, muda la:
+   sao dois arquivos, mas e um numero so.
+
+   Pilula deixou de ser excecao: botao, pastilha, selo, filtro e a barra do
+   topo sao pilula. Reto (`--r-0`) sobrou para linha de tabela e para foto
+   que sangra ate a borda da tela. */
+:root{
+  --r-0: 0;
+  --r-1: 8px;    /* detalhe: miniatura, quadro pequeno */
+  --r-2: 12px;   /* campo, nota, aviso */
+  --r-3: 16px;   /* cartao pequeno, registro */
+  --r-4: 24px;   /* cartao, foto, galeria */
+  --r-5: 36px;   /* painel e ilha */
+  --r-6: 44px;   /* ilha grande: abertura, chamada final */
+  --r-pilula: 999px;
+}

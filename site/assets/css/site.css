@@ -1,0 +1,526 @@
+/* Carvalho & Seixas · o que é do site e não do design system.
+   Cabeçalho, faixas de página, abertura, cenas de imagem. Tudo em cima dos tokens.
+
+   Três regras de composição valem em toda a página, e é o que separa site de
+   apresentação de modelo pronto:
+   1. faixa de borda a borda, com trilho por dentro, e altura de faixa variando;
+   2. coluna desigual: nada de três caixas iguais quando o conteúdo não é igual;
+   3. fio e vão fazem a separação; sombra e canto redondo são exceção. */
+
+.js [hidden]{ display: none !important }
+
+/* ============================================================ TRILHOS */
+.trilho{ width: min(100% - 2.5rem, var(--lar-largo)); margin-inline: auto }
+.trilho--texto{ width: min(100% - 2.5rem, var(--lar-conteudo)) }
+.faixa{ padding-block: var(--resp-secao) }
+.faixa--creme{ background: var(--sup-faixa) }
+.faixa--azul{ background: var(--cs-azul); color: var(--cs-creme) }
+.faixa--azul h2,.faixa--azul h3{ color: var(--cs-creme) }
+.faixa--azul p{ color: var(--cs-azul-200) }
+.faixa--apertada{ padding-block: var(--e-9) }
+.faixa--alta{ padding-block: calc(var(--resp-secao) * 1.35) }
+.faixa--sangra{ overflow-x: clip }
+@media (max-width: 760px){
+  .faixa{ padding-block: var(--resp-secao-mobile) }
+  .faixa--alta{ padding-block: var(--resp-secao-mobile) }
+}
+.bloco{ margin-top: var(--resp-secao) }
+.sub{ color: var(--txt-suave); margin-top: var(--e-2) }
+.abre{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g) }
+
+/* Fio: a separação padrão da página. Uma borda de 1px em cima do conteúdo
+   organiza tanto quanto um cartão, e não empilha caixa dentro de caixa. */
+.regua{ border-top: 1px solid var(--tra-sutil) }
+.faixa--azul .regua{ border-top-color: rgba(243,239,228,.22) }
+
+/* Grão: papel, não vidro. Sem textura a página fica com a limpeza plana de
+   modelo pronto. É overlay fixo, não intercepta ponteiro e não entra no print. */
+html::after{
+  content: ""; position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  opacity: .055; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23r)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+@media print{ html::after{ display: none } }
+
+/* ========================================================= CABEÇALHO */
+.topo-site{
+  position: fixed; inset: 0 0 auto; z-index: 60;
+  transition: background var(--d-padrao) var(--ea-saida),
+              border-color var(--d-padrao) var(--ea-saida);
+  border-bottom: 1px solid transparent;
+}
+.topo-site__trilho{
+  width: min(100% - 2.5rem, var(--lar-largo)); margin-inline: auto;
+  display: flex; align-items: center; gap: var(--e-8);
+  padding-block: var(--e-4);
+}
+.topo-site__marca{
+  display: flex; align-items: center; gap: calc(38px * var(--marca-gap-horizontal));
+  text-decoration: none; flex: none;
+}
+.topo-site__marca svg{ width: 38px; height: auto }
+.topo-site__marca .assinatura{ font-size: 1.06rem }
+.topo-site nav{ display: flex; gap: var(--e-7); margin-left: auto; flex-wrap: wrap }
+.topo-site nav a{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo-p); text-decoration: none;
+  padding: var(--e-2) 0; position: relative;
+}
+.topo-site nav a::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: var(--cs-ouro); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.topo-site nav a:hover::after,.topo-site nav a[aria-current="page"]::after{ transform: scaleX(1) }
+
+.topo-site[data-sobre-hero="true"]{ background: transparent }
+.topo-site[data-sobre-hero="true"] .assinatura__nome{ color: var(--cs-creme) }
+.topo-site[data-sobre-hero="true"] nav a{ color: var(--cs-azul-200) }
+.topo-site[data-sobre-hero="true"] nav a:hover,
+.topo-site[data-sobre-hero="true"] nav a[aria-current="page"]{ color: var(--cs-creme) }
+.topo-site[data-sobre-hero="true"] .topo-site__marca svg{ --cs-azul: var(--cs-creme) }
+
+.topo-site[data-fixo="true"]{
+  background: color-mix(in srgb, var(--sup-base) 94%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom-color: var(--tra-sutil);
+}
+.topo-site[data-fixo="true"] .assinatura__nome{ color: var(--txt-forte) }
+.topo-site[data-fixo="true"] nav a{ color: var(--txt-suave) }
+.topo-site[data-fixo="true"] nav a:hover,
+.topo-site[data-fixo="true"] nav a[aria-current="page"]{ color: var(--txt-forte) }
+.topo-site[data-fixo="true"] .topo-site__marca svg{ --cs-azul: #163864 }
+
+@media (max-width: 820px){
+  .topo-site__trilho{ flex-wrap: wrap; gap: var(--e-4) }
+  .topo-site nav{ order: 3; width: 100%; margin-left: 0; gap: var(--e-6);
+    overflow-x: auto; padding-bottom: var(--e-2) }
+  .topo-site__zap{ margin-left: auto }
+}
+
+/* ========================================================== ABERTURA
+   Largura total, altura pelo conteúdo com teto. Nunca 100vh: altura de tela
+   inteira empurra o conteúdo para fora do primeiro quadro.
+
+   O lockup NÃO se repete aqui. Marca no topo e marca na abertura, uma embaixo
+   da outra, é a redundância que mais denuncia página montada por gerador. */
+.hero{
+  position: relative; isolation: isolate; overflow: hidden;
+  background: linear-gradient(168deg, #14345c, #0a1d38);
+  color: var(--cs-creme);
+  min-height: min(40rem, 82vh);
+  display: grid; align-items: end;
+  padding-top: 7rem;
+}
+.hero__cena{ position: absolute; inset: 0; z-index: -2 }
+.hero__cena canvas{ display: block; width: 100%; height: 100% }
+.hero__reserva{
+  position: absolute; inset: 0; z-index: -2;
+  background:
+    radial-gradient(ellipse 30% 42% at 72% 62%, rgba(255,180,85,.28), transparent 70%),
+    radial-gradient(ellipse 60% 30% at 40% 96%, #b9ad93, transparent 72%),
+    linear-gradient(168deg, #14345c, #0a1d38);
+  transition: opacity var(--d-cena) var(--ea-saida);
+}
+.hero[data-pronta="true"] .hero__reserva{ opacity: 0 }
+/* Cortina: garante que o texto leia por cima de qualquer quadro da cena. */
+.hero::after{
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(96deg, rgba(9,22,42,.95) 0%, rgba(9,22,42,.76) 30%, rgba(9,22,42,.04) 57%),
+    linear-gradient(to top, rgba(9,22,42,.66), transparent 46%);
+}
+.hero__conteudo{
+  width: min(100% - 2.5rem, var(--lar-largo)); margin-inline: auto;
+  padding-block: var(--e-12) 6.5rem;
+}
+.hero__titulo{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: clamp(2.35rem, 5.4vw, 4.5rem); line-height: 1.02;
+  letter-spacing: var(--tr-display); color: var(--cs-creme);
+  margin: 0 0 var(--e-6); max-width: 21ch; text-wrap: balance;
+}
+.hero__titulo em{ font-style: normal; color: var(--cs-ouro) }
+.hero__linha{
+  font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.55;
+  color: var(--cs-azul-200); max-width: 46ch;
+}
+.hero__linha b{ color: var(--cs-creme); font-weight: var(--fw-forte) }
+/* Onde ficam as três frentes. Rótulo de dado, não enfeite: é a primeira
+   pergunta de quem chega, e a resposta cabe numa linha. */
+.hero__frentes{
+  display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-6);
+  margin-top: var(--e-8); padding-top: var(--e-6);
+  border-top: 1px solid rgba(243,239,228,.22); max-width: 46rem;
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--cs-azul-200);
+}
+.hero__frentes b{ color: var(--cs-creme) }
+
+/* ---------------------------------------------------------- BALCÃO
+   A busca avança sobre a borda da abertura. Sólida, com fio entre os campos:
+   caixa de vidro flutuando é o clichê que faz o site parecer maquete. */
+.balcao-trilho{
+  width: min(100% - 2.5rem, var(--lar-largo)); margin: -3.75rem auto 0;
+  position: relative; z-index: 5;
+}
+.balcao{
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  background: var(--sup-base);
+  border: 1px solid var(--tra-medio); border-radius: var(--r-2);
+  box-shadow: 0 18px 40px rgba(9,22,42,.16);
+  max-width: 54rem; overflow: hidden;
+}
+.balcao__campo{
+  display: flex; flex-direction: column; gap: var(--e-1);
+  padding: var(--e-5) var(--e-6); min-width: 0;
+  border-right: 1px solid var(--tra-sutil);
+}
+.balcao__rot{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte); font-size: var(--fs-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase; color: var(--txt-suave);
+}
+.balcao select{
+  appearance: none; width: 100%; cursor: pointer;
+  background: transparent; border: 0; color: var(--txt-forte);
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: 1.12rem; letter-spacing: var(--tr-titulo);
+  padding: 0; margin: 0;
+}
+.balcao select:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 4px }
+.balcao__acao{ display: flex }
+.balcao__acao .cs-botao{ border-radius: 0; height: 100%; min-height: 4.5rem; padding-inline: var(--e-8) }
+@media (max-width: 720px){
+  .balcao-trilho{ margin-top: -2rem }
+  .balcao{ grid-template-columns: 1fr }
+  .balcao__campo{ border-right: 0; border-bottom: 1px solid var(--tra-sutil) }
+  .balcao__acao .cs-botao{ width: 100%; min-height: 3.25rem }
+}
+
+/* ============================================== FATOS (por que importa)
+   Três linhas numeradas, não três cartões com ícone em círculo. O número é
+   dado, então é mono; o resto é texto corrido em coluna estreita. */
+.fatos{ list-style: none; margin: 0; padding: 0 }
+.fato{
+  display: grid; grid-template-columns: 3.5rem minmax(0, .8fr) minmax(0, 1.2fr);
+  gap: var(--e-6) var(--e-8); align-items: start;
+  padding: var(--e-7) 0; border-top: 1px solid var(--tra-sutil);
+}
+.fato:last-child{ border-bottom: 1px solid var(--tra-sutil) }
+.fato__n{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums; color: var(--txt-ouro);
+  padding-top: .25rem;
+}
+.fato h3{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+  letter-spacing: var(--tr-titulo); margin: 0;
+}
+.fato p{ color: var(--txt-suave); max-width: 60ch }
+@media (max-width: 760px){
+  .fato{ grid-template-columns: 2.5rem minmax(0, 1fr); gap: var(--e-3) var(--e-5) }
+  .fato p{ grid-column: 2 }
+}
+
+/* ============================================================ IMAGEM
+   `.midia` é o encaixe: proporção, recorte e crescimento no cursor moram nele.
+   Dentro do encaixe pode vir `.cena` (ilustração da marca em SVG, enquanto
+   não há fotografia) ou `<img class="foto midia">`. Trocar uma pela outra não
+   mexe em layout nenhum. */
+.midia{ display: block; width: 100%; height: 100%; object-fit: cover }
+img.midia{ background: var(--cs-neutro-200) }
+
+/* ------------------------------------------------------------- CENAS
+   Enquanto não há fotografia, cada imóvel recebe uma CENA: ilustração da
+   marca em SVG, definida em `ds/assets/cenas.svg` e usada por `<use>`. O
+   símbolo recorta igual a uma foto, então trocar por `<img>` não move nada. */
+.cena{ display: block; background: var(--cs-azul-200) }
+
+/* ====================================================== CARTÃO DE IMÓVEL
+   Sem sombra e quase sem canto: o que separa um cartão do outro é o vão e o
+   fio. Sombra em toda listagem faz a página inteira parecer flutuar. */
+.grade-imoveis{
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: var(--e-9) var(--e-7);
+}
+.cs-imovel{ border-radius: var(--r-1); border-color: var(--tra-sutil) }
+.cs-imovel:hover{ box-shadow: none; transform: none; border-color: var(--cs-azul-300) }
+.cs-imovel:focus-within{ box-shadow: none; border-color: var(--cs-azul) }
+.cs-imovel__midia .midia{ aspect-ratio: 16 / 11; transition: transform var(--d-lento) var(--ea-saida) }
+.cs-imovel:hover .cs-imovel__midia .midia{ transform: scale(1.035) }
+.cs-imovel__corpo{ padding: var(--e-6) var(--e-6) var(--e-5) }
+.cs-imovel .cs-preco__valor{ font-size: 1.6rem }
+
+/* Um grande e dois em fila. Três iguais lado a lado é a assinatura do
+   modelo pronto, e também mente: os imóveis não têm o mesmo peso. */
+.grade-destaques{
+  display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  gap: var(--e-7);
+}
+/* As duas linhas dividem a altura do cartao grande: coluna que termina no
+   meio deixa buraco, e buraco em grade e o que parece erro de montagem. */
+.destaque-pilha{ display: grid; gap: var(--e-7); grid-template-rows: 1fr 1fr }
+@media (max-width: 900px){
+  .grade-destaques{ grid-template-columns: 1fr }
+}
+.cs-imovel--largo .cs-imovel__midia .midia{ aspect-ratio: 4 / 3 }
+.cs-imovel--largo .cs-imovel__corpo{ padding: var(--e-8) }
+.cs-imovel--largo .cs-imovel__titulo{ font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+.cs-imovel--largo .cs-preco__valor{ font-size: 2.15rem }
+.cs-imovel--largo .cs-imovel__pe{ padding-inline: var(--e-8) }
+
+.cs-imovel--fila{
+  display: grid; grid-template-columns: minmax(0, 13.5rem) minmax(0, 1fr);
+  grid-template-rows: 1fr auto;
+}
+.cs-imovel--fila .cs-imovel__midia{ grid-row: 1 / span 2 }
+.cs-imovel--fila .cs-imovel__midia .midia{ aspect-ratio: auto; height: 100% }
+.cs-imovel--fila .cs-imovel__corpo{ padding: var(--e-6) }
+.cs-imovel--fila .cs-imovel__titulo{ font-size: var(--fs-titulo-1) }
+.cs-imovel--fila .cs-preco__valor{ font-size: 1.4rem }
+@media (max-width: 560px){
+  .cs-imovel--fila{ grid-template-columns: 1fr }
+  .cs-imovel--fila .cs-imovel__midia{ grid-row: auto }
+  .cs-imovel--fila .cs-imovel__midia .midia{ aspect-ratio: 16 / 10 }
+}
+
+/* =================================================== BAIRROS EDITORIAL
+   Escadinha: a segunda coluna desce. Alinhar as três pelo topo devolve a
+   grade de gerador que a gente está tirando da página. */
+.grade-bairros{
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--e-6);
+}
+.cs-bairro{ min-height: 24rem; padding: var(--e-8); border-radius: var(--r-1) }
+.cs-bairro .midia{ position: absolute; inset: 0; z-index: -2;
+  transition: transform var(--d-lento) var(--ea-saida) }
+.cs-bairro:hover .midia{ transform: scale(1.05) }
+.cs-bairro__linha{ color: var(--cs-azul-200); font-size: var(--fs-corpo-p);
+  margin-top: var(--e-3); max-width: 26ch }
+@media (min-width: 900px){
+  .grade-bairros--escada > :nth-child(2){ margin-top: var(--e-9) }
+  .grade-bairros--escada > :nth-child(3){ margin-top: calc(var(--e-9) * 2) }
+}
+
+/* =========================================================== SPLIT
+   Coluna desigual, e a figura sai do trilho até a borda da tela. É o corte
+   que mais rápido tira a página da cara de slide. */
+.split{
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: var(--e-11); align-items: center;
+}
+.split--texto-fim > :first-child{ order: 2 }
+@media (max-width: 900px){
+  .split{ grid-template-columns: 1fr; gap: var(--e-8) }
+  .split--texto-fim > :first-child{ order: 0 }
+}
+.split__figura{ overflow: hidden; border-radius: var(--r-1) }
+.split__figura .midia{ aspect-ratio: 5 / 4 }
+/* A sangria e do TRILHO, nao da figura. Margem negativa medida em `100vw`
+   nao serve: `vw` inclui a barra de rolagem, entao o calculo deu 0 aqui e
+   sobraria rolagem horizontal la. Aqui a faixa mantem a goteira da esquerda
+   e corre ate a borda direita; a figura acompanha porque e a ultima coluna. */
+@media (min-width: 1180px){
+  .faixa--sangra > .trilho{
+    width: auto;
+    margin-left: max(1.25rem, calc((100% - var(--lar-largo)) / 2));
+    margin-right: 0;
+  }
+  .split__figura--sangra .midia{ aspect-ratio: 16 / 11 }
+}
+
+/* ======================================================= DEPOIMENTO
+   Alinhado à esquerda, em coluna estreita. Citação centralizada com o símbolo
+   em cima é o formato de modelo pronto; aqui a aspa é tipografia. */
+.depoimento{ display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--e-10); align-items: end; margin: 0 }
+@media (max-width: 900px){ .depoimento{ grid-template-columns: 1fr; gap: var(--e-7) } }
+.depoimento blockquote{
+  margin: 0; position: relative; padding-left: 1.9rem;
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: clamp(1.5rem, 2.9vw, 2.35rem); line-height: 1.24;
+  letter-spacing: var(--tr-display); color: var(--cs-creme); text-wrap: pretty;
+}
+.depoimento blockquote::before{
+  content: "\201C"; position: absolute; left: -.05em; top: -.14em;
+  font-size: 2.6em; line-height: 1; color: var(--cs-ouro); opacity: .55;
+}
+.depoimento figcaption{ color: var(--cs-azul-200); font-size: var(--fs-corpo-p);
+  padding-top: var(--e-5) }
+
+/* =========================================================== SÓCIAS */
+.socias{
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--e-8);
+}
+.socias--par{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .82fr) }
+@media (max-width: 900px){ .socias--par{ grid-template-columns: 1fr } }
+@media (min-width: 900px){ .socias--par > :nth-child(2){ margin-top: var(--e-9) } }
+.socia{ display: flex; flex-direction: column; gap: var(--e-5) }
+.socia__retrato{ overflow: hidden; border-radius: var(--r-1) }
+/* Enquanto a foto das sócias não chega, o lugar dela é um painel com a
+   inicial e a especificação da foto que falta. Ilustração de sala no lugar de
+   uma pessoa é o tipo de enchimento que faz a página parecer gerada. */
+.retrato-vazio{
+  position: relative; display: grid; place-items: center;
+  aspect-ratio: 4 / 5; background: var(--cs-azul);
+  border-radius: var(--r-1); overflow: hidden;
+}
+.retrato-vazio__inicial{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: clamp(6rem, 12vw, 11rem); line-height: 1;
+  color: rgba(243,239,228,.16); letter-spacing: var(--tr-display);
+}
+.retrato-vazio__nota{
+  position: absolute; left: var(--e-6); right: var(--e-6); bottom: var(--e-6);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--cs-ouro);
+  padding-top: var(--e-4); border-top: 1px solid rgba(243,239,228,.22);
+}
+.socia__retrato .midia{ aspect-ratio: 4 / 5; transition: transform var(--d-lento) var(--ea-saida) }
+.socia:hover .socia__retrato .midia{ transform: scale(1.03) }
+.socia__cab{ display: flex; align-items: center; gap: var(--e-5) }
+.socia__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-display-3); line-height: 1.1;
+  letter-spacing: var(--tr-display); color: var(--txt-forte);
+}
+.socia__papel{
+  display: block; font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-ouro); margin-bottom: var(--e-2);
+}
+
+/* ======================================================== CHAMADA
+   Texto à esquerda, ação à direita, sobre um fio. Bloco centralizado no fim
+   da página é o carimbo de modelo pronto. */
+.chamada{
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--e-9); align-items: end;
+}
+.chamada h2{ font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.06; max-width: 24ch }
+.chamada p{ margin-top: var(--e-5); max-width: 46ch }
+.chamada__acoes{ display: flex; flex-wrap: wrap; gap: var(--e-4) }
+@media (max-width: 860px){
+  .chamada{ grid-template-columns: 1fr; gap: var(--e-7) }
+}
+
+/* ============================================================ VITRINE */
+.cabeca-pagina{
+  background: var(--cs-azul); color: var(--cs-creme);
+  padding: 8.5rem 0 var(--e-11);
+}
+.cabeca-pagina__trilho{
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+  gap: var(--e-9); align-items: end;
+}
+@media (max-width: 900px){ .cabeca-pagina__trilho{ grid-template-columns: 1fr; gap: var(--e-5) } }
+.cabeca-pagina h1{
+  font-family: var(--fam-display); font-weight: var(--fw-marca); color: var(--cs-creme);
+  font-size: clamp(2.25rem, 5vw, 3.5rem); line-height: 1.06;
+  letter-spacing: var(--tr-display); margin: 0;
+}
+.cabeca-pagina p{ color: var(--cs-azul-200); margin: 0; font-size: var(--fs-corpo-g) }
+.cabeca-pagina .cs-trilha a,.cabeca-pagina .cs-trilha span{ color: var(--cs-azul-200) }
+.cabeca-pagina .cs-trilha [aria-current="page"]{ color: var(--cs-creme) }
+.barra-filtros{
+  position: sticky; top: 4.6rem; z-index: 30;
+  background: color-mix(in srgb, var(--sup-base) 95%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--tra-sutil);
+}
+.barra-filtros .cs-filtros{ border-bottom: 0 }
+
+/* ============================================================== FICHA */
+.ficha-galeria{ background: var(--cs-azul-900); padding-top: 5.2rem }
+.ficha-galeria .cs-galeria__palco{ border-radius: 0 }
+.ficha-galeria .midia{ aspect-ratio: 21 / 9 }
+@media (max-width: 800px){ .ficha-galeria .midia{ aspect-ratio: 4 / 3 } }
+.ficha-topo{
+  display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: var(--e-11); align-items: start; padding-top: var(--e-9);
+}
+@media (max-width: 940px){ .ficha-topo{ grid-template-columns: 1fr; gap: var(--e-8) } }
+.ficha-lado{ display: flex; flex-direction: column; gap: var(--e-6); position: sticky; top: 6rem }
+@media (max-width: 940px){ .ficha-lado{ position: static } }
+.ficha-lado h1{
+  font-size: clamp(1.75rem, 3vw, 2.25rem); line-height: 1.12;
+  letter-spacing: var(--tr-display); margin: 0;
+}
+.ficha-resumo{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g); margin-top: var(--e-7) }
+.duas-col{ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--e-9) }
+.mapa-exemplo{
+  width: 100%; aspect-ratio: 16 / 9;
+  background:
+    radial-gradient(circle at 52% 50%, rgba(201,162,76,.16), transparent 34%),
+    repeating-linear-gradient(0deg, rgba(22,56,100,.12) 0 1px, transparent 1px 38px),
+    repeating-linear-gradient(90deg, rgba(22,56,100,.12) 0 1px, transparent 1px 38px),
+    linear-gradient(64deg, transparent 0 46%, rgba(22,56,100,.10) 46% 54%, transparent 54%),
+    linear-gradient(150deg, #EEF4FC, #DCE7F4);
+}
+
+/* ============================================================= BAIRRO */
+.bairro-hero{ position: relative; isolation: isolate; overflow: hidden;
+  color: var(--cs-creme); padding: 11rem 0 var(--e-12); }
+.bairro-hero .midia{ position: absolute; inset: 0; z-index: -2 }
+.bairro-hero::after{ content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(9,22,42,.92), rgba(9,22,42,.42) 62%, rgba(9,22,42,.30)) }
+.bairro-hero h1{
+  font-family: var(--fam-display); font-weight: var(--fw-marca); color: var(--cs-creme);
+  font-size: clamp(2.75rem, 7vw, 5rem); line-height: 1; letter-spacing: var(--tr-display); margin: 0;
+}
+.bairro-hero p{ color: var(--cs-azul-200); font-size: var(--fs-corpo-g); margin-top: var(--e-5);
+  max-width: 40ch }
+.bairro-texto{ max-width: var(--lar-texto); font-size: var(--fs-corpo-g);
+  line-height: var(--lh-corpo-g) }
+
+/* =========================================================== JURÍDICO */
+.juridico-cena{
+  display: grid; grid-template-columns: minmax(0, 21rem) minmax(0, 1fr);
+  gap: var(--e-11); align-items: start;
+}
+@media (max-width: 940px){ .juridico-cena{ grid-template-columns: 1fr; gap: var(--e-8) } }
+
+/* ============================================================ CONTATO */
+.form-contato{ display: flex; flex-direction: column; gap: var(--e-6); max-width: 34rem }
+.form-contato__acoes{ display: flex; justify-content: flex-end; gap: var(--e-4) }
+
+/* ============================================================= RODAPÉ */
+.rodape{ background: var(--cs-azul-800); color: var(--cs-creme); padding: var(--e-13) 0 var(--e-9) }
+.rodape__trilho{
+  width: min(100% - 2.5rem, var(--lar-largo)); margin-inline: auto;
+  display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
+  gap: var(--e-9);
+}
+@media (max-width: 900px){
+  .rodape__trilho{ grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)) }
+}
+.rodape h3{
+  color: var(--cs-ouro); font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  margin-bottom: var(--e-5);
+}
+.rodape a{ color: var(--cs-azul-200); text-decoration: none; display: flex; align-items: center;
+  gap: var(--e-3); padding: var(--e-2) 0 }
+.rodape a:hover{ color: var(--cs-creme) }
+.rodape__marca svg{ width: 48px; height: auto; margin-bottom: var(--e-5); --cs-azul: var(--cs-creme) }
+.rodape__marca .assinatura__nome{ color: var(--cs-creme) }
+.rodape__marca .assinatura__categoria{ color: var(--cs-ouro) }
+.rodape__slogan{ color: var(--cs-azul-200); margin-top: var(--e-5); max-width: 26ch }
+.rodape .cs-registro{
+  background: rgba(243,239,228,.07); border-color: rgba(243,239,228,.18); color: var(--cs-creme);
+}
+.rodape .cs-registro__rotulo{ color: var(--cs-azul-200) }
+.rodape .cs-registro__numero{ color: var(--cs-creme) }
+.rodape .cs-registro__numero--vazio{ color: rgba(243,239,228,.5) }
+.rodape__pe{
+  width: min(100% - 2.5rem, var(--lar-largo)); margin: var(--e-10) auto 0;
+  padding-top: var(--e-7); border-top: 1px solid rgba(243,239,228,.16);
+  font-size: var(--fs-corpo-p); color: var(--cs-azul-200);
+  display: flex; flex-wrap: wrap; gap: var(--e-4) var(--e-8);
+}

@@ -1,0 +1,57 @@
+/* Carvalho & Seixas · elevacao e material.
+   Duas coisas moram aqui: a SOMBRA, que faz o componente flutuar, e o
+   VIDRO, que e o material dos paineis.
+
+   Sombra tingida de azul, nunca preta: preto sobre creme acinzenta a
+   pagina. E sempre em DUAS camadas: um contato curto, que encosta a peca
+   no fundo, e uma queda longa e aberta, que e o que da a sensacao de
+   flutuar. Sombra de uma camada so parece adesivo colado. */
+:root{
+  --sombra-0: none;
+  --sombra-1: 0 1px 2px rgba(22,56,100,.06), 0 6px 16px -6px rgba(22,56,100,.14);
+  --sombra-2: 0 2px 6px rgba(22,56,100,.07), 0 18px 40px -14px rgba(22,56,100,.22);
+  --sombra-3: 0 4px 10px rgba(22,56,100,.08), 0 36px 70px -24px rgba(22,56,100,.30);
+  --sombra-vidro: 0 24px 60px -20px rgba(3,12,28,.55);
+  --anel-foco: 0 0 0 2px var(--sup-base), 0 0 0 4px var(--tra-foco);
+
+  /* --- vidro: TRES receitas, e a escolha nao e gosto ---------------
+     `--vidro-*`        painel sobre cena escura (3D, faixa azul);
+     `--vidro-claro-*`  painel sobre o off-white;
+     `--vidro-tinta-*`  controle sobre IMAGEM (etiqueta, seta, contador).
+     A terceira existe porque texto creme em vidro claro some na parte
+     clara de uma foto. Vidro sobre imagem precisa de tinta.
+     Vidro sobre cor chapada nao refrata nada: ali use superficie solida. */
+  --vidro-desfoque: 22px;
+  --vidro-saturacao: 165%;
+
+  --vidro-fundo: rgba(243,239,228,.10);
+  --vidro-traco: rgba(243,239,228,.26);
+  --vidro-realce: rgba(255,255,255,.34);
+
+  --vidro-claro-fundo: rgba(255,255,255,.66);
+  --vidro-claro-traco: rgba(22,56,100,.10);
+  --vidro-claro-realce: rgba(255,255,255,.90);
+
+  --vidro-tinta-fundo: rgba(6,20,40,.50);
+  --vidro-tinta-traco: rgba(243,239,228,.22);
+  --vidro-tinta-realce: rgba(255,255,255,.18);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+    --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+    --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+    --vidro-claro-fundo: rgba(9,39,77,.66);
+    --vidro-claro-traco: rgba(243,239,228,.14);
+    --vidro-claro-realce: rgba(243,239,228,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+  --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+  --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+  --vidro-claro-fundo: rgba(9,39,77,.66);
+  --vidro-claro-traco: rgba(243,239,228,.14);
+  --vidro-claro-realce: rgba(243,239,228,.18);
+}

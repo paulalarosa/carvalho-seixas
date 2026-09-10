@@ -1,0 +1,81 @@
+/* Carvalho & Seixas · tipografia
+   Josefin Sans e a fonte da assinatura, medida no arquivo da marca:
+   o nome e peso 700 e "Imoveis" e peso 600. O avanco de "Carvalho & Seixas"
+   e 8,7150 vezes o corpo, que casa exatamente com o peso 700 do Josefin Sans
+   do Google Fonts. Tracking zero.
+   Josefin Sans tem altura de x de 0,378em, muito baixa: nao serve para corpo
+   de texto. O corpo e Source Sans 3, o par que o material da marca ja usava.
+
+   Nota de engenharia: os passos da escala NAO ficam guardados como shorthand
+   `font:` dentro de custom property. Shorthand em variavel zera line-height,
+   font-variant e font-stretch de uma vez e nao pode ser sobrescrito em parte.
+   Cada passo tem tamanho e entrelinha proprios, e as classes abaixo montam. */
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap");
+
+:root{
+  --fam-display: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  --fam-corpo: "Source Sans 3", "Segoe UI", system-ui, Arial, sans-serif;
+  --fam-dado: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  --fw-corpo: 400;
+  --fw-forte: 600;
+  --fw-marca: 700;
+
+  /* Josefin so a partir de 20px: abaixo disso ela nao le. */
+  --fs-display-1: 3.75rem;  --lh-display-1: 1.02;
+  --fs-display-2: 2.75rem;  --lh-display-2: 1.06;
+  --fs-display-3: 2rem;     --lh-display-3: 1.12;
+  --fs-titulo-1: 1.5rem;    --lh-titulo-1: 1.2;
+  --fs-titulo-2: 1.25rem;   --lh-titulo-2: 1.25;
+  --fs-corpo-g: 1.125rem;   --lh-corpo-g: 1.6;
+  --fs-corpo: 1rem;         --lh-corpo: 1.62;
+  --fs-corpo-p: 0.875rem;   --lh-corpo-p: 1.55;
+  --fs-rotulo: 0.75rem;     --lh-rotulo: 1.2;
+  --fs-dado: 0.875rem;      --lh-dado: 1.4;
+
+  --tr-display: -.015em;
+  --tr-titulo: -.005em;
+  --tr-rotulo: .12em;
+  --tr-eyebrow: .22em;
+
+  /* Fatos medidos do lockup, nao estimados. */
+  --lockup-razao-imoveis: 0.72;
+  --lockup-espaco-imoveis: 0.325em;
+}
+
+.t-display-1,.t-display-2,.t-display-3{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  letter-spacing: var(--tr-display);
+}
+.t-display-1{ font-size: var(--fs-display-1); line-height: var(--lh-display-1) }
+.t-display-2{ font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+.t-display-3{ font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+
+.t-titulo-1,.t-titulo-2{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  letter-spacing: var(--tr-titulo);
+}
+.t-titulo-1{ font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1) }
+.t-titulo-2{ font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2) }
+
+.t-corpo-g,.t-corpo,.t-corpo-p{
+  font-family: var(--fam-corpo); font-weight: var(--fw-corpo); letter-spacing: 0;
+}
+.t-corpo-g{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g) }
+.t-corpo{ font-size: var(--fs-corpo); line-height: var(--lh-corpo) }
+.t-corpo-p{ font-size: var(--fs-corpo-p); line-height: var(--lh-corpo-p) }
+
+/* Rotulo e sempre caixa alta em Source Sans 3 semibold com tracking.
+   Mono e so para numero, nunca para rotulo. */
+.rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  color: var(--txt-suave);
+}
+.dado{
+  font-family: var(--fam-dado); font-weight: 500;
+  font-size: var(--fs-dado); line-height: var(--lh-dado);
+  font-variant-numeric: tabular-nums;
+}
+.num-tabular{ font-variant-numeric: tabular-nums }

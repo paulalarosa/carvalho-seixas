@@ -1,0 +1,64 @@
+@import url("./colors.css");
+@import url("./typography.css");
+@import url("./spacing.css");
+@import url("./radius.css");
+@import url("./elevation.css");
+@import url("./motion.css");
+
+*,*::before,*::after{ box-sizing: border-box }
+
+body{
+  margin: 0;
+  background: var(--sup-base);
+  color: var(--txt-corpo);
+  font-family: var(--fam-corpo);
+  font-weight: var(--fw-corpo);
+  font-size: var(--fs-corpo);
+  line-height: var(--lh-corpo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{
+  margin: 0;
+  color: var(--txt-forte);
+  text-wrap: balance;
+  font-family: var(--fam-display);
+  letter-spacing: var(--tr-display);
+}
+h1{ font-weight: var(--fw-marca); font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+h2{ font-weight: var(--fw-marca); font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+h3{ font-weight: var(--fw-forte); font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+    letter-spacing: var(--tr-titulo) }
+
+p{ margin: 0; max-width: var(--lar-texto) }
+img{ max-width: 100%; height: auto }
+
+a{ color: var(--txt-forte); text-decoration-color: var(--tra-ouro); text-underline-offset: .18em }
+:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* A assinatura, medida no .ai. O nome e 700, "Imoveis" e 600 a 0,72 do
+   tamanho do nome, com 0,325em de espaco antes.
+
+   🔴 Os 0,325em sao ESPACO ENTRE AS PALAVRAS, nao entreletra, e no arquivo
+   "Imoveis" esta em caixa BAIXA com entreletra ZERO. A versao anterior daqui
+   punha caixa alta e 0,22em de entreletra: as duas coisas eram invencao.
+
+   O arquivo traz dois lockups. Em LINHA (padrao) e EMPILHADO (principal,
+   com "Carvalho" / "& Seixas" / "Imoveis" em tres linhas). No empilhado,
+   "Seixas" e 1,081 maior que "Carvalho", a linha 2 desce 1,297 e "Imoveis"
+   desce mais 1,171 (tudo em multiplos do tamanho do nome). */
+.assinatura{ display: inline-flex; align-items: baseline; gap: var(--lockup-espaco-imoveis) }
+.assinatura__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: 1em; line-height: 1.04; color: var(--txt-forte); letter-spacing: -.01em;
+}
+.assinatura__categoria{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: calc(1em * var(--lockup-razao-imoveis)); line-height: 1.1;
+  color: var(--cs-ouro); letter-spacing: 0;
+}
+.assinatura--empilhada{ display: inline-flex; flex-direction: column; gap: 0; line-height: 1 }
+.assinatura--empilhada .assinatura__nome{ line-height: 1 }
+.assinatura--empilhada .assinatura__nome + .assinatura__nome{ margin-top: .297em }
+.assinatura--empilhada .assinatura__grande{ font-size: 1.081em }
+.assinatura--empilhada .assinatura__categoria{ margin-top: .24em; line-height: 1 }

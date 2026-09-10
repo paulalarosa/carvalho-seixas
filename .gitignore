@@ -1,0 +1,13 @@
+# dependências e artefatos de build
+web/node_modules/
+web/.next/
+web/out/
+web/.turbo/
+node_modules/
+
+# sistema
+Thumbs.db
+.DS_Store
+
+# ambiente local
+.env*.local

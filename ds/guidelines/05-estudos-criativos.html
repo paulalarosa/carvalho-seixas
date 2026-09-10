@@ -1,0 +1,700 @@
+<title>Estudos Criativos do Símbolo</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Carvalho & Seixas · cor
+   Marca: azul #163864 · ouro #C9A24C · creme #F3EFE4 · grafite #2B2B2B.
+   As quatro cores acima foram definidas pela cliente. Todo o resto desta folha
+   e derivado delas em OKLCH, mantendo matiz e afunilando a cromia nas pontas.
+   Todo par usado em texto foi medido: nenhum abaixo de 4,5:1. */
+:root{
+  /* --- as quatro cores da marca --- */
+  --cs-azul: #163864;
+  --cs-ouro: #C9A24C;
+  --cs-creme: #F3EFE4;
+  --cs-grafite: #2B2B2B;
+
+  /* --- rampa do azul --- */
+  --cs-azul-50: #EEF4FC;
+  --cs-azul-100: #E0E9F5;
+  --cs-azul-200: #C6D6EA;
+  --cs-azul-300: #A3B9D8;
+  --cs-azul-400: #7694BD;
+  --cs-azul-500: #163864;
+  --cs-azul-600: #082A55;
+  --cs-azul-700: #011F46;
+  --cs-azul-800: #001436;
+  --cs-azul-900: #000B25;
+
+  /* --- rampa do ouro --- */
+  --cs-ouro-50: #FEF6E6;
+  --cs-ouro-100: #F8ECD2;
+  --cs-ouro-200: #EFDAB0;
+  --cs-ouro-300: #E5C98E;
+  --cs-ouro-400: #D9B66B;
+  --cs-ouro-500: #C9A24C;
+  --cs-ouro-600: #AC862C;
+  --cs-ouro-700: #8D6A0C;
+  --cs-ouro-800: #6E5000;
+  --cs-ouro-900: #4F3700;
+
+  /* --- neutros, na matiz do creme --- */
+  --cs-neutro-50: #FEFDFA;
+  --cs-neutro-100: #F8F7F2;
+  --cs-neutro-200: #F1EFE8;
+  --cs-neutro-300: #E1DED6;
+  --cs-neutro-400: #C0BDB6;
+  --cs-neutro-500: #95928A;
+  --cs-neutro-600: #6E6C64;
+  --cs-neutro-700: #4F4D46;
+  --cs-neutro-800: #302E28;
+  --cs-neutro-900: #14130F;
+
+  /* --- ouro legivel em corpo de texto (4,54:1 sobre creme) --- */
+  --cs-ouro-texto: #8A6705;
+
+  /* --- semanticos: superficie --- */
+  --sup-base: var(--cs-neutro-50);
+  --sup-faixa: var(--cs-creme);
+  --sup-cartao: var(--cs-neutro-50);
+  --sup-elevada: #FFFFFF;
+  --sup-inversa: var(--cs-azul);
+  --sup-sutil: var(--cs-neutro-100);
+
+  /* --- semanticos: texto --- */
+  --txt-forte: var(--cs-azul);
+  --txt-corpo: var(--cs-grafite);
+  --txt-suave: var(--cs-neutro-600);
+  --txt-ouro: var(--cs-ouro-texto);
+  --txt-sobre-azul: var(--cs-creme);
+  --txt-sobre-azul-suave: var(--cs-azul-200);
+
+  /* --- semanticos: traco --- */
+  --tra-sutil: var(--cs-neutro-300);
+  --tra-medio: var(--cs-neutro-400);
+  --tra-forte: var(--cs-azul);
+  --tra-ouro: var(--cs-ouro);
+  --tra-foco: var(--cs-ouro);
+
+  /* --- semanticos: acao --- */
+  --acao-fundo: var(--cs-azul);
+  --acao-fundo-hover: var(--cs-azul-600);
+  --acao-fundo-ativo: var(--cs-azul-700);
+  --acao-texto: var(--cs-creme);
+  --acao-ouro-fundo: var(--cs-ouro);
+  --acao-ouro-texto: var(--cs-azul);
+
+  /* --- estado. Nenhum deles e a cor de destaque da marca --- */
+  --est-ok: #1F6B4A;
+  --est-ok-sup: #E6F2EC;
+  --est-atencao: #8A5A08;
+  --est-atencao-sup: #FBF0DC;
+  --est-erro: #A32C22;
+  --est-erro-sup: #FAE9E7;
+  --est-info: var(--cs-azul-600);
+  --est-info-sup: var(--cs-azul-50);
+}
+
+/* Tema escuro. O azul deixa de ser destaque e passa a ser chao,
+   entao o papel de destaque vai para o ouro e para o azul-200. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sup-base: #00183A;
+    --sup-faixa: #09274D;
+    --sup-cartao: #09274D;
+    --sup-elevada: #1F3E65;
+    --sup-inversa: var(--cs-creme);
+    --sup-sutil: #09274D;
+
+    --txt-forte: var(--cs-creme);
+    --txt-corpo: var(--cs-neutro-200);
+    --txt-suave: var(--cs-neutro-400);
+    --txt-ouro: var(--cs-ouro-300);
+    --txt-sobre-azul: var(--cs-creme);
+    --txt-sobre-azul-suave: var(--cs-azul-200);
+
+    --tra-sutil: #09274D;
+    --tra-medio: #1F3E65;
+    --tra-forte: var(--cs-azul-200);
+    --tra-ouro: var(--cs-ouro-300);
+
+    --acao-fundo: var(--cs-ouro);
+    --acao-fundo-hover: var(--cs-ouro-300);
+    --acao-fundo-ativo: var(--cs-ouro-200);
+    --acao-texto: var(--cs-azul-800);
+    --acao-ouro-fundo: var(--cs-ouro-300);
+    --acao-ouro-texto: var(--cs-azul-800);
+
+    --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+    --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+    --est-erro: #F0A79E; --est-erro-sup: #33110D;
+    --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+  }
+}
+:root[data-theme="dark"]{
+  --sup-base: #00183A;
+  --sup-faixa: #09274D;
+  --sup-cartao: #09274D;
+  --sup-elevada: #1F3E65;
+  --sup-inversa: var(--cs-creme);
+  --sup-sutil: #09274D;
+  --txt-forte: var(--cs-creme);
+  --txt-corpo: var(--cs-neutro-200);
+  --txt-suave: var(--cs-neutro-400);
+  --txt-ouro: var(--cs-ouro-300);
+  --tra-sutil: #09274D;
+  --tra-medio: #1F3E65;
+  --tra-forte: var(--cs-azul-200);
+  --tra-ouro: var(--cs-ouro-300);
+  --acao-fundo: var(--cs-ouro);
+  --acao-fundo-hover: var(--cs-ouro-300);
+  --acao-fundo-ativo: var(--cs-ouro-200);
+  --acao-texto: var(--cs-azul-800);
+  --acao-ouro-fundo: var(--cs-ouro-300);
+  --acao-ouro-texto: var(--cs-azul-800);
+  --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+  --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+  --est-erro: #F0A79E; --est-erro-sup: #33110D;
+  --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+}
+/* Carvalho & Seixas · tipografia
+   Josefin Sans e a fonte da assinatura, medida no arquivo da marca:
+   o nome e peso 700 e "Imoveis" e peso 600. O avanco de "Carvalho & Seixas"
+   e 8,7150 vezes o corpo, que casa exatamente com o peso 700 do Josefin Sans
+   do Google Fonts. Tracking zero.
+   Josefin Sans tem altura de x de 0,378em, muito baixa: nao serve para corpo
+   de texto. O corpo e Source Sans 3, o par que o material da marca ja usava.
+
+   Nota de engenharia: os passos da escala NAO ficam guardados como shorthand
+   `font:` dentro de custom property. Shorthand em variavel zera line-height,
+   font-variant e font-stretch de uma vez e nao pode ser sobrescrito em parte.
+   Cada passo tem tamanho e entrelinha proprios, e as classes abaixo montam. */
+
+:root{
+  --fam-display: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  --fam-corpo: "Source Sans 3", "Segoe UI", system-ui, Arial, sans-serif;
+  --fam-dado: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  --fw-corpo: 400;
+  --fw-forte: 600;
+  --fw-marca: 700;
+
+  /* Josefin so a partir de 20px: abaixo disso ela nao le. */
+  --fs-display-1: 3.75rem;  --lh-display-1: 1.02;
+  --fs-display-2: 2.75rem;  --lh-display-2: 1.06;
+  --fs-display-3: 2rem;     --lh-display-3: 1.12;
+  --fs-titulo-1: 1.5rem;    --lh-titulo-1: 1.2;
+  --fs-titulo-2: 1.25rem;   --lh-titulo-2: 1.25;
+  --fs-corpo-g: 1.125rem;   --lh-corpo-g: 1.6;
+  --fs-corpo: 1rem;         --lh-corpo: 1.62;
+  --fs-corpo-p: 0.875rem;   --lh-corpo-p: 1.55;
+  --fs-rotulo: 0.75rem;     --lh-rotulo: 1.2;
+  --fs-dado: 0.875rem;      --lh-dado: 1.4;
+
+  --tr-display: -.015em;
+  --tr-titulo: -.005em;
+  --tr-rotulo: .12em;
+  --tr-eyebrow: .22em;
+
+  /* Fatos medidos do lockup, nao estimados. */
+  --lockup-razao-imoveis: 0.72;
+  --lockup-espaco-imoveis: 0.325em;
+}
+
+.t-display-1,.t-display-2,.t-display-3{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  letter-spacing: var(--tr-display);
+}
+.t-display-1{ font-size: var(--fs-display-1); line-height: var(--lh-display-1) }
+.t-display-2{ font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+.t-display-3{ font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+
+.t-titulo-1,.t-titulo-2{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  letter-spacing: var(--tr-titulo);
+}
+.t-titulo-1{ font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1) }
+.t-titulo-2{ font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2) }
+
+.t-corpo-g,.t-corpo,.t-corpo-p{
+  font-family: var(--fam-corpo); font-weight: var(--fw-corpo); letter-spacing: 0;
+}
+.t-corpo-g{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g) }
+.t-corpo{ font-size: var(--fs-corpo); line-height: var(--lh-corpo) }
+.t-corpo-p{ font-size: var(--fs-corpo-p); line-height: var(--lh-corpo-p) }
+
+/* Rotulo e sempre caixa alta em Source Sans 3 semibold com tracking.
+   Mono e so para numero, nunca para rotulo. */
+.rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  color: var(--txt-suave);
+}
+.dado{
+  font-family: var(--fam-dado); font-weight: 500;
+  font-size: var(--fs-dado); line-height: var(--lh-dado);
+  font-variant-numeric: tabular-nums;
+}
+.num-tabular{ font-variant-numeric: tabular-nums }
+/* Carvalho & Seixas · espaco. Base de 4px. */
+:root{
+  --e-0: 0;
+  --e-1: .125rem;
+  --e-2: .25rem;
+  --e-3: .5rem;
+  --e-4: .75rem;
+  --e-5: 1rem;
+  --e-6: 1.25rem;
+  --e-7: 1.5rem;
+  --e-8: 2rem;
+  --e-9: 2.5rem;
+  --e-10: 3rem;
+  --e-11: 4rem;
+  --e-12: 5rem;
+  --e-13: 6rem;
+  --e-14: 8rem;
+
+  --lar-texto: 66ch;
+  --lar-conteudo: 72rem;
+  --lar-largo: 84rem;
+  --resp-secao: var(--e-13);
+  --resp-secao-mobile: var(--e-10);
+
+  /* Respiro da marca, como fracao da largura do simbolo.
+     As quatro variantes do arquivo original usavam 0,17 / 0,27 / 0,12 / 0,05,
+     ou seja, nao havia regra. Estes valores normalizam isso. */
+  --marca-protecao: .5;
+  --marca-gap-horizontal: .25;
+  --marca-gap-vertical: .12;
+}
+/* Carvalho & Seixas · raio.
+   A direcao da marca no digital e ARREDONDADA E FLUTUANTE: nada de canto
+   reto em componente. O simbolo continua sendo de traco reto, e e esse
+   contraste que faz a marca aparecer em cima da interface macia.
+
+   A escala e a MESMA do app em React (`web/src/app/globals.css`), onde
+   `--radius: 1.25rem` alimenta a escala do shadcn. Mudou aqui, muda la:
+   sao dois arquivos, mas e um numero so.
+
+   Pilula deixou de ser excecao: botao, pastilha, selo, filtro e a barra do
+   topo sao pilula. Reto (`--r-0`) sobrou para linha de tabela e para foto
+   que sangra ate a borda da tela. */
+:root{
+  --r-0: 0;
+  --r-1: 8px;    /* detalhe: miniatura, quadro pequeno */
+  --r-2: 12px;   /* campo, nota, aviso */
+  --r-3: 16px;   /* cartao pequeno, registro */
+  --r-4: 24px;   /* cartao, foto, galeria */
+  --r-5: 36px;   /* painel e ilha */
+  --r-6: 44px;   /* ilha grande: abertura, chamada final */
+  --r-pilula: 999px;
+}
+/* Carvalho & Seixas · elevacao e material.
+   Duas coisas moram aqui: a SOMBRA, que faz o componente flutuar, e o
+   VIDRO, que e o material dos paineis.
+
+   Sombra tingida de azul, nunca preta: preto sobre creme acinzenta a
+   pagina. E sempre em DUAS camadas: um contato curto, que encosta a peca
+   no fundo, e uma queda longa e aberta, que e o que da a sensacao de
+   flutuar. Sombra de uma camada so parece adesivo colado. */
+:root{
+  --sombra-0: none;
+  --sombra-1: 0 1px 2px rgba(22,56,100,.06), 0 6px 16px -6px rgba(22,56,100,.14);
+  --sombra-2: 0 2px 6px rgba(22,56,100,.07), 0 18px 40px -14px rgba(22,56,100,.22);
+  --sombra-3: 0 4px 10px rgba(22,56,100,.08), 0 36px 70px -24px rgba(22,56,100,.30);
+  --sombra-vidro: 0 24px 60px -20px rgba(3,12,28,.55);
+  --anel-foco: 0 0 0 2px var(--sup-base), 0 0 0 4px var(--tra-foco);
+
+  /* --- vidro: TRES receitas, e a escolha nao e gosto ---------------
+     `--vidro-*`        painel sobre cena escura (3D, faixa azul);
+     `--vidro-claro-*`  painel sobre o off-white;
+     `--vidro-tinta-*`  controle sobre IMAGEM (etiqueta, seta, contador).
+     A terceira existe porque texto creme em vidro claro some na parte
+     clara de uma foto. Vidro sobre imagem precisa de tinta.
+     Vidro sobre cor chapada nao refrata nada: ali use superficie solida. */
+  --vidro-desfoque: 22px;
+  --vidro-saturacao: 165%;
+
+  --vidro-fundo: rgba(243,239,228,.10);
+  --vidro-traco: rgba(243,239,228,.26);
+  --vidro-realce: rgba(255,255,255,.34);
+
+  --vidro-claro-fundo: rgba(255,255,255,.66);
+  --vidro-claro-traco: rgba(22,56,100,.10);
+  --vidro-claro-realce: rgba(255,255,255,.90);
+
+  --vidro-tinta-fundo: rgba(6,20,40,.50);
+  --vidro-tinta-traco: rgba(243,239,228,.22);
+  --vidro-tinta-realce: rgba(255,255,255,.18);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+    --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+    --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+    --vidro-claro-fundo: rgba(9,39,77,.66);
+    --vidro-claro-traco: rgba(243,239,228,.14);
+    --vidro-claro-realce: rgba(243,239,228,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+  --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+  --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+  --vidro-claro-fundo: rgba(9,39,77,.66);
+  --vidro-claro-traco: rgba(243,239,228,.14);
+  --vidro-claro-realce: rgba(243,239,228,.18);
+}
+/* Carvalho & Seixas · movimento.
+   O site usa GSAP e three.js, entao cada duracao tem o ease equivalente do
+   GSAP anotado ao lado. Use os mesmos valores nos dois lados para o
+   movimento de CSS e o de GSAP nao brigarem. */
+:root{
+  --d-instante: 90ms;
+  --d-rapido: 160ms;   /* GSAP duration .16 */
+  --d-padrao: 260ms;   /* GSAP duration .26 */
+  --d-lento: 420ms;    /* GSAP duration .42 */
+  --d-cena: 900ms;     /* entrada de secao e Flip da foto */
+
+  --ea-saida: cubic-bezier(.22,.61,.36,1);      /* GSAP power2.out */
+  --ea-entrada: cubic-bezier(.55,.06,.68,.19);  /* GSAP power2.in */
+  --ea-suave: cubic-bezier(.65,.05,.36,1);      /* GSAP power3.inOut */
+  --ea-firme: cubic-bezier(.16,1,.3,1);         /* GSAP expo.out */
+
+  --escalonar: 60ms;   /* stagger entre cartoes, ScrollTrigger.batch */
+}
+
+/* Toda animacao decorativa e a cena em tres dimensoes desligam aqui.
+   No GSAP a mesma trava vive em gsap.matchMedia(). */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --d-rapido: 0ms;
+    --d-padrao: 0ms;
+    --d-lento: 0ms;
+    --d-cena: 0ms;
+    --escalonar: 0ms;
+  }
+}
+
+
+*,*::before,*::after{ box-sizing: border-box }
+
+body{
+  margin: 0;
+  background: var(--sup-base);
+  color: var(--txt-corpo);
+  font-family: var(--fam-corpo);
+  font-weight: var(--fw-corpo);
+  font-size: var(--fs-corpo);
+  line-height: var(--lh-corpo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{
+  margin: 0;
+  color: var(--txt-forte);
+  text-wrap: balance;
+  font-family: var(--fam-display);
+  letter-spacing: var(--tr-display);
+}
+h1{ font-weight: var(--fw-marca); font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+h2{ font-weight: var(--fw-marca); font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+h3{ font-weight: var(--fw-forte); font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+    letter-spacing: var(--tr-titulo) }
+
+p{ margin: 0; max-width: var(--lar-texto) }
+img{ max-width: 100%; height: auto }
+
+a{ color: var(--txt-forte); text-decoration-color: var(--tra-ouro); text-underline-offset: .18em }
+:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* A assinatura. O nome e 700, "Imoveis" e 600 a 0,72 do tamanho do nome,
+   com 0,325em de espaco antes. Todos os tres numeros foram medidos no .ai. */
+.assinatura{ display: inline-flex; align-items: baseline; gap: var(--lockup-espaco-imoveis) }
+.assinatura__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: 1em; line-height: 1.04; color: var(--txt-forte); letter-spacing: 0;
+}
+.assinatura__categoria{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: calc(1em * var(--lockup-razao-imoveis)); line-height: 1.1;
+  color: var(--txt-ouro); letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+}
+
+.pg{max-width:var(--lar-largo);margin:0 auto;padding:0 var(--e-6) var(--e-14)}
+.topo{display:flex;gap:var(--e-6);align-items:center;padding:var(--e-11) 0 var(--e-6)}
+.topo > svg{width:56px;height:auto;flex:none}
+.doc{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-8);border-top:2px solid var(--tra-forte);
+  border-bottom:1px solid var(--tra-sutil);padding:var(--e-4) 0;margin-bottom:var(--e-11)}
+.doc div{display:flex;gap:var(--e-3);align-items:baseline}
+.doc dt{font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--txt-suave)}
+.doc dd{margin:0;font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);font-weight:600;color:var(--txt-corpo)}
+h1{font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-1);line-height:var(--lh-display-1);letter-spacing:var(--tr-display);max-width:22ch;margin-bottom:var(--e-5)}
+.abre{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-g);line-height:var(--lh-corpo-g);color:var(--txt-corpo);max-width:64ch}
+.abre + .abre{margin-top:var(--e-4)}
+.abre b{font-weight:600;color:var(--txt-forte)}
+section{margin-top:var(--resp-secao)}
+h2{margin-bottom:var(--e-2)}
+.nota{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave);max-width:62ch;margin:0 0 var(--e-8);
+  padding-bottom:var(--e-5);border-bottom:1px solid var(--tra-sutil)}
+
+.grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:var(--e-8)}
+.est{display:flex;flex-direction:column;gap:var(--e-5)}
+.palco{display:grid;place-items:center;border-radius:var(--r-4);padding:var(--e-9);min-height:15rem;
+  border:1px solid var(--tra-sutil);overflow:hidden}
+.palco--folgado{padding:var(--e-7)}
+.palco--claro{background:var(--cs-neutro-50)}
+.palco--creme{background:var(--cs-creme)}
+.palco--aura{background:
+  radial-gradient(circle at 50% 46%, rgba(201,162,76,.42), rgba(201,162,76,0) 62%),
+  linear-gradient(160deg,#1C4A80,#0B2647);border-color:transparent}
+.palco--foto{background:
+  linear-gradient(115deg, rgba(22,56,100,.55), rgba(11,38,71,.85)),
+  repeating-linear-gradient(58deg,#3A6EA8 0 22px,#2A5688 22px 44px,#1E4372 44px 70px);
+  border-color:transparent}
+.palco svg{width:112px;height:auto;display:block}
+.palco--folgado svg{width:146px}
+
+.sombra-suave svg{filter:drop-shadow(0 8px 12px rgba(22,56,100,.30))}
+.placa{display:grid;place-items:center;background:var(--cs-azul);border-radius:var(--r-5);
+  padding:var(--e-7);box-shadow:var(--sombra-2)}
+.placa svg{width:88px}
+.selo-marca{display:grid;place-items:center;background:var(--cs-azul);border-radius:50%;
+  width:14rem;height:14rem;box-shadow:inset 0 0 0 3px var(--cs-ouro),inset 0 0 0 11px var(--cs-azul),
+  inset 0 0 0 12px rgba(201,162,76,.35)}
+.selo-marca svg{width:84px}
+.vidro{display:grid;place-items:center;background:rgba(243,239,228,.14);
+  -webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);
+  border:1px solid rgba(243,239,228,.34);border-radius:var(--r-4);padding:var(--e-7)}
+.vidro svg{width:92px}
+
+.est__cab{display:flex;flex-wrap:wrap;gap:var(--e-3);align-items:center;margin-bottom:var(--e-3)}
+.est__oq{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-corpo);margin-bottom:var(--e-4)}
+.est__uso{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+.est__uso .rotulo{display:block;margin-bottom:var(--e-1)}
+.selo{display:inline-block;font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;
+  padding:var(--e-1) var(--e-3);border-radius:var(--r-pilula);white-space:nowrap}
+.selo--ok{background:var(--est-ok-sup);color:var(--est-ok)}
+.selo--meio{background:var(--est-atencao-sup);color:var(--est-atencao)}
+.selo--ruim{background:var(--est-erro-sup);color:var(--est-erro)}
+
+/* prova a 24px */
+.provas{display:flex;flex-wrap:wrap;gap:var(--e-7)}
+.pq{display:flex;flex-direction:column;align-items:center;gap:var(--e-3);width:6.5rem}
+.pq__palco{display:grid;place-items:center;width:3rem;height:3rem;background:var(--cs-neutro-50);
+  border:1px solid var(--tra-sutil);border-radius:var(--r-2)}
+.pq__palco svg{width:24px;height:auto}
+.pq small{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave);text-align:center;line-height:1.3}
+.placa--peq{padding:3px;border-radius:5px;box-shadow:none}
+.placa--peq svg{width:18px}
+.selo-marca--peq{width:26px;height:26px;box-shadow:inset 0 0 0 1px var(--cs-ouro),inset 0 0 0 3px var(--cs-azul)}
+.selo-marca--peq svg{width:15px}
+.aura-peq{display:grid;place-items:center;width:26px;height:26px;border-radius:4px;
+  background:radial-gradient(circle,rgba(201,162,76,.5),rgba(201,162,76,0) 65%),#163864}
+.aura-peq svg{width:17px}
+.vidro--peq{padding:3px;border-radius:5px;background:rgba(22,56,100,.9);border-color:rgba(243,239,228,.3)}
+.vidro--peq svg{width:18px}
+
+/* recomendacao */
+.rec{background:var(--cs-azul);border-radius:var(--r-5);padding:var(--e-10) var(--e-9);color:var(--cs-creme)}
+.rec h2{color:var(--cs-creme);margin-bottom:var(--e-6)}
+.rec ul{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,16rem),1fr));gap:var(--e-7)}
+.rec li b{display:block;font-family:var(--fam-display);font-weight:var(--fw-forte);
+  font-size:var(--fs-titulo-2);line-height:var(--lh-titulo-2);color:var(--cs-ouro);margin-bottom:var(--e-2)}
+.rec li span{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--cs-azul-200)}
+.rec > p{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo);line-height:var(--lh-corpo);color:var(--cs-azul-100);margin-top:var(--e-8);max-width:64ch}
+
+.pe{margin-top:var(--e-14);padding-top:var(--e-8);border-top:2px solid var(--tra-forte);
+  display:flex;gap:var(--e-5);align-items:center}
+.pe svg{width:34px;height:auto}
+.pe p{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave);max-width:56ch}
+</style>
+
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<defs>
+<linearGradient id="ouroSuave" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="142" y2="143">
+  <stop offset="0" stop-color="#E5C98E"/><stop offset=".55" stop-color="#C9A24C"/><stop offset="1" stop-color="#8D6A0C"/>
+</linearGradient>
+<linearGradient id="ouroMetal" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="143">
+  <stop offset="0" stop-color="#6E5000"/><stop offset=".22" stop-color="#C9A24C"/>
+  <stop offset=".45" stop-color="#F6E7BC"/><stop offset=".7" stop-color="#C9A24C"/>
+  <stop offset="1" stop-color="#8D6A0C"/>
+</linearGradient>
+<linearGradient id="azulProfundo" gradientUnits="userSpaceOnUse" x1="10" y1="0" x2="132" y2="143">
+  <stop offset="0" stop-color="#2A5E9B"/><stop offset=".5" stop-color="#163864"/><stop offset="1" stop-color="#011F46"/>
+</linearGradient>
+</defs>
+<symbol id="marca" viewBox="0 0 142.267 143.163">
+<path class="cs-navy" fill="var(--cs-azul)" d="M36.687 88.679L36.677 136.383L61.781 136.388L61.791 88.684L36.687 88.679M6.728 136.371L33.729 136.359L33.69 85.787L64.703 85.769L64.69 136.343L74.368 136.365L74.387 143.149L0.029 143.145L0 49.334L7.961 41.187L11.64 37.503L34.783 14.127L48.753 0L69.477 20.934L75.021 26.669L75.016 36.622L71.446 33.016L58.52 19.878L48.612 9.791L43.937 14.577L29.188 29.563L8.406 50.548L6.722 52.568L6.728 136.371Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M57.819 117.764L53.978 117.807L54.773 113.389C53.319 112.602 52.915 110.92 53.839 109.666C54.795 108.368 56.492 108.273 57.618 109.372C58.797 110.523 58.57 112.45 57.037 113.375L57.819 117.764Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M60.37 64.447C60 65.129 59.228 65.367 58.541 65.362L50.68 65.309L50.624 55.708L59.364 55.685C59.88 55.684 60.28 56.135 60.305 56.626L60.37 64.447Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.821 60.549C48.012 62.198 48.113 63.645 47.804 65.335L38.293 65.232C38.748 64.893 38.849 64.547 38.915 64.086C39.007 63.445 38.533 63.097 38.02 62.741L38.112 56.873L38.715 56.355C38.794 56.286 38.43 56.084 38.298 55.721L47.572 55.788C48.138 56.19 48.107 57.678 47.796 58.148C47.581 58.408 47.224 58.272 47.256 58.165C47.295 58.029 47.403 57.631 47.092 57.464L47.311 62.109C47.317 62.238 47.457 62.298 47.548 62.236C47.688 61.801 47.233 61.179 47.821 60.549Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M59.474 53.009L50.756 53.08L50.648 43.732L58.457 43.658C58.796 43.655 59.209 43.373 59.436 43.433C59.818 43.534 60.164 43.792 60.332 44.274L60.267 52.673C59.867 52.64 59.763 52.274 59.658 52.286C59.518 52.301 59.491 52.776 59.474 53.009Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.707 53.049L39.939 53.004C39.417 53.001 38.822 52.172 38.042 52.788L38.003 47.612C38.001 47.305 38.54 46.967 38.783 46.766L38.277 43.717L47.85 43.723C48.015 46.131 48.31 48.379 47.246 48.335C47.12 48.329 46.503 51.087 47.707 53.049Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 55.155H48.392V65.901H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 43.01H48.392V53.756H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 43.01H61.228V53.756H50.482Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 55.155H61.228V65.901H50.482Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.972 78.306L91.745 82.646L102.076 92.357L102.075 101.981L89.398 90.327L84.588 85.856L80.289 81.616L80.312 30.84L142.24 30.828L142.267 65.521L135.556 65.62L135.561 37.566L86.956 37.55L86.972 78.306Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.933 117.446L86.956 136.368L135.544 136.35L135.527 99.859L120.396 86.16L120.306 80.808L122.895 79.256L137.602 92.589L142.255 97.052L142.254 143.155L80.302 143.163L80.304 117.477L86.933 117.446Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M108.915 73.093C107.984 75.354 108.264 76.909 109.674 78.007C110.838 78.912 112.717 78.761 113.683 77.205C114.401 76.049 114.081 74.771 113.825 73.023C116.071 73.936 117.599 73.57 118.5 72.464C119.662 71.04 119.32 69.225 117.926 68.25C116.773 67.444 115.493 67.577 113.55 68.216C114.539 66.146 114.294 64.578 113.205 63.469C111.998 62.239 109.977 62.542 109.087 63.664C108.072 64.943 108.157 66.458 109.079 68.102C106.029 67.144 103.584 68.072 103.33 70.13C103.135 71.708 104.039 72.682 105.118 73.223C106.321 73.827 107.415 73.388 108.915 73.093M118.114 107.142C116.928 107.23 116.548 107.504 116.426 108.093C116.219 109.094 116.698 109.624 117.9 109.434C118.596 109.324 118.749 110.798 118.214 110.872C116.896 111.054 114.845 110.283 113.446 111.269C112.392 112.012 110.426 112.681 109.261 111.621L109.179 83.725L107.845 81.601C108.223 80.207 107.314 77.768 106.043 77.801C105.384 77.84 103.871 79.065 103.357 77.814L104.24 75.378C102.277 74.446 101.162 72.745 101.138 70.868C101.11 68.679 102.05 66.817 104.379 65.771C103.96 65.032 103.131 63.786 103.627 62.984C104.016 62.355 105.724 63.097 106.23 63.878C107.486 61.82 108.924 60.624 110.846 60.532C113.082 60.425 115.048 61.404 116.008 63.721C116.942 63.278 117.72 62.816 118.978 62.792L118.399 65.817C120.241 67.006 121.349 68.537 121.415 70.41C121.489 72.511 120.368 74.265 118.352 75.372L118.965 78.112C118.477 78.691 116.913 78.211 116.208 77.532C113.979 79.342 115.556 81.802 113.415 83.351L113.284 102.083C114.896 102.478 116.196 102.364 118.099 102.146C118.54 102.096 118.786 103.627 117.917 103.75C117.441 103.817 116.746 103.878 116.58 104.127C116.413 104.377 116.387 105.154 116.506 105.428C116.63 105.712 117.367 105.871 117.9 105.791C118.68 105.674 118.764 107.094 118.114 107.142Z"/>
+</symbol></svg>
+
+<div class="pg">
+
+<header class="topo">
+  <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <span class="assinatura" style="font-size:1.7rem">
+    <span class="assinatura__nome">Carvalho &amp; Seixas</span>
+    <span class="assinatura__categoria">Imóveis</span>
+  </span>
+</header>
+
+<dl class="doc">
+  <div><dt>Peça</dt><dd>Estudos criativos do símbolo</dd></div>
+  <div><dt>Tratamentos</dt><dd class="dado">11</dd></div>
+  <div><dt>Data</dt><dd class="dado">09.09.2026</dd></div>
+  <div><dt>Base</dt><dd class="dado">simbolo.svg, 13 caminhos</dd></div>
+</dl>
+
+<h1>Onze jeitos de vestir o mesmo símbolo</h1>
+
+<p class="abre">O desenho não muda em nenhum destes onze. A casa com a chave continua lendo <b>C</b> e <b>S</b>, com a mesma geometria do arquivo em Illustrator. O que muda é o acabamento: cor chapada, degradê, sombra, recorte, vidro e luz.</p>
+
+<p class="abre">Cada tratamento vem com um veredito e o motivo. E todos passam pela mesma prova no fim da página: <b>o teste dos 24 pixels</b>, que é o tamanho do favicon e do ícone de contato no WhatsApp. É ali que a maioria dos efeitos morre.</p>
+
+<section>
+  <h2>Os tratamentos</h2>
+  <p class="nota">Ordem de leitura, não de preferência. A recomendação está no fim.</p>
+  <div class="grade">
+<article class="est" id="chapado">
+  <div class="palco palco--claro"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Chapado</h3><span class="selo selo--ok">Recomendado</span></div>
+    <p class="est__oq">Duas cores, um valor cada. É exatamente o que o arquivo da marca já é.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Site, papelaria, assinatura de e-mail, favicon.</p>
+  </div>
+</article>
+<article class="est" id="ouro-degrade">
+  <div class="palco palco--claro"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-ouro:url(#ouroSuave)"><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Ouro em degradê</h3><span class="selo selo--meio">Reserva</span></div>
+    <p class="est__oq">O azul fica chapado. Só a chave e a janela recebem um degradê de três paradas, claro em cima e fechado embaixo.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Abertura do site e peça de Instagram, onde a marca aparece grande.</p>
+  </div>
+</article>
+<article class="est" id="ouro-metal">
+  <div class="palco palco--claro"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-ouro:url(#ouroMetal)"><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Ouro metálico</h3><span class="selo selo--meio">Reserva</span></div>
+    <p class="est__oq">Cinco paradas com um brilho no meio, imitando metal escovado. É o degradê que mais parece ouro de verdade.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Impressão digital comum. Se houver verba de hot stamping, o ouro chapado com foil vence isto sem esforço.</p>
+  </div>
+</article>
+<article class="est" id="azul-degrade">
+  <div class="palco palco--claro"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:url(#azulProfundo)"><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Azul em degradê</h3><span class="selo selo--meio">Reserva</span></div>
+    <p class="est__oq">Diagonal, clara no telhado e fechada no pé. Dá peso de base e sensação de volume sem sombra.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Fundo claro e tamanho médio para cima.</p>
+  </div>
+</article>
+<article class="est" id="sombra-suave">
+  <div class="palco palco--creme"><span class="sombra-suave"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg></span></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Sombra suave</h3><span class="selo selo--ok">Recomendado</span></div>
+    <p class="est__oq">Elevação curta, tingida de azul. Descola a marca do creme sem parecer botão.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Cartão, cabeçalho fixo, marca sobre foto clara.</p>
+  </div>
+</article>
+<article class="est" id="sombra-longa">
+  <div class="palco palco--claro palco--folgado"><svg viewBox="0 0 205 205" role="img" aria-label="Carvalho e Seixas"><use href="#marca" x="57.60" y="57.60" style="--cs-azul:rgba(22,56,100,0.010);--cs-ouro:rgba(22,56,100,0.010)"></use><use href="#marca" x="54.40" y="54.40" style="--cs-azul:rgba(22,56,100,0.013);--cs-ouro:rgba(22,56,100,0.013)"></use><use href="#marca" x="51.20" y="51.20" style="--cs-azul:rgba(22,56,100,0.015);--cs-ouro:rgba(22,56,100,0.015)"></use><use href="#marca" x="48.00" y="48.00" style="--cs-azul:rgba(22,56,100,0.018);--cs-ouro:rgba(22,56,100,0.018)"></use><use href="#marca" x="44.80" y="44.80" style="--cs-azul:rgba(22,56,100,0.020);--cs-ouro:rgba(22,56,100,0.020)"></use><use href="#marca" x="41.60" y="41.60" style="--cs-azul:rgba(22,56,100,0.022);--cs-ouro:rgba(22,56,100,0.022)"></use><use href="#marca" x="38.40" y="38.40" style="--cs-azul:rgba(22,56,100,0.025);--cs-ouro:rgba(22,56,100,0.025)"></use><use href="#marca" x="35.20" y="35.20" style="--cs-azul:rgba(22,56,100,0.028);--cs-ouro:rgba(22,56,100,0.028)"></use><use href="#marca" x="32.00" y="32.00" style="--cs-azul:rgba(22,56,100,0.030);--cs-ouro:rgba(22,56,100,0.030)"></use><use href="#marca" x="28.80" y="28.80" style="--cs-azul:rgba(22,56,100,0.032);--cs-ouro:rgba(22,56,100,0.032)"></use><use href="#marca" x="25.60" y="25.60" style="--cs-azul:rgba(22,56,100,0.035);--cs-ouro:rgba(22,56,100,0.035)"></use><use href="#marca" x="22.40" y="22.40" style="--cs-azul:rgba(22,56,100,0.038);--cs-ouro:rgba(22,56,100,0.038)"></use><use href="#marca" x="19.20" y="19.20" style="--cs-azul:rgba(22,56,100,0.040);--cs-ouro:rgba(22,56,100,0.040)"></use><use href="#marca" x="16.00" y="16.00" style="--cs-azul:rgba(22,56,100,0.042);--cs-ouro:rgba(22,56,100,0.042)"></use><use href="#marca" x="12.80" y="12.80" style="--cs-azul:rgba(22,56,100,0.045);--cs-ouro:rgba(22,56,100,0.045)"></use><use href="#marca" x="9.60" y="9.60" style="--cs-azul:rgba(22,56,100,0.048);--cs-ouro:rgba(22,56,100,0.048)"></use><use href="#marca" x="6.40" y="6.40" style="--cs-azul:rgba(22,56,100,0.050);--cs-ouro:rgba(22,56,100,0.050)"></use><use href="#marca" x="3.20" y="3.20" style="--cs-azul:rgba(22,56,100,0.053);--cs-ouro:rgba(22,56,100,0.053)"></use><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Sombra longa</h3><span class="selo selo--ruim">Descartar</span></div>
+    <p class="est__oq">Dezoito cópias empilhadas a 45 graus com opacidade caindo. Efeito de flat design de 2013.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Nenhum uso recomendado. Está aqui para você ver e descartar com argumento.</p>
+  </div>
+</article>
+<article class="est" id="placa">
+  <div class="palco palco--claro"><span class="placa"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Placa</h3><span class="selo selo--ok">Recomendado</span></div>
+    <p class="est__oq">Marca em creme dentro de uma placa azul de canto generoso, no mesmo raio do cartão da identidade.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Avatar de Instagram e de WhatsApp, favicon, selo em foto.</p>
+  </div>
+</article>
+<article class="est" id="selo">
+  <div class="palco palco--creme"><span class="selo-marca"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Selo</h3><span class="selo selo--ok">Recomendado</span></div>
+    <p class="est__oq">Círculo azul com anel de ouro por dentro. Fala de registro, de cartório e de fé pública.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Rodapé junto do CRECI e da OAB, carimbo em documento, lacre de proposta.</p>
+  </div>
+</article>
+<article class="est" id="desalinho">
+  <div class="palco palco--claro"><svg viewBox="-6 -6 154 155" role="img" aria-label="Carvalho e Seixas"><use href="#marca" x="5" y="5" style="--cs-azul:var(--cs-ouro)"></use><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Desalinho editorial</h3><span class="selo selo--ruim">Descartar</span></div>
+    <p class="est__oq">A marca duplicada, com a cópia em ouro deslocada cinco unidades atrás do azul. Cheiro de impressão fora de registro.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Peça editorial grande. Some abaixo de 48px e atrapalha a leitura do C e do S.</p>
+  </div>
+</article>
+<article class="est" id="aura">
+  <div class="palco palco--aura"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Aura de ouro</h3><span class="selo selo--ok">Recomendado</span></div>
+    <p class="est__oq">Brilho difuso atrás da marca sobre o azul. Não é sombra, é luz.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Abertura em vídeo, cena em three.js, tela de carregamento.</p>
+  </div>
+</article>
+<article class="est" id="vidro">
+  <div class="palco palco--foto"><span class="vidro"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div>
+  <div class="est__texto">
+    <div class="est__cab"><h3>Vidro</h3><span class="selo selo--meio">Reserva</span></div>
+    <p class="est__oq">Painel translúcido com desfoque atrás, marca em creme e chave em ouro por cima.</p>
+    <p class="est__uso"><span class="rotulo">Onde usa</span>Marca sobre foto de imóvel, cabeçalho que flutua na rolagem.</p>
+  </div>
+</article>
+  </div>
+</section>
+
+<section>
+  <h2>A prova dos 24 pixels</h2>
+  <p class="nota">Mesmo símbolo, mesmo tratamento, no tamanho em que a marca vai aparecer na aba do navegador e no contato do WhatsApp. Efeito que não sobrevive aqui não é opção de marca: é opção de peça grande.</p>
+  <div class="provas">
+<div class="pq"><div class="pq__palco"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg></div><small>Chapado</small></div>
+<div class="pq"><div class="pq__palco"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-ouro:url(#ouroSuave)"><use href="#marca"></use></svg></div><small>Ouro em degradê</small></div>
+<div class="pq"><div class="pq__palco"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-ouro:url(#ouroMetal)"><use href="#marca"></use></svg></div><small>Ouro metálico</small></div>
+<div class="pq"><div class="pq__palco"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:url(#azulProfundo)"><use href="#marca"></use></svg></div><small>Azul em degradê</small></div>
+<div class="pq"><div class="pq__palco"><span class="sombra-suave"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg></span></div><small>Sombra suave</small></div>
+<div class="pq"><div class="pq__palco"><svg viewBox="0 0 205 205" role="img" aria-label="Carvalho e Seixas"><use href="#marca" x="57.60" y="57.60" style="--cs-azul:rgba(22,56,100,0.010);--cs-ouro:rgba(22,56,100,0.010)"></use><use href="#marca" x="54.40" y="54.40" style="--cs-azul:rgba(22,56,100,0.013);--cs-ouro:rgba(22,56,100,0.013)"></use><use href="#marca" x="51.20" y="51.20" style="--cs-azul:rgba(22,56,100,0.015);--cs-ouro:rgba(22,56,100,0.015)"></use><use href="#marca" x="48.00" y="48.00" style="--cs-azul:rgba(22,56,100,0.018);--cs-ouro:rgba(22,56,100,0.018)"></use><use href="#marca" x="44.80" y="44.80" style="--cs-azul:rgba(22,56,100,0.020);--cs-ouro:rgba(22,56,100,0.020)"></use><use href="#marca" x="41.60" y="41.60" style="--cs-azul:rgba(22,56,100,0.022);--cs-ouro:rgba(22,56,100,0.022)"></use><use href="#marca" x="38.40" y="38.40" style="--cs-azul:rgba(22,56,100,0.025);--cs-ouro:rgba(22,56,100,0.025)"></use><use href="#marca" x="35.20" y="35.20" style="--cs-azul:rgba(22,56,100,0.028);--cs-ouro:rgba(22,56,100,0.028)"></use><use href="#marca" x="32.00" y="32.00" style="--cs-azul:rgba(22,56,100,0.030);--cs-ouro:rgba(22,56,100,0.030)"></use><use href="#marca" x="28.80" y="28.80" style="--cs-azul:rgba(22,56,100,0.032);--cs-ouro:rgba(22,56,100,0.032)"></use><use href="#marca" x="25.60" y="25.60" style="--cs-azul:rgba(22,56,100,0.035);--cs-ouro:rgba(22,56,100,0.035)"></use><use href="#marca" x="22.40" y="22.40" style="--cs-azul:rgba(22,56,100,0.038);--cs-ouro:rgba(22,56,100,0.038)"></use><use href="#marca" x="19.20" y="19.20" style="--cs-azul:rgba(22,56,100,0.040);--cs-ouro:rgba(22,56,100,0.040)"></use><use href="#marca" x="16.00" y="16.00" style="--cs-azul:rgba(22,56,100,0.042);--cs-ouro:rgba(22,56,100,0.042)"></use><use href="#marca" x="12.80" y="12.80" style="--cs-azul:rgba(22,56,100,0.045);--cs-ouro:rgba(22,56,100,0.045)"></use><use href="#marca" x="9.60" y="9.60" style="--cs-azul:rgba(22,56,100,0.048);--cs-ouro:rgba(22,56,100,0.048)"></use><use href="#marca" x="6.40" y="6.40" style="--cs-azul:rgba(22,56,100,0.050);--cs-ouro:rgba(22,56,100,0.050)"></use><use href="#marca" x="3.20" y="3.20" style="--cs-azul:rgba(22,56,100,0.053);--cs-ouro:rgba(22,56,100,0.053)"></use><use href="#marca"></use></svg></div><small>Sombra longa</small></div>
+<div class="pq"><div class="pq__palco"><span class="placa placa--peq"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div><small>Placa</small></div>
+<div class="pq"><div class="pq__palco"><span class="selo-marca selo-marca--peq"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div><small>Selo</small></div>
+<div class="pq"><div class="pq__palco"><svg viewBox="-6 -6 154 155" role="img" aria-label="Carvalho e Seixas"><use href="#marca" x="5" y="5" style="--cs-azul:var(--cs-ouro)"></use><use href="#marca"></use></svg></div><small>Desalinho editorial</small></div>
+<div class="pq"><div class="pq__palco"><span class="aura-peq"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div><small>Aura de ouro</small></div>
+<div class="pq"><div class="pq__palco"><span class="vidro vidro--peq"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:var(--cs-creme)"><use href="#marca"></use></svg></span></div><small>Vidro</small></div>
+  </div>
+</section>
+
+<section class="rec">
+  <h2>O que eu recomendo</h2>
+  <ul>
+    <li><b>Principal · Chapado</b><span>Sobrevive a 24px, imprime em uma cor, funciona em bordado e em carimbo, e é o que o arquivo da marca já é. Toda marca precisa de uma versão que não dependa de nada, e é esta.</span></li>
+    <li><b>Avatar e favicon · Placa</b><span>Em quadrado pequeno o símbolo solto fica frágil e some no fundo branco. Dentro da placa azul ele ganha corpo e continua reconhecível a 24px.</span></li>
+    <li><b>Autoridade · Selo</b><span>É o tratamento que fala a língua das sócias. Vai junto do CRECI e da OAB no rodapé, e em documento. Use com parcimônia, senão vira enfeite.</span></li>
+    <li><b>Movimento · Aura</b><span>Para a abertura do site e para a cena em three.js, onde a marca aparece grande e iluminada. Não desce para tamanho pequeno.</span></li>
+    <li><b>Sombra suave · quando precisar descolar</b><span>Marca sobre foto clara ou sobre o creme. É elevação, não efeito: mantenha curta.</span></li>
+  </ul>
+  <p>Os dois que eu descartaria com argumento: <b style="color:var(--cs-ouro)">sombra longa</b>, que é linguagem de 2013 e engorda o desenho, e <b style="color:var(--cs-ouro)">desalinho editorial</b>, que é bonito grande mas quebra a leitura do C e do S justamente no tamanho em que a marca mais aparece. Sobre o ouro: se houver verba de hot stamping no cartão, o ouro chapado com foil real ganha de qualquer degradê impresso.</p>
+</section>
+
+<div class="pe">
+  <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <p>Estudo de acabamento, não de redesenho. Se você quiser mexer na geometria, isso é outra rodada e vale abrir como estudo separado.</p>
+</div>
+
+</div>

@@ -1,0 +1,31 @@
+/* Carvalho & Seixas · espaco. Base de 4px. */
+:root{
+  --e-0: 0;
+  --e-1: .125rem;
+  --e-2: .25rem;
+  --e-3: .5rem;
+  --e-4: .75rem;
+  --e-5: 1rem;
+  --e-6: 1.25rem;
+  --e-7: 1.5rem;
+  --e-8: 2rem;
+  --e-9: 2.5rem;
+  --e-10: 3rem;
+  --e-11: 4rem;
+  --e-12: 5rem;
+  --e-13: 6rem;
+  --e-14: 8rem;
+
+  --lar-texto: 66ch;
+  --lar-conteudo: 72rem;
+  --lar-largo: 84rem;
+  --resp-secao: var(--e-13);
+  --resp-secao-mobile: var(--e-10);
+
+  /* Respiro da marca, como fracao da largura do simbolo.
+     As quatro variantes do arquivo original usavam 0,17 / 0,27 / 0,12 / 0,05,
+     ou seja, nao havia regra. Estes valores normalizam isso. */
+  --marca-protecao: .5;
+  --marca-gap-horizontal: .25;
+  --marca-gap-vertical: .12;
+}

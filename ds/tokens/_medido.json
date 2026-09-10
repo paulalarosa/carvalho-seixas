@@ -1,0 +1,33 @@
+{
+  "fonte": "LOGO CARVALHO E SEIXAS.ai, pagina 2",
+  "simbolo": {
+    "viewBox": "0 0 142.267 143.163",
+    "caminhos": 13,
+    "so_preenchimento": true
+  },
+  "assinatura": {
+    "familia": "Josefin Sans",
+    "nome_peso": 700,
+    "imoveis_peso": 600,
+    "avanco_nome_por_tamanho": 8.715,
+    "avanco_imoveis_por_tamanho": 3.418,
+    "razao_imoveis_sobre_nome": 0.72,
+    "espaco_antes_de_imoveis_em": 0.325,
+    "tracking": 0
+  },
+  "metricas_josefin": {
+    "capHeight": 0.702,
+    "xHeight": 0.378,
+    "ascender": 0.75,
+    "descender": -0.25,
+    "haste_l_700": 0.14,
+    "haste_I_600": 0.117
+  },
+  "respiro_medido_nas_variantes_do_ai": {
+    "horizontal_3_linhas": 24.8,
+    "horizontal_1_linha": 38.5,
+    "vertical_centrado": 17.1,
+    "vertical_esquerda": 7.5,
+    "largura_do_simbolo": 142.27
+  }
+}

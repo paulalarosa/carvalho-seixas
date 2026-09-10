@@ -1,0 +1,1808 @@
+<title>Componentes do Sistema</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Carvalho & Seixas · cor
+   Marca: azul #163864 · ouro #C9A24C · creme #F3EFE4 · grafite #2B2B2B.
+   As quatro cores acima foram definidas pela cliente. Todo o resto desta folha
+   e derivado delas em OKLCH, mantendo matiz e afunilando a cromia nas pontas.
+   Todo par usado em texto foi medido: nenhum abaixo de 4,5:1. */
+:root{
+  /* --- as quatro cores da marca --- */
+  --cs-azul: #163864;
+  --cs-ouro: #C9A24C;
+  --cs-creme: #F3EFE4;
+  --cs-grafite: #2B2B2B;
+
+  /* --- rampa do azul --- */
+  --cs-azul-50: #EEF4FC;
+  --cs-azul-100: #E0E9F5;
+  --cs-azul-200: #C6D6EA;
+  --cs-azul-300: #A3B9D8;
+  --cs-azul-400: #7694BD;
+  --cs-azul-500: #163864;
+  --cs-azul-600: #082A55;
+  --cs-azul-700: #011F46;
+  --cs-azul-800: #001436;
+  --cs-azul-900: #000B25;
+
+  /* --- rampa do ouro --- */
+  --cs-ouro-50: #FEF6E6;
+  --cs-ouro-100: #F8ECD2;
+  --cs-ouro-200: #EFDAB0;
+  --cs-ouro-300: #E5C98E;
+  --cs-ouro-400: #D9B66B;
+  --cs-ouro-500: #C9A24C;
+  --cs-ouro-600: #AC862C;
+  --cs-ouro-700: #8D6A0C;
+  --cs-ouro-800: #6E5000;
+  --cs-ouro-900: #4F3700;
+
+  /* --- neutros, na matiz do creme --- */
+  --cs-neutro-50: #FEFDFA;
+  --cs-neutro-100: #F8F7F2;
+  --cs-neutro-200: #F1EFE8;
+  --cs-neutro-300: #E1DED6;
+  --cs-neutro-400: #C0BDB6;
+  --cs-neutro-500: #95928A;
+  --cs-neutro-600: #6E6C64;
+  --cs-neutro-700: #4F4D46;
+  --cs-neutro-800: #302E28;
+  --cs-neutro-900: #14130F;
+
+  /* --- ouro legivel em corpo de texto (4,54:1 sobre creme) --- */
+  --cs-ouro-texto: #8A6705;
+
+  /* --- semanticos: superficie --- */
+  --sup-base: var(--cs-neutro-50);
+  --sup-faixa: var(--cs-creme);
+  --sup-cartao: var(--cs-neutro-50);
+  --sup-elevada: #FFFFFF;
+  --sup-inversa: var(--cs-azul);
+  --sup-sutil: var(--cs-neutro-100);
+
+  /* --- semanticos: texto --- */
+  --txt-forte: var(--cs-azul);
+  --txt-corpo: var(--cs-grafite);
+  --txt-suave: var(--cs-neutro-600);
+  --txt-ouro: var(--cs-ouro-texto);
+  --txt-sobre-azul: var(--cs-creme);
+  --txt-sobre-azul-suave: var(--cs-azul-200);
+
+  /* --- semanticos: traco --- */
+  --tra-sutil: var(--cs-neutro-300);
+  --tra-medio: var(--cs-neutro-400);
+  --tra-forte: var(--cs-azul);
+  --tra-ouro: var(--cs-ouro);
+  --tra-foco: var(--cs-ouro);
+
+  /* --- semanticos: acao --- */
+  --acao-fundo: var(--cs-azul);
+  --acao-fundo-hover: var(--cs-azul-600);
+  --acao-fundo-ativo: var(--cs-azul-700);
+  --acao-texto: var(--cs-creme);
+  --acao-ouro-fundo: var(--cs-ouro);
+  --acao-ouro-texto: var(--cs-azul);
+
+  /* --- estado. Nenhum deles e a cor de destaque da marca --- */
+  --est-ok: #1F6B4A;
+  --est-ok-sup: #E6F2EC;
+  --est-atencao: #8A5A08;
+  --est-atencao-sup: #FBF0DC;
+  --est-erro: #A32C22;
+  --est-erro-sup: #FAE9E7;
+  --est-info: var(--cs-azul-600);
+  --est-info-sup: var(--cs-azul-50);
+}
+
+/* Tema escuro. O azul deixa de ser destaque e passa a ser chao,
+   entao o papel de destaque vai para o ouro e para o azul-200. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sup-base: #00183A;
+    --sup-faixa: #09274D;
+    --sup-cartao: #09274D;
+    --sup-elevada: #1F3E65;
+    --sup-inversa: var(--cs-creme);
+    --sup-sutil: #09274D;
+
+    --txt-forte: var(--cs-creme);
+    --txt-corpo: var(--cs-neutro-200);
+    --txt-suave: var(--cs-neutro-400);
+    --txt-ouro: var(--cs-ouro-300);
+    --txt-sobre-azul: var(--cs-creme);
+    --txt-sobre-azul-suave: var(--cs-azul-200);
+
+    --tra-sutil: #09274D;
+    --tra-medio: #1F3E65;
+    --tra-forte: var(--cs-azul-200);
+    --tra-ouro: var(--cs-ouro-300);
+
+    --acao-fundo: var(--cs-ouro);
+    --acao-fundo-hover: var(--cs-ouro-300);
+    --acao-fundo-ativo: var(--cs-ouro-200);
+    --acao-texto: var(--cs-azul-800);
+    --acao-ouro-fundo: var(--cs-ouro-300);
+    --acao-ouro-texto: var(--cs-azul-800);
+
+    --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+    --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+    --est-erro: #F0A79E; --est-erro-sup: #33110D;
+    --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+  }
+}
+:root[data-theme="dark"]{
+  --sup-base: #00183A;
+  --sup-faixa: #09274D;
+  --sup-cartao: #09274D;
+  --sup-elevada: #1F3E65;
+  --sup-inversa: var(--cs-creme);
+  --sup-sutil: #09274D;
+  --txt-forte: var(--cs-creme);
+  --txt-corpo: var(--cs-neutro-200);
+  --txt-suave: var(--cs-neutro-400);
+  --txt-ouro: var(--cs-ouro-300);
+  --tra-sutil: #09274D;
+  --tra-medio: #1F3E65;
+  --tra-forte: var(--cs-azul-200);
+  --tra-ouro: var(--cs-ouro-300);
+  --acao-fundo: var(--cs-ouro);
+  --acao-fundo-hover: var(--cs-ouro-300);
+  --acao-fundo-ativo: var(--cs-ouro-200);
+  --acao-texto: var(--cs-azul-800);
+  --acao-ouro-fundo: var(--cs-ouro-300);
+  --acao-ouro-texto: var(--cs-azul-800);
+  --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+  --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+  --est-erro: #F0A79E; --est-erro-sup: #33110D;
+  --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+}
+/* Carvalho & Seixas · tipografia
+   Josefin Sans e a fonte da assinatura, medida no arquivo da marca:
+   o nome e peso 700 e "Imoveis" e peso 600. O avanco de "Carvalho & Seixas"
+   e 8,7150 vezes o corpo, que casa exatamente com o peso 700 do Josefin Sans
+   do Google Fonts. Tracking zero.
+   Josefin Sans tem altura de x de 0,378em, muito baixa: nao serve para corpo
+   de texto. O corpo e Source Sans 3, o par que o material da marca ja usava.
+
+   Nota de engenharia: os passos da escala NAO ficam guardados como shorthand
+   `font:` dentro de custom property. Shorthand em variavel zera line-height,
+   font-variant e font-stretch de uma vez e nao pode ser sobrescrito em parte.
+   Cada passo tem tamanho e entrelinha proprios, e as classes abaixo montam. */
+
+:root{
+  --fam-display: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  --fam-corpo: "Source Sans 3", "Segoe UI", system-ui, Arial, sans-serif;
+  --fam-dado: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  --fw-corpo: 400;
+  --fw-forte: 600;
+  --fw-marca: 700;
+
+  /* Josefin so a partir de 20px: abaixo disso ela nao le. */
+  --fs-display-1: 3.75rem;  --lh-display-1: 1.02;
+  --fs-display-2: 2.75rem;  --lh-display-2: 1.06;
+  --fs-display-3: 2rem;     --lh-display-3: 1.12;
+  --fs-titulo-1: 1.5rem;    --lh-titulo-1: 1.2;
+  --fs-titulo-2: 1.25rem;   --lh-titulo-2: 1.25;
+  --fs-corpo-g: 1.125rem;   --lh-corpo-g: 1.6;
+  --fs-corpo: 1rem;         --lh-corpo: 1.62;
+  --fs-corpo-p: 0.875rem;   --lh-corpo-p: 1.55;
+  --fs-rotulo: 0.75rem;     --lh-rotulo: 1.2;
+  --fs-dado: 0.875rem;      --lh-dado: 1.4;
+
+  --tr-display: -.015em;
+  --tr-titulo: -.005em;
+  --tr-rotulo: .12em;
+  --tr-eyebrow: .22em;
+
+  /* Fatos medidos do lockup, nao estimados. */
+  --lockup-razao-imoveis: 0.72;
+  --lockup-espaco-imoveis: 0.325em;
+}
+
+.t-display-1,.t-display-2,.t-display-3{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  letter-spacing: var(--tr-display);
+}
+.t-display-1{ font-size: var(--fs-display-1); line-height: var(--lh-display-1) }
+.t-display-2{ font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+.t-display-3{ font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+
+.t-titulo-1,.t-titulo-2{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  letter-spacing: var(--tr-titulo);
+}
+.t-titulo-1{ font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1) }
+.t-titulo-2{ font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2) }
+
+.t-corpo-g,.t-corpo,.t-corpo-p{
+  font-family: var(--fam-corpo); font-weight: var(--fw-corpo); letter-spacing: 0;
+}
+.t-corpo-g{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g) }
+.t-corpo{ font-size: var(--fs-corpo); line-height: var(--lh-corpo) }
+.t-corpo-p{ font-size: var(--fs-corpo-p); line-height: var(--lh-corpo-p) }
+
+/* Rotulo e sempre caixa alta em Source Sans 3 semibold com tracking.
+   Mono e so para numero, nunca para rotulo. */
+.rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  color: var(--txt-suave);
+}
+.dado{
+  font-family: var(--fam-dado); font-weight: 500;
+  font-size: var(--fs-dado); line-height: var(--lh-dado);
+  font-variant-numeric: tabular-nums;
+}
+.num-tabular{ font-variant-numeric: tabular-nums }
+/* Carvalho & Seixas · espaco. Base de 4px. */
+:root{
+  --e-0: 0;
+  --e-1: .125rem;
+  --e-2: .25rem;
+  --e-3: .5rem;
+  --e-4: .75rem;
+  --e-5: 1rem;
+  --e-6: 1.25rem;
+  --e-7: 1.5rem;
+  --e-8: 2rem;
+  --e-9: 2.5rem;
+  --e-10: 3rem;
+  --e-11: 4rem;
+  --e-12: 5rem;
+  --e-13: 6rem;
+  --e-14: 8rem;
+
+  --lar-texto: 66ch;
+  --lar-conteudo: 72rem;
+  --lar-largo: 84rem;
+  --resp-secao: var(--e-13);
+  --resp-secao-mobile: var(--e-10);
+
+  /* Respiro da marca, como fracao da largura do simbolo.
+     As quatro variantes do arquivo original usavam 0,17 / 0,27 / 0,12 / 0,05,
+     ou seja, nao havia regra. Estes valores normalizam isso. */
+  --marca-protecao: .5;
+  --marca-gap-horizontal: .25;
+  --marca-gap-vertical: .12;
+}
+/* Carvalho & Seixas · raio.
+   A direcao da marca no digital e ARREDONDADA E FLUTUANTE: nada de canto
+   reto em componente. O simbolo continua sendo de traco reto, e e esse
+   contraste que faz a marca aparecer em cima da interface macia.
+
+   A escala e a MESMA do app em React (`web/src/app/globals.css`), onde
+   `--radius: 1.25rem` alimenta a escala do shadcn. Mudou aqui, muda la:
+   sao dois arquivos, mas e um numero so.
+
+   Pilula deixou de ser excecao: botao, pastilha, selo, filtro e a barra do
+   topo sao pilula. Reto (`--r-0`) sobrou para linha de tabela e para foto
+   que sangra ate a borda da tela. */
+:root{
+  --r-0: 0;
+  --r-1: 8px;    /* detalhe: miniatura, quadro pequeno */
+  --r-2: 12px;   /* campo, nota, aviso */
+  --r-3: 16px;   /* cartao pequeno, registro */
+  --r-4: 24px;   /* cartao, foto, galeria */
+  --r-5: 36px;   /* painel e ilha */
+  --r-6: 44px;   /* ilha grande: abertura, chamada final */
+  --r-pilula: 999px;
+}
+/* Carvalho & Seixas · elevacao e material.
+   Duas coisas moram aqui: a SOMBRA, que faz o componente flutuar, e o
+   VIDRO, que e o material dos paineis.
+
+   Sombra tingida de azul, nunca preta: preto sobre creme acinzenta a
+   pagina. E sempre em DUAS camadas: um contato curto, que encosta a peca
+   no fundo, e uma queda longa e aberta, que e o que da a sensacao de
+   flutuar. Sombra de uma camada so parece adesivo colado. */
+:root{
+  --sombra-0: none;
+  --sombra-1: 0 1px 2px rgba(22,56,100,.06), 0 6px 16px -6px rgba(22,56,100,.14);
+  --sombra-2: 0 2px 6px rgba(22,56,100,.07), 0 18px 40px -14px rgba(22,56,100,.22);
+  --sombra-3: 0 4px 10px rgba(22,56,100,.08), 0 36px 70px -24px rgba(22,56,100,.30);
+  --sombra-vidro: 0 24px 60px -20px rgba(3,12,28,.55);
+  --anel-foco: 0 0 0 2px var(--sup-base), 0 0 0 4px var(--tra-foco);
+
+  /* --- vidro: TRES receitas, e a escolha nao e gosto ---------------
+     `--vidro-*`        painel sobre cena escura (3D, faixa azul);
+     `--vidro-claro-*`  painel sobre o off-white;
+     `--vidro-tinta-*`  controle sobre IMAGEM (etiqueta, seta, contador).
+     A terceira existe porque texto creme em vidro claro some na parte
+     clara de uma foto. Vidro sobre imagem precisa de tinta.
+     Vidro sobre cor chapada nao refrata nada: ali use superficie solida. */
+  --vidro-desfoque: 22px;
+  --vidro-saturacao: 165%;
+
+  --vidro-fundo: rgba(243,239,228,.10);
+  --vidro-traco: rgba(243,239,228,.26);
+  --vidro-realce: rgba(255,255,255,.34);
+
+  --vidro-claro-fundo: rgba(255,255,255,.66);
+  --vidro-claro-traco: rgba(22,56,100,.10);
+  --vidro-claro-realce: rgba(255,255,255,.90);
+
+  --vidro-tinta-fundo: rgba(6,20,40,.50);
+  --vidro-tinta-traco: rgba(243,239,228,.22);
+  --vidro-tinta-realce: rgba(255,255,255,.18);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+    --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+    --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+    --vidro-claro-fundo: rgba(9,39,77,.66);
+    --vidro-claro-traco: rgba(243,239,228,.14);
+    --vidro-claro-realce: rgba(243,239,228,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+  --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+  --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+  --vidro-claro-fundo: rgba(9,39,77,.66);
+  --vidro-claro-traco: rgba(243,239,228,.14);
+  --vidro-claro-realce: rgba(243,239,228,.18);
+}
+/* Carvalho & Seixas · movimento.
+   O site usa GSAP e three.js, entao cada duracao tem o ease equivalente do
+   GSAP anotado ao lado. Use os mesmos valores nos dois lados para o
+   movimento de CSS e o de GSAP nao brigarem. */
+:root{
+  --d-instante: 90ms;
+  --d-rapido: 160ms;   /* GSAP duration .16 */
+  --d-padrao: 260ms;   /* GSAP duration .26 */
+  --d-lento: 420ms;    /* GSAP duration .42 */
+  --d-cena: 900ms;     /* entrada de secao e Flip da foto */
+
+  --ea-saida: cubic-bezier(.22,.61,.36,1);      /* GSAP power2.out */
+  --ea-entrada: cubic-bezier(.55,.06,.68,.19);  /* GSAP power2.in */
+  --ea-suave: cubic-bezier(.65,.05,.36,1);      /* GSAP power3.inOut */
+  --ea-firme: cubic-bezier(.16,1,.3,1);         /* GSAP expo.out */
+
+  --escalonar: 60ms;   /* stagger entre cartoes, ScrollTrigger.batch */
+}
+
+/* Toda animacao decorativa e a cena em tres dimensoes desligam aqui.
+   No GSAP a mesma trava vive em gsap.matchMedia(). */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --d-rapido: 0ms;
+    --d-padrao: 0ms;
+    --d-lento: 0ms;
+    --d-cena: 0ms;
+    --escalonar: 0ms;
+  }
+}
+
+
+*,*::before,*::after{ box-sizing: border-box }
+
+body{
+  margin: 0;
+  background: var(--sup-base);
+  color: var(--txt-corpo);
+  font-family: var(--fam-corpo);
+  font-weight: var(--fw-corpo);
+  font-size: var(--fs-corpo);
+  line-height: var(--lh-corpo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{
+  margin: 0;
+  color: var(--txt-forte);
+  text-wrap: balance;
+  font-family: var(--fam-display);
+  letter-spacing: var(--tr-display);
+}
+h1{ font-weight: var(--fw-marca); font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+h2{ font-weight: var(--fw-marca); font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+h3{ font-weight: var(--fw-forte); font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+    letter-spacing: var(--tr-titulo) }
+
+p{ margin: 0; max-width: var(--lar-texto) }
+img{ max-width: 100%; height: auto }
+
+a{ color: var(--txt-forte); text-decoration-color: var(--tra-ouro); text-underline-offset: .18em }
+:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* A assinatura, medida no .ai. O nome e 700, "Imoveis" e 600 a 0,72 do
+   tamanho do nome, com 0,325em de espaco antes.
+
+   🔴 Os 0,325em sao ESPACO ENTRE AS PALAVRAS, nao entreletra, e no arquivo
+   "Imoveis" esta em caixa BAIXA com entreletra ZERO. A versao anterior daqui
+   punha caixa alta e 0,22em de entreletra: as duas coisas eram invencao.
+
+   O arquivo traz dois lockups. Em LINHA (padrao) e EMPILHADO (principal,
+   com "Carvalho" / "& Seixas" / "Imoveis" em tres linhas). No empilhado,
+   "Seixas" e 1,081 maior que "Carvalho", a linha 2 desce 1,297 e "Imoveis"
+   desce mais 1,171 (tudo em multiplos do tamanho do nome). */
+.assinatura{ display: inline-flex; align-items: baseline; gap: var(--lockup-espaco-imoveis) }
+.assinatura__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: 1em; line-height: 1.04; color: var(--txt-forte); letter-spacing: -.01em;
+}
+.assinatura__categoria{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: calc(1em * var(--lockup-razao-imoveis)); line-height: 1.1;
+  color: var(--cs-ouro); letter-spacing: 0;
+}
+.assinatura--empilhada{ display: inline-flex; flex-direction: column; gap: 0; line-height: 1 }
+.assinatura--empilhada .assinatura__nome{ line-height: 1 }
+.assinatura--empilhada .assinatura__nome + .assinatura__nome{ margin-top: .297em }
+.assinatura--empilhada .assinatura__grande{ font-size: 1.081em }
+.assinatura--empilhada .assinatura__categoria{ margin-top: .24em; line-height: 1 }
+
+/* Carvalho & Seixas · componentes
+   Tudo aqui sai de tokens. Nenhum valor cru de cor, espaco, raio ou duracao.
+   Nome de classe em portugues, igual aos tokens. O nome do componente em
+   ingles fica documentado na guideline, para o lado React.
+
+   Estado visual mora no CSS, nunca em classe ligada por script:
+   :hover, :focus-visible, :disabled, [aria-current], [aria-expanded], :checked. */
+
+/* ============================================================ NUCLEO */
+
+/* --- Icone ------------------------------------------------- Icon --- */
+.cs-icone{
+  width: 1.25em; height: 1.25em; flex: none;
+  color: currentColor; vertical-align: -.2em;
+}
+.cs-icone--p{ width: 1em; height: 1em }
+.cs-icone--g{ width: 1.75em; height: 1.75em }
+
+/* Contentor de icone e sempre redondo. Pilula so em status. */
+.cs-icone-caixa{
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  background: var(--cs-azul-50); color: var(--cs-azul);
+  flex: none;
+}
+.cs-icone-caixa--ouro{ background: var(--cs-ouro-50); color: var(--cs-ouro-texto) }
+.cs-icone-caixa--solida{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-icone-caixa--g{ width: 3.5rem; height: 3.5rem }
+
+/* --- Botao ----------------------------------------------- Button --- */
+.cs-botao{
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--e-3);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo); line-height: 1;
+  min-height: 2.75rem; padding: 0 var(--e-7);
+  border: 1px solid transparent; border-radius: var(--r-pilula);
+  background: var(--acao-fundo); color: var(--acao-texto);
+  cursor: pointer; text-decoration: none; white-space: nowrap;
+  box-shadow: var(--sombra-1);
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida),
+              transform var(--d-rapido) var(--ea-saida),
+              box-shadow var(--d-rapido) var(--ea-saida),
+              color var(--d-rapido) var(--ea-saida);
+}
+.cs-botao:hover{ background: var(--acao-fundo-hover); transform: translateY(-1px);
+  box-shadow: var(--sombra-2) }
+.cs-botao:active{ transform: none }
+@media (prefers-reduced-motion: reduce){
+  .cs-botao:hover{ transform: none }
+}
+.cs-botao:active{ background: var(--acao-fundo-ativo) }
+.cs-botao:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-botao:disabled,.cs-botao[aria-disabled="true"]{
+  background: var(--cs-neutro-300); color: var(--cs-neutro-600);
+  cursor: not-allowed;
+}
+
+.cs-botao--ouro{ background: var(--acao-ouro-fundo); color: var(--acao-ouro-texto) }
+.cs-botao--ouro:hover{ background: var(--cs-ouro-400) }
+.cs-botao--ouro:active{ background: var(--cs-ouro-600) }
+
+.cs-botao--contorno{
+  background: transparent; color: var(--txt-forte); border-color: var(--tra-forte);
+  box-shadow: none;
+}
+.cs-botao--contorno:hover{ background: var(--cs-azul-50) }
+.cs-botao--contorno:active{ background: var(--cs-azul-100) }
+
+.cs-botao--fantasma{ background: transparent; color: var(--txt-forte); box-shadow: none }
+.cs-botao--fantasma:hover{ background: var(--cs-azul-50) }
+
+.cs-botao--zap{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-botao--zap:hover{ background: var(--cs-azul-600) }
+
+.cs-botao--g{ min-height: 3.25rem; font-size: var(--fs-corpo-g); padding: 0 var(--e-8) }
+.cs-botao--p{ min-height: 2.25rem; font-size: var(--fs-corpo-p); padding: 0 var(--e-5) }
+.cs-botao--cheio{ width: 100% }
+
+/* --- Botao de icone ---------------------------------- IconButton --- */
+.cs-botao-icone{
+  display: grid; place-items: center;
+  width: 2.75rem; height: 2.75rem; padding: 0;
+  border: 1px solid transparent; border-radius: 50%;
+  background: transparent; color: var(--txt-forte); cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida);
+}
+.cs-botao-icone:hover{ background: var(--cs-azul-50) }
+.cs-botao-icone:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-botao-icone--solido{ background: var(--cs-azul); color: var(--cs-creme) }
+.cs-botao-icone--solido:hover{ background: var(--cs-azul-600) }
+.cs-botao-icone--claro{ background: rgba(243,239,228,.9); color: var(--cs-azul); box-shadow: var(--sombra-1) }
+.cs-botao-icone--claro:hover{ background: var(--cs-creme) }
+.cs-botao-icone--p{ width: 2.25rem; height: 2.25rem }
+
+/* --- Selo de status --------------------------------------- Badge --- */
+/* Pilula so aqui: status e a unica coisa que ganha forma de pilula. */
+.cs-selo{
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: 1;
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  padding: var(--e-2) var(--e-4); border-radius: var(--r-pilula);
+  background: var(--cs-azul-50); color: var(--cs-azul);
+  border: 1px solid transparent; white-space: nowrap;
+}
+/* Sobre foto o selo leva contorno na cor da superficie, senao some. */
+.cs-selo--sobre-foto{
+  background: rgba(22,56,100,.88); color: var(--cs-creme);
+  border-color: rgba(243,239,228,.35);
+}
+.cs-selo--ouro{ background: var(--cs-ouro-100); color: var(--cs-ouro-texto) }
+.cs-selo--novo{ background: var(--est-ok-sup); color: var(--est-ok) }
+.cs-selo--exclusivo{ background: var(--cs-azul); color: var(--cs-ouro) }
+.cs-selo--fechado{ background: var(--cs-neutro-200); color: var(--cs-neutro-700) }
+
+/* --- Pastilha de filtro ------------------------------------- Tag --- */
+.cs-pastilha{
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo-p); line-height: 1;
+  min-height: 2.25rem; padding: 0 var(--e-5);
+  border: 1px solid var(--tra-medio); border-radius: var(--r-pilula);
+  background: transparent; color: var(--txt-corpo); cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-pastilha:hover{ border-color: var(--tra-forte) }
+.cs-pastilha:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-pastilha[aria-pressed="true"]{
+  background: var(--cs-azul); border-color: var(--cs-azul); color: var(--cs-creme);
+}
+.cs-pastilha:disabled{ opacity: .45; cursor: not-allowed }
+.cs-pastilha__conta{
+  font-family: var(--fam-dado); font-size: .75em; font-variant-numeric: tabular-nums;
+  opacity: .7;
+}
+.cs-pastilha__x{ display: grid; place-items: center; width: 1rem; height: 1rem; opacity: .7 }
+
+/* --- Cartao ------------------------------------------------- Card --- */
+.cs-cartao{
+  background: var(--sup-cartao); border: 1px solid var(--tra-sutil);
+  border-radius: var(--r-4); overflow: hidden;
+}
+.cs-cartao--creme{ background: var(--sup-faixa); border-color: transparent }
+.cs-cartao--azul{ background: var(--cs-azul); border-color: transparent; color: var(--cs-creme) }
+.cs-cartao--elevado{ box-shadow: var(--sombra-1); border-color: transparent }
+.cs-cartao__corpo{ padding: var(--e-7) }
+.cs-cartao__pe{
+  padding: var(--e-5) var(--e-7); border-top: 1px solid var(--tra-sutil);
+  display: flex; justify-content: flex-end; gap: var(--e-4);
+}
+
+/* ============================================================ FORMULARIO */
+
+.cs-campo{ display: flex; flex-direction: column; gap: var(--e-2) }
+.cs-campo__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo-p); color: var(--txt-forte);
+}
+.cs-campo__dica{ font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-campo__erro{
+  display: flex; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--est-erro);
+}
+
+.cs-entrada,.cs-selecao,.cs-area{
+  font-family: var(--fam-corpo); font-size: var(--fs-corpo);
+  line-height: 1.4; color: var(--txt-corpo);
+  min-height: 2.75rem; padding: var(--e-3) var(--e-5);
+  background: var(--sup-elevada);
+  border: 1px solid var(--tra-medio); border-radius: var(--r-2);
+  width: 100%;
+  transition: border-color var(--d-rapido) var(--ea-saida),
+              box-shadow var(--d-rapido) var(--ea-saida);
+}
+.cs-area{ min-height: 7rem; resize: vertical }
+.cs-entrada::placeholder,.cs-area::placeholder{ color: var(--cs-neutro-500) }
+.cs-entrada:hover,.cs-selecao:hover,.cs-area:hover{ border-color: var(--tra-forte) }
+.cs-entrada:focus-visible,.cs-selecao:focus-visible,.cs-area:focus-visible{
+  outline: none; border-color: var(--tra-forte);
+  box-shadow: 0 0 0 3px var(--cs-azul-100);
+}
+.cs-entrada:disabled,.cs-selecao:disabled,.cs-area:disabled{
+  background: var(--cs-neutro-100); color: var(--cs-neutro-500); cursor: not-allowed;
+}
+.cs-entrada[aria-invalid="true"],.cs-selecao[aria-invalid="true"]{ border-color: var(--est-erro) }
+.cs-entrada[aria-invalid="true"]:focus-visible{ box-shadow: 0 0 0 3px var(--est-erro-sup) }
+
+.cs-selecao{
+  appearance: none; padding-right: var(--e-10); cursor: pointer;
+  background-image: linear-gradient(45deg,transparent 50%,currentColor 50%),
+                    linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position: calc(100% - 20px) 52%, calc(100% - 14px) 52%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* Entrada com icone dentro */
+.cs-entrada-caixa{ position: relative; display: flex; align-items: center }
+.cs-entrada-caixa .cs-icone{ position: absolute; left: var(--e-5); color: var(--cs-neutro-500) }
+.cs-entrada-caixa .cs-entrada{ padding-left: var(--e-10) }
+
+/* --- Caixa, radio e chave ---------- Checkbox, Radio, Switch --- */
+.cs-caixa,.cs-radio{
+  display: inline-flex; align-items: flex-start; gap: var(--e-3);
+  font-size: var(--fs-corpo); color: var(--txt-corpo); cursor: pointer;
+}
+.cs-caixa input,.cs-radio input{
+  appearance: none; margin: 0; flex: none;
+  width: 1.25rem; height: 1.25rem; margin-top: .18rem;
+  border: 1.5px solid var(--tra-medio); background: var(--sup-elevada);
+  cursor: pointer;
+  transition: background var(--d-rapido) var(--ea-saida),
+              border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-caixa input{ border-radius: var(--r-1) }
+.cs-radio input{ border-radius: 50% }
+.cs-caixa input:hover,.cs-radio input:hover{ border-color: var(--tra-forte) }
+.cs-caixa input:focus-visible,.cs-radio input:focus-visible{
+  outline: 2px solid var(--tra-foco); outline-offset: 2px;
+}
+.cs-caixa input:checked{
+  background: var(--cs-azul); border-color: var(--cs-azul);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F3EFE4' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12.5l5.5 5.5L20 6.5'/%3E%3C/svg%3E");
+  background-size: 78%; background-position: center; background-repeat: no-repeat;
+}
+.cs-radio input:checked{
+  border-color: var(--cs-azul); border-width: 6px;
+}
+.cs-caixa input:disabled,.cs-radio input:disabled{
+  background: var(--cs-neutro-200); border-color: var(--cs-neutro-300); cursor: not-allowed;
+}
+
+.cs-chave{ display: inline-flex; align-items: center; gap: var(--e-4); cursor: pointer }
+.cs-chave input{
+  appearance: none; margin: 0; flex: none; position: relative;
+  width: 2.75rem; height: 1.6rem; border-radius: var(--r-pilula);
+  background: var(--cs-neutro-400); cursor: pointer;
+  transition: background var(--d-padrao) var(--ea-saida);
+}
+.cs-chave input::after{
+  content: ""; position: absolute; top: .2rem; left: .2rem;
+  width: 1.2rem; height: 1.2rem; border-radius: 50%;
+  background: var(--sup-elevada); box-shadow: var(--sombra-1);
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-chave input:checked{ background: var(--cs-azul) }
+.cs-chave input:checked::after{ transform: translateX(1.15rem) }
+.cs-chave input:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* ============================================================ RETORNO */
+
+/* --- Nota informativa -------------------------------- Notice --- */
+.cs-nota{
+  display: flex; gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+  border-radius: var(--r-2);
+  border-left: 3px solid var(--est-info);
+  background: var(--est-info-sup);
+  font-size: var(--fs-corpo-p); color: var(--txt-corpo);
+}
+.cs-nota > .cs-icone{ color: var(--est-info); margin-top: .1rem }
+.cs-nota b{ display: block; color: var(--txt-forte); margin-bottom: var(--e-1) }
+.cs-nota--atencao{ border-left-color: var(--est-atencao); background: var(--est-atencao-sup) }
+.cs-nota--atencao > .cs-icone{ color: var(--est-atencao) }
+.cs-nota--erro{ border-left-color: var(--est-erro); background: var(--est-erro-sup) }
+.cs-nota--erro > .cs-icone{ color: var(--est-erro) }
+.cs-nota--ok{ border-left-color: var(--est-ok); background: var(--est-ok-sup) }
+.cs-nota--ok > .cs-icone{ color: var(--est-ok) }
+
+/* --- Aviso flutuante --------------------------------------- Toast --- */
+.cs-aviso{
+  display: flex; align-items: center; gap: var(--e-4);
+  padding: var(--e-4) var(--e-5);
+  background: var(--cs-azul); color: var(--cs-creme);
+  border-radius: var(--r-3); box-shadow: var(--sombra-3);
+  font-size: var(--fs-corpo-p); max-width: 26rem;
+}
+.cs-aviso .cs-botao-icone{ color: var(--cs-creme); margin-left: auto }
+.cs-aviso .cs-botao-icone:hover{ background: rgba(243,239,228,.15) }
+
+/* --- Dialogo ---------------------------------------------- Dialog --- */
+.cs-dialogo{
+  border: 0; padding: 0; max-width: 34rem; width: calc(100% - var(--e-8));
+  background: var(--sup-elevada); color: var(--txt-corpo);
+  border-radius: var(--r-4); box-shadow: var(--sombra-3);
+}
+.cs-dialogo::backdrop{ background: rgba(11,25,45,.55) }
+.cs-dialogo__cab{
+  display: flex; align-items: flex-start; gap: var(--e-5);
+  padding: var(--e-7) var(--e-7) var(--e-4);
+}
+.cs-dialogo__cab h2{
+  font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+  font-weight: var(--fw-forte); letter-spacing: var(--tr-titulo);
+}
+.cs-dialogo__cab .cs-botao-icone{ margin-left: auto; margin-top: -.4rem }
+.cs-dialogo__corpo{ padding: 0 var(--e-7) var(--e-7); font-size: var(--fs-corpo) }
+/* Rodape alinha a direita. Nunca space-between com um filho so. */
+.cs-dialogo__pe{
+  display: flex; justify-content: flex-end; gap: var(--e-4);
+  padding: var(--e-5) var(--e-7); border-top: 1px solid var(--tra-sutil);
+  background: var(--sup-sutil);
+}
+
+/* --- Dica ------------------------------------------------ Tooltip --- */
+.cs-dica{ position: relative; display: inline-flex }
+.cs-dica__balao{
+  position: absolute; bottom: calc(100% + var(--e-3)); left: 50%;
+  transform: translateX(-50%);
+  background: var(--cs-grafite); color: var(--cs-neutro-50);
+  font-size: var(--fs-corpo-p); line-height: 1.35;
+  padding: var(--e-3) var(--e-4); border-radius: var(--r-2);
+  width: max-content; max-width: 16rem; z-index: 20;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--d-rapido) var(--ea-saida),
+              visibility var(--d-rapido) var(--ea-saida);
+}
+.cs-dica:hover .cs-dica__balao,
+.cs-dica:focus-within .cs-dica__balao{ opacity: 1; visibility: visible }
+
+/* ============================================================ NAVEGACAO */
+
+/* --- Trilha ------------------------------------------- Breadcrumb --- */
+.cs-trilha{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-trilha a{ color: var(--txt-suave); text-decoration: none }
+.cs-trilha a:hover{ color: var(--txt-forte); text-decoration: underline }
+.cs-trilha [aria-current="page"]{ color: var(--txt-forte); font-weight: var(--fw-forte) }
+.cs-trilha .cs-icone{ width: .9em; height: .9em; opacity: .55 }
+
+/* --- Abas ---------------------------------------------------- Tabs --- */
+.cs-abas{ display: flex; gap: var(--e-7); border-bottom: 1px solid var(--tra-sutil) }
+.cs-abas__item{
+  appearance: none; background: none; border: 0; cursor: pointer;
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-corpo); color: var(--txt-suave);
+  padding: var(--e-4) 0; position: relative;
+  transition: color var(--d-rapido) var(--ea-saida);
+}
+.cs-abas__item::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+  background: var(--cs-ouro); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-abas__item:hover{ color: var(--txt-forte) }
+.cs-abas__item[aria-selected="true"]{ color: var(--txt-forte) }
+.cs-abas__item[aria-selected="true"]::after{ transform: scaleX(1) }
+.cs-abas__item:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Paginacao ---------------------------------------- Pagination --- */
+.cs-paginacao{ display: flex; align-items: center; gap: var(--e-2) }
+.cs-paginacao__item{
+  display: grid; place-items: center; min-width: 2.5rem; height: 2.5rem;
+  border-radius: var(--r-2); border: 1px solid transparent;
+  background: transparent; color: var(--txt-corpo); cursor: pointer;
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums; text-decoration: none;
+}
+.cs-paginacao__item:hover{ background: var(--cs-azul-50) }
+.cs-paginacao__item[aria-current="page"]{
+  background: var(--cs-azul); color: var(--cs-creme);
+}
+.cs-paginacao__item:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Sanfona ------------------------------------------- Accordion --- */
+.cs-sanfona{ border-top: 1px solid var(--tra-sutil) }
+.cs-sanfona__item{ border-bottom: 1px solid var(--tra-sutil) }
+.cs-sanfona__item > summary{
+  display: flex; align-items: center; gap: var(--e-5);
+  padding: var(--e-6) 0; cursor: pointer; list-style: none;
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2);
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte);
+}
+.cs-sanfona__item > summary::-webkit-details-marker{ display: none }
+.cs-sanfona__item > summary:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+.cs-sanfona__item > summary .cs-icone{
+  margin-left: auto; color: var(--cs-ouro-texto);
+  transition: transform var(--d-padrao) var(--ea-firme);
+}
+.cs-sanfona__item[open] > summary .cs-icone{ transform: rotate(180deg) }
+.cs-sanfona__corpo{ padding: 0 0 var(--e-7); font-size: var(--fs-corpo); color: var(--txt-corpo) }
+
+/* ============================================================ IMOVEIS */
+
+/* --- Foto ------------------------------------------------- Photo --- */
+/* Proporcao fixa para a grade nao pular quando a foto carrega.
+   A primeira foto da pagina nao leva loading="lazy": ela e o LCP. */
+.cs-foto{
+  display: block; width: 100%; aspect-ratio: 4 / 3;
+  object-fit: cover; background: var(--cs-neutro-200);
+  border-radius: var(--r-4);
+}
+.cs-foto--larga{ aspect-ratio: 16 / 9 }
+.cs-foto--quadrada{ aspect-ratio: 1 / 1 }
+.cs-foto--reta{ border-radius: 0 }
+
+/* --- Titulo de secao ------------------------------ SectionHeading --- */
+.cs-titulo-secao{ display: flex; flex-direction: column; gap: var(--e-3); margin-bottom: var(--e-8) }
+.cs-titulo-secao__linha{ display: flex; align-items: flex-end; gap: var(--e-5); flex-wrap: wrap }
+.cs-titulo-secao h2{ margin: 0 }
+.cs-titulo-secao__acao{ margin-left: auto }
+.cs-titulo-secao p{ font-size: var(--fs-corpo-g); color: var(--txt-suave) }
+.cs-titulo-secao::after{
+  content: ""; display: block; width: 3.5rem; height: 2px; background: var(--cs-ouro);
+}
+
+/* --- Citacao ----------------------------------------------- Quote --- */
+.cs-citacao{
+  display: flex; flex-direction: column; gap: var(--e-5);
+  padding-left: var(--e-7); border-left: 2px solid var(--cs-ouro);
+}
+.cs-citacao blockquote{
+  margin: 0; font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-1); line-height: 1.35;
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte);
+}
+.cs-citacao figcaption{ font-size: var(--fs-corpo-p); color: var(--txt-suave) }
+.cs-citacao figcaption b{ color: var(--txt-corpo) }
+
+/* --- Bloco de preco ---------------------------------- PriceBlock --- */
+/* Preco grande, e junto dele o que decide se a parcela cabe:
+   condominio e IPTU. Campo sem informacao recebe traco, nunca exemplo. */
+.cs-preco{ display: flex; flex-direction: column; gap: var(--e-3) }
+.cs-preco__valor{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-display-3); line-height: 1;
+  letter-spacing: var(--tr-display); color: var(--txt-forte);
+  font-variant-numeric: tabular-nums;
+}
+.cs-preco__extras{ display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-6) }
+.cs-preco__extra{ display: flex; align-items: baseline; gap: var(--e-2); font-size: var(--fs-corpo-p) }
+.cs-preco__extra dt{ color: var(--txt-suave) }
+.cs-preco__extra dd{
+  margin: 0; font-family: var(--fam-dado); font-variant-numeric: tabular-nums;
+  color: var(--txt-corpo);
+}
+
+/* --- Grade da ficha ------------------------------------ SpecGrid --- */
+/* Rotulo em cima, valor embaixo. Numero em tabular para as colunas alinharem. */
+.cs-ficha{
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,8rem),1fr));
+  gap: var(--e-7) var(--e-6);
+}
+.cs-ficha__item{ display: flex; flex-direction: column; gap: var(--e-1); min-width: 0 }
+.cs-ficha__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-ficha__valor{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-ficha__valor--vazio{ color: var(--cs-neutro-500) }
+
+/* --- Cartao de imovel ------------------------------ PropertyCard --- */
+.cs-imovel{
+  display: flex; flex-direction: column;
+  background: var(--sup-cartao); border: 1px solid var(--tra-sutil);
+  border-radius: var(--r-4); overflow: hidden; position: relative;
+  transition: box-shadow var(--d-padrao) var(--ea-saida),
+              transform var(--d-padrao) var(--ea-saida),
+              border-color var(--d-padrao) var(--ea-saida);
+}
+.cs-imovel:hover{
+  box-shadow: var(--sombra-3); border-color: transparent; transform: translateY(-6px);
+}
+@media (prefers-reduced-motion: reduce){
+  .cs-imovel:hover{ transform: none }
+}
+.cs-imovel:focus-within{ box-shadow: var(--sombra-2) }
+.cs-imovel__midia{ position: relative; overflow: hidden }
+.cs-imovel__midia .cs-foto{ border-radius: 0; transition: transform var(--d-lento) var(--ea-saida) }
+.cs-imovel:hover .cs-imovel__midia .cs-foto{ transform: scale(1.03) }
+.cs-imovel__selos{ position: absolute; top: var(--e-4); left: var(--e-4);
+  display: flex; flex-wrap: wrap; gap: var(--e-2) }
+.cs-imovel__favorito{ position: absolute; top: var(--e-3); right: var(--e-3) }
+.cs-imovel__corpo{ display: flex; flex-direction: column; gap: var(--e-4);
+  padding: var(--e-6); flex: 1 }
+.cs-imovel__bairro{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-ouro);
+}
+.cs-imovel__titulo{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2);
+  letter-spacing: var(--tr-titulo); color: var(--txt-forte); margin: 0;
+}
+/* O link cobre o cartao inteiro, mas o botao de acao fica por cima dele. */
+.cs-imovel__link::after{ content: ""; position: absolute; inset: 0 }
+.cs-imovel__link{ color: inherit; text-decoration: none }
+.cs-imovel__link:focus-visible{ outline: none }
+.cs-imovel__atributos{
+  display: flex; flex-wrap: wrap; gap: var(--e-3) var(--e-5);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave); margin-top: auto;
+}
+.cs-imovel__atributo{ display: inline-flex; align-items: center; gap: var(--e-2) }
+.cs-imovel__atributo b{
+  font-family: var(--fam-dado); font-weight: 500; color: var(--txt-corpo);
+  font-variant-numeric: tabular-nums;
+}
+.cs-imovel__pe{
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e-4);
+  padding: var(--e-5) var(--e-6); border-top: 1px solid var(--tra-sutil);
+  position: relative; z-index: 1;
+}
+.cs-imovel__codigo{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  color: var(--txt-suave); font-variant-numeric: tabular-nums;
+}
+
+/* --- Barra de filtro ----------------------------------- FilterBar --- */
+/* Horizontal, no topo. Coluna lateral aperta a listagem e a foto e o que vende. */
+.cs-filtros{
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3);
+  padding: var(--e-5) 0; border-bottom: 1px solid var(--tra-sutil);
+}
+.cs-filtros__grupo{ display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3) }
+.cs-filtros__rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave); margin-right: var(--e-2);
+}
+.cs-filtros__fim{ margin-left: auto; display: flex; align-items: center; gap: var(--e-4) }
+.cs-filtros__resultado{
+  font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+.cs-filtros__resultado b{
+  font-family: var(--fam-dado); color: var(--txt-forte); font-variant-numeric: tabular-nums;
+}
+
+/* --- Galeria --------------------------------------------- Gallery --- */
+.cs-galeria{ display: flex; flex-direction: column; gap: var(--e-4) }
+.cs-galeria__palco{ position: relative; border-radius: var(--r-4); overflow: hidden }
+.cs-galeria__palco .cs-foto{ aspect-ratio: 3 / 2; border-radius: 0 }
+.cs-galeria__nav{
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: space-between; padding: var(--e-4); pointer-events: none;
+}
+.cs-galeria__nav .cs-botao-icone{ pointer-events: auto }
+.cs-galeria__conta{
+  position: absolute; right: var(--e-4); bottom: var(--e-4);
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums;
+  background: rgba(22,56,100,.88); color: var(--cs-creme);
+  padding: var(--e-2) var(--e-4); border-radius: var(--r-pilula);
+}
+.cs-galeria__tiras{
+  display: flex; gap: var(--e-3); overflow-x: auto; padding-bottom: var(--e-2);
+  scrollbar-width: thin;
+}
+.cs-galeria__tira{
+  flex: none; width: 6.5rem; padding: 0; border: 2px solid transparent;
+  border-radius: var(--r-2); overflow: hidden; cursor: pointer; background: none;
+  transition: border-color var(--d-rapido) var(--ea-saida);
+}
+.cs-galeria__tira .cs-foto{ border-radius: 0; aspect-ratio: 4 / 3 }
+.cs-galeria__tira[aria-current="true"]{ border-color: var(--cs-ouro) }
+.cs-galeria__tira:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* --- Acao de WhatsApp -------------------------------- WhatsAppAction --- */
+/* A mensagem ja vai preenchida com o codigo do imovel. Sem isso a
+   corretora precisa perguntar de qual imovel se trata, e a resposta atrasa. */
+.cs-zap{ display: flex; flex-direction: column; gap: var(--e-3) }
+.cs-zap__aviso{
+  display: flex; align-items: center; gap: var(--e-2);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+.cs-zap__ponto{
+  width: .5rem; height: .5rem; border-radius: 50%; background: var(--est-ok); flex: none;
+}
+
+/* --- Barra fixa ------------------------------------------ StickyBar --- */
+.cs-barra-fixa{
+  position: sticky; bottom: 0; z-index: 30;
+  display: flex; align-items: center; gap: var(--e-5);
+  padding: var(--e-4) var(--e-6);
+  background: var(--sup-elevada); border-top: 1px solid var(--tra-sutil);
+  box-shadow: var(--sombra-3);
+  padding-bottom: calc(var(--e-4) + env(safe-area-inset-bottom, 0px));
+}
+.cs-barra-fixa__preco{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-titulo-2); color: var(--txt-forte);
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.cs-barra-fixa__rotulo{
+  display: block; font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-barra-fixa .cs-botao{ margin-left: auto }
+
+/* --- Simulador de custos --------------------------- CostSimulator --- */
+.cs-simulador{ display: flex; flex-direction: column; gap: var(--e-6) }
+.cs-simulador__linhas{ display: flex; flex-direction: column; gap: var(--e-1) }
+.cs-simulador__linha{
+  display: flex; align-items: baseline; gap: var(--e-4);
+  padding: var(--e-4) 0; border-bottom: 1px solid var(--tra-sutil);
+}
+.cs-simulador__linha dt{ color: var(--txt-corpo) }
+.cs-simulador__linha dd{
+  margin: 0 0 0 auto; font-family: var(--fam-dado);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-simulador__total{
+  display: flex; align-items: baseline; gap: var(--e-4);
+  padding-top: var(--e-5); border-top: 2px solid var(--tra-forte);
+}
+.cs-simulador__total dt{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: var(--fs-titulo-2); color: var(--txt-forte);
+}
+.cs-simulador__total dd{
+  margin: 0 0 0 auto; font-family: var(--fam-dado); font-size: var(--fs-titulo-2);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-simulador__conferido{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p); color: var(--txt-suave);
+}
+
+/* --- Etapas ------------------------------------------------- Steps --- */
+.cs-etapas{ display: flex; flex-direction: column; gap: 0; list-style: none; margin: 0; padding: 0 }
+.cs-etapa{ display: grid; grid-template-columns: 3rem 1fr; gap: var(--e-6); position: relative }
+.cs-etapa::before{
+  content: ""; position: absolute; left: 1.5rem; top: 3rem; bottom: -.5rem;
+  width: 1px; background: var(--tra-sutil);
+}
+.cs-etapa:last-child::before{ display: none }
+.cs-etapa__numero{
+  display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--cs-azul); color: var(--cs-creme);
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; z-index: 1;
+}
+.cs-etapa__corpo{ padding-bottom: var(--e-9) }
+.cs-etapa__corpo h3{ margin-bottom: var(--e-2) }
+.cs-etapa__corpo p{ color: var(--txt-suave) }
+
+/* --- Registro profissional --------------------------- Credential --- */
+.cs-registro{
+  display: inline-flex; align-items: center; gap: var(--e-4);
+  padding: var(--e-4) var(--e-5);
+  border: 1px solid var(--tra-sutil); border-radius: var(--r-2);
+  background: var(--sup-sutil);
+}
+.cs-registro__rotulo{
+  display: block; font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); letter-spacing: var(--tr-rotulo);
+  text-transform: uppercase; color: var(--txt-suave);
+}
+.cs-registro__numero{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo);
+  font-variant-numeric: tabular-nums; color: var(--txt-forte);
+}
+.cs-registro__numero--vazio{ color: var(--cs-neutro-500) }
+
+/* --- Cartao de bairro --------------------------- NeighborhoodCard --- */
+.cs-bairro{
+  position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 16rem; padding: var(--e-7);
+  border-radius: var(--r-4); overflow: hidden; isolation: isolate;
+  color: var(--cs-creme); text-decoration: none;
+}
+.cs-bairro .cs-foto{
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  border-radius: 0; z-index: -2;
+  transition: transform var(--d-lento) var(--ea-saida);
+}
+.cs-bairro::after{
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(11,25,45,.88) 0%, rgba(11,25,45,.28) 55%, rgba(11,25,45,.12) 100%);
+}
+.cs-bairro:hover .cs-foto{ transform: scale(1.05) }
+.cs-bairro:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 3px }
+/* `color` explicito: o nome e um h3, e a regra de h3 em base.css pinta com a
+   cor de texto forte. Sobre a cortina escura do cartao isso da azul sobre
+   azul, que foi exatamente como o defeito apareceu. */
+.cs-bairro__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: var(--fs-display-3); line-height: 1.05;
+  letter-spacing: var(--tr-display); margin: 0; color: var(--cs-creme);
+}
+.cs-bairro__conta{
+  font-family: var(--fam-dado); font-size: var(--fs-corpo-p);
+  font-variant-numeric: tabular-nums; color: var(--cs-ouro); margin-top: var(--e-2);
+}
+
+/* --- Mapa estatico -------------------------------------- StaticMap --- */
+.cs-mapa{
+  position: relative; border-radius: var(--r-4); overflow: hidden;
+  border: 1px solid var(--tra-sutil);
+}
+.cs-mapa img{ display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover }
+.cs-mapa__pino{
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-100%);
+  color: var(--cs-azul);
+}
+.cs-mapa__pe{
+  display: flex; align-items: center; gap: var(--e-3);
+  padding: var(--e-4) var(--e-5); border-top: 1px solid var(--tra-sutil);
+  font-size: var(--fs-corpo-p); color: var(--txt-suave); background: var(--sup-sutil);
+}
+
+/* --- Estado vazio ------------------------------------- EmptyState --- */
+.cs-vazio{
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--e-5); padding: var(--e-12) var(--e-7);
+  border: 1px dashed var(--tra-medio); border-radius: var(--r-4);
+}
+.cs-vazio h3{ margin: 0 }
+.cs-vazio p{ color: var(--txt-suave); max-width: 34ch }
+.cs-vazio__acoes{ display: flex; flex-wrap: wrap; gap: var(--e-4); justify-content: center }
+
+/* --- Cena em tres dimensoes ------------------------------- Scene3D --- */
+/* A imagem de reserva ja esta no lugar antes do modulo carregar, e ela e
+   o LCP. A tela so aparece quando a cena esta pronta. */
+.cs-cena{
+  position: relative; border-radius: var(--r-4); overflow: hidden;
+  background: var(--cs-azul); aspect-ratio: 16 / 9;
+}
+.cs-cena__reserva{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: opacity var(--d-cena) var(--ea-saida);
+}
+.cs-cena[data-pronta="true"] .cs-cena__reserva{ opacity: 0 }
+.cs-cena canvas{ position: absolute; inset: 0; width: 100%; height: 100% }
+@media (prefers-reduced-motion: reduce){
+  .cs-cena canvas{ display: none }
+  .cs-cena[data-pronta="true"] .cs-cena__reserva{ opacity: 1 }
+}
+
+/* --- Revelar --------------------------------------------- Reveal --- */
+/* A entrada e feita por TRANSICAO de CSS, marcada por IntersectionObserver.
+   Nao depende de ticker de animacao: em aba oculta, pre-render ou aparelho
+   travado o observador ainda dispara e o conteudo aparece.
+   Sem JavaScript a classe `js` nunca entra e nada fica escondido. */
+.cs-revelar{ opacity: 1; transform: none }
+@media (prefers-reduced-motion: no-preference){
+  .js[data-anima="1"] .cs-revelar{
+    opacity: 0; transform: translateY(1.125rem);
+    transition: opacity var(--d-lento) var(--ea-saida),
+                transform var(--d-lento) var(--ea-saida);
+  }
+  .js[data-anima="1"] .cs-revelar[data-visivel="1"]{ opacity: 1; transform: none }
+}
+
+/* --- Vidro --------------------------------------------- Glass --- */
+/* Painel de vidro tem QUATRO partes, e faltando uma ele vira caixa cinza:
+   1. desfoque COM saturacao (sem saturar, a cor de tras sai lavada);
+   2. traco de 1px na borda, que e o corte do vidro;
+   3. realce interno no topo, que e a luz batendo na quina;
+   4. sombra longa, que e o que faz flutuar.
+
+   Qual das tres receitas usar depende do que esta ATRAS, nao do gosto:
+   `.cs-vidro` sobre cena escura, `.cs-vidro-claro` sobre o off-white,
+   `.cs-vidro-tinta` sobre imagem. Sobre cor chapada nao use vidro: nao ha
+   o que refratar e o resultado e so uma caixa mais clara. */
+.cs-vidro,.cs-vidro-claro,.cs-vidro-tinta{
+  border-radius: var(--r-5);
+  -webkit-backdrop-filter: blur(var(--vidro-desfoque)) saturate(var(--vidro-saturacao));
+  backdrop-filter: blur(var(--vidro-desfoque)) saturate(var(--vidro-saturacao));
+}
+.cs-vidro{
+  background: var(--vidro-fundo); border: 1px solid var(--vidro-traco);
+  color: var(--cs-creme);
+  box-shadow: inset 0 1px 0 var(--vidro-realce), var(--sombra-vidro);
+}
+.cs-vidro-claro{
+  background: var(--vidro-claro-fundo); border: 1px solid var(--vidro-claro-traco);
+  box-shadow: inset 0 1px 0 var(--vidro-claro-realce), var(--sombra-2);
+}
+.cs-vidro-tinta{
+  background: var(--vidro-tinta-fundo); border: 1px solid var(--vidro-tinta-traco);
+  color: var(--cs-creme);
+  box-shadow: inset 0 1px 0 var(--vidro-tinta-realce), var(--sombra-2);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+/* Sem suporte a desfoque o painel fica OPACO: legibilidade primeiro. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .cs-vidro{ background: rgba(6,22,45,.86) }
+  .cs-vidro-claro{ background: var(--sup-elevada) }
+  .cs-vidro-tinta{ background: rgba(6,20,40,.86) }
+}
+.cs-vidro--pilula,.cs-vidro-claro--pilula,.cs-vidro-tinta--pilula{
+  border-radius: var(--r-pilula);
+}
+
+/* --- so desta guideline --- */
+.pg{max-width:var(--lar-largo);margin:0 auto;padding:0 var(--e-6) var(--e-14)}
+.topo{display:flex;gap:var(--e-6);align-items:center;padding:var(--e-11) 0 var(--e-6)}
+.topo > svg{width:56px;height:auto;flex:none}
+.marca-56 svg{width:56px;height:auto}
+.doc{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-8);border-top:2px solid var(--tra-forte);
+  border-bottom:1px solid var(--tra-sutil);padding:var(--e-4) 0;margin-bottom:var(--e-11)}
+.doc div{display:flex;gap:var(--e-3);align-items:baseline}
+.doc dt{font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);
+  letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--txt-suave)}
+.doc dd{margin:0;font-size:var(--fs-corpo-p);font-weight:var(--fw-forte);color:var(--txt-corpo)}
+h1{font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-1);
+  line-height:var(--lh-display-1);letter-spacing:var(--tr-display);max-width:20ch;margin-bottom:var(--e-5)}
+.abre{font-size:var(--fs-corpo-g);line-height:var(--lh-corpo-g);color:var(--txt-corpo);max-width:64ch}
+.abre + .abre{margin-top:var(--e-4)}
+.abre b{font-weight:var(--fw-forte);color:var(--txt-forte)}
+section{margin-top:var(--resp-secao)}
+h2{margin-bottom:var(--e-2)}
+.nota{font-size:var(--fs-corpo-p);color:var(--txt-suave);margin:0 0 var(--e-8);
+  padding-bottom:var(--e-5);border-bottom:1px solid var(--tra-sutil)}
+.peca{margin-bottom:var(--e-12)}
+.peca__cab{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--e-4);margin-bottom:var(--e-2)}
+.peca__cab h3{margin:0}
+.peca__cab code{font-family:var(--fam-dado);font-size:var(--fs-corpo-p);color:var(--txt-ouro)}
+.peca__regra{font-size:var(--fs-corpo-p);color:var(--txt-suave);max-width:68ch;margin-bottom:var(--e-6)}
+.peca__regra code{font-family:var(--fam-dado);font-size:.9em;background:var(--sup-faixa);
+  padding:.05rem .3rem;border-radius:var(--r-1);color:var(--txt-forte)}
+.peca__palco{background:var(--sup-base);border:1px solid var(--tra-sutil);border-radius:var(--r-4);
+  padding:var(--e-8)}
+.fila{display:flex;flex-wrap:wrap;gap:var(--e-4);align-items:center}
+.fila + .fila{margin-top:var(--e-5)}
+.fila--icones{gap:var(--e-6);color:var(--txt-forte)}
+.fila--marca{gap:calc(56px * var(--marca-gap-horizontal))}
+.coluna{display:flex;flex-direction:column;gap:var(--e-4)}
+.dois{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--e-6)}
+.tres{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--e-6)}
+.palco-foto{background:linear-gradient(120deg,#2A5688,#0F2A4C);padding:var(--e-6);border-radius:var(--r-3);
+  margin-top:var(--e-5)}
+.cs-dialogo--estatico{display:block;position:static;width:100%;max-width:34rem}
+.foto-exemplo{
+  background:
+    linear-gradient(180deg, rgba(11,25,45,.10), rgba(11,25,45,.34)),
+    repeating-linear-gradient(90deg,#3E6EA0 0 14px,#33608F 14px 28px),
+    linear-gradient(160deg,#5183B7,#1E4372);
+}
+.mapa-exemplo{width:100%;aspect-ratio:16/9;
+  background:
+    repeating-linear-gradient(0deg,rgba(22,56,100,.14) 0 1px,transparent 1px 34px),
+    repeating-linear-gradient(90deg,rgba(22,56,100,.14) 0 1px,transparent 1px 34px),
+    linear-gradient(150deg,#EEF4FC,#DCE7F4);
+}
+.cena-exemplo{
+  background:
+    radial-gradient(circle at 50% 62%, rgba(201,162,76,.34), rgba(201,162,76,0) 58%),
+    radial-gradient(ellipse 60% 40% at 30% 82%, #23507F, transparent 70%),
+    radial-gradient(ellipse 50% 34% at 72% 88%, #1B4370, transparent 70%),
+    linear-gradient(170deg,#0C2647,#163864);
+}
+.cena-rotulo{position:absolute;left:var(--e-7);bottom:var(--e-7);
+  font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);
+  letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--cs-ouro)}
+.pe{margin-top:var(--e-14);padding-top:var(--e-8);border-top:2px solid var(--tra-forte);
+  display:flex;gap:var(--e-5);align-items:center}
+.pe svg{width:34px;height:auto}
+.pe p{font-size:var(--fs-corpo-p);color:var(--txt-suave);max-width:56ch}
+</style>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+<defs>
+  <style>
+    symbol.ic > *{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+</defs>
+
+<symbol id="ic-seta-direita" class="ic" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+<symbol id="ic-seta-esquerda" class="ic" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></symbol>
+<symbol id="ic-chevron-baixo" class="ic" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+<symbol id="ic-chevron-direita" class="ic" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+<symbol id="ic-fechar" class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+<symbol id="ic-mais" class="ic" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+<symbol id="ic-menos" class="ic" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="ic-check" class="ic" viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 6.5"/></symbol>
+<symbol id="ic-lupa" class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8L20.5 20.5"/></symbol>
+<symbol id="ic-filtro" class="ic" viewBox="0 0 24 24"><path d="M4 6.5h16"/><path d="M7 12h10"/><path d="M10 17.5h4"/></symbol>
+<symbol id="ic-mapa" class="ic" viewBox="0 0 24 24"><path d="M12 21c0 0 7-6.3 7-11a7 7 0 10-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="ic-quarto" class="ic" viewBox="0 0 24 24"><path d="M3 17.5v-4a2 2 0 012-2h14a2 2 0 012 2v4"/><path d="M3 17.5h18"/><path d="M7 11.5V8.5a1 1 0 011-1h3.5v4"/></symbol>
+<symbol id="ic-banho" class="ic" viewBox="0 0 24 24"><path d="M12 3.2c0 0 5.2 5.7 5.2 9.3a5.2 5.2 0 11-10.4 0C6.8 8.9 12 3.2 12 3.2z"/></symbol>
+<symbol id="ic-vaga" class="ic" viewBox="0 0 24 24"><path d="M4.2 16l1.6-5.6A2 2 0 017.7 9h8.6a2 2 0 011.9 1.4L19.8 16"/><path d="M4.2 16h15.6v2.2H4.2z"/><path d="M7 18.2v1.6"/><path d="M17 18.2v1.6"/></symbol>
+<symbol id="ic-area" class="ic" viewBox="0 0 24 24"><path d="M4 4.5h15.5V20H4z"/><path d="M8 16l8-8"/><path d="M11.5 8h4.5v4.5"/></symbol>
+<symbol id="ic-chave" class="ic" viewBox="0 0 24 24"><circle cx="8.5" cy="8.5" r="4.5"/><path d="M11.8 11.8L20.5 20.5"/><path d="M16.6 16.6l2.1-2.1"/></symbol>
+<symbol id="ic-casa" class="ic" viewBox="0 0 24 24"><path d="M3.5 11L12 3.6 20.5 11"/><path d="M5.8 9.9V20.4h12.4V9.9"/><path d="M10 20.4v-5.6h4v5.6"/></symbol>
+<symbol id="ic-whatsapp" class="ic" viewBox="0 0 24 24"><path d="M20.8 11.6a8.4 8.4 0 01-12.4 7.3L3.9 20.2l1.3-4.6A8.4 8.4 0 1120.8 11.6z"/><path d="M9.2 9.6c.5 2.5 2.2 4.2 4.7 4.7l1-1.2 2 .9v1.5h-1.3c-3.6-.4-6.4-3.2-6.8-6.8V7.5h1.5l.9 2.1z"/></symbol>
+<symbol id="ic-telefone" class="ic" viewBox="0 0 24 24"><path d="M6.6 3.6h3l1.5 3.9-2 1.5a11 11 0 005.9 5.9l1.5-2 3.9 1.5v3a2 2 0 01-2.2 2A16.8 16.8 0 014.6 5.8 2 2 0 016.6 3.6z"/></symbol>
+<symbol id="ic-email" class="ic" viewBox="0 0 24 24"><path d="M3.5 6h17v12h-17z"/><path d="M3.5 6.4L12 13.2l8.5-6.8"/></symbol>
+<symbol id="ic-instagram" class="ic" viewBox="0 0 24 24"><path d="M8 3.6h8a4.4 4.4 0 014.4 4.4v8a4.4 4.4 0 01-4.4 4.4H8A4.4 4.4 0 013.6 16V8A4.4 4.4 0 018 3.6z"/><circle cx="12" cy="12" r="3.7"/><circle cx="16.9" cy="7.1" r="1"/></symbol>
+<symbol id="ic-documento" class="ic" viewBox="0 0 24 24"><path d="M6 3.5h7.5L18 8v12.5H6z"/><path d="M13.5 3.5V8H18"/><path d="M9 13h6"/><path d="M9 16.5h4"/></symbol>
+<symbol id="ic-balanca" class="ic" viewBox="0 0 24 24"><path d="M12 4.2v15.6"/><path d="M6.5 19.8h11"/><path d="M4 8.2h16"/><path d="M4 8.2L1.8 13a2.4 2.4 0 004.4 0z"/><path d="M20 8.2L17.8 13a2.4 2.4 0 004.4 0z"/></symbol>
+<symbol id="ic-escudo" class="ic" viewBox="0 0 24 24"><path d="M12 3.4l7.6 2.8v5.7c0 4.8-3.8 7.6-7.6 8.7-3.8-1.1-7.6-3.9-7.6-8.7V6.2z"/><path d="M9 12l2.2 2.2L15.4 10"/></symbol>
+<symbol id="ic-alerta" class="ic" viewBox="0 0 24 24"><path d="M12 3.8l8.8 15.4H3.2z"/><path d="M12 9.4v4.4"/><path d="M12 16.6v.1"/></symbol>
+<symbol id="ic-info" class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 11v5.6"/><path d="M12 7.9v.1"/></symbol>
+<symbol id="ic-calendario" class="ic" viewBox="0 0 24 24"><path d="M4 6h16v14.4H4z"/><path d="M8.2 3.6v4"/><path d="M15.8 3.6v4"/><path d="M4 10.6h16"/></symbol>
+<symbol id="ic-expandir" class="ic" viewBox="0 0 24 24"><path d="M4.2 10V4.2h5.8"/><path d="M19.8 14v5.8H14"/><path d="M4.2 4.2l6 6"/><path d="M19.8 19.8l-6-6"/></symbol>
+</svg>
+
+
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="marca" viewBox="0 0 142.267 143.163">
+<path class="cs-navy" fill="var(--cs-azul)" d="M36.687 88.679L36.677 136.383L61.781 136.388L61.791 88.684L36.687 88.679M6.728 136.371L33.729 136.359L33.69 85.787L64.703 85.769L64.69 136.343L74.368 136.365L74.387 143.149L0.029 143.145L0 49.334L7.961 41.187L11.64 37.503L34.783 14.127L48.753 0L69.477 20.934L75.021 26.669L75.016 36.622L71.446 33.016L58.52 19.878L48.612 9.791L43.937 14.577L29.188 29.563L8.406 50.548L6.722 52.568L6.728 136.371Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M57.819 117.764L53.978 117.807L54.773 113.389C53.319 112.602 52.915 110.92 53.839 109.666C54.795 108.368 56.492 108.273 57.618 109.372C58.797 110.523 58.57 112.45 57.037 113.375L57.819 117.764Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M60.37 64.447C60 65.129 59.228 65.367 58.541 65.362L50.68 65.309L50.624 55.708L59.364 55.685C59.88 55.684 60.28 56.135 60.305 56.626L60.37 64.447Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.821 60.549C48.012 62.198 48.113 63.645 47.804 65.335L38.293 65.232C38.748 64.893 38.849 64.547 38.915 64.086C39.007 63.445 38.533 63.097 38.02 62.741L38.112 56.873L38.715 56.355C38.794 56.286 38.43 56.084 38.298 55.721L47.572 55.788C48.138 56.19 48.107 57.678 47.796 58.148C47.581 58.408 47.224 58.272 47.256 58.165C47.295 58.029 47.403 57.631 47.092 57.464L47.311 62.109C47.317 62.238 47.457 62.298 47.548 62.236C47.688 61.801 47.233 61.179 47.821 60.549Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M59.474 53.009L50.756 53.08L50.648 43.732L58.457 43.658C58.796 43.655 59.209 43.373 59.436 43.433C59.818 43.534 60.164 43.792 60.332 44.274L60.267 52.673C59.867 52.64 59.763 52.274 59.658 52.286C59.518 52.301 59.491 52.776 59.474 53.009Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.707 53.049L39.939 53.004C39.417 53.001 38.822 52.172 38.042 52.788L38.003 47.612C38.001 47.305 38.54 46.967 38.783 46.766L38.277 43.717L47.85 43.723C48.015 46.131 48.31 48.379 47.246 48.335C47.12 48.329 46.503 51.087 47.707 53.049Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 55.155H48.392V65.901H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 43.01H48.392V53.756H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 43.01H61.228V53.756H50.482Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 55.155H61.228V65.901H50.482Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.972 78.306L91.745 82.646L102.076 92.357L102.075 101.981L89.398 90.327L84.588 85.856L80.289 81.616L80.312 30.84L142.24 30.828L142.267 65.521L135.556 65.62L135.561 37.566L86.956 37.55L86.972 78.306Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.933 117.446L86.956 136.368L135.544 136.35L135.527 99.859L120.396 86.16L120.306 80.808L122.895 79.256L137.602 92.589L142.255 97.052L142.254 143.155L80.302 143.163L80.304 117.477L86.933 117.446Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M108.915 73.093C107.984 75.354 108.264 76.909 109.674 78.007C110.838 78.912 112.717 78.761 113.683 77.205C114.401 76.049 114.081 74.771 113.825 73.023C116.071 73.936 117.599 73.57 118.5 72.464C119.662 71.04 119.32 69.225 117.926 68.25C116.773 67.444 115.493 67.577 113.55 68.216C114.539 66.146 114.294 64.578 113.205 63.469C111.998 62.239 109.977 62.542 109.087 63.664C108.072 64.943 108.157 66.458 109.079 68.102C106.029 67.144 103.584 68.072 103.33 70.13C103.135 71.708 104.039 72.682 105.118 73.223C106.321 73.827 107.415 73.388 108.915 73.093M118.114 107.142C116.928 107.23 116.548 107.504 116.426 108.093C116.219 109.094 116.698 109.624 117.9 109.434C118.596 109.324 118.749 110.798 118.214 110.872C116.896 111.054 114.845 110.283 113.446 111.269C112.392 112.012 110.426 112.681 109.261 111.621L109.179 83.725L107.845 81.601C108.223 80.207 107.314 77.768 106.043 77.801C105.384 77.84 103.871 79.065 103.357 77.814L104.24 75.378C102.277 74.446 101.162 72.745 101.138 70.868C101.11 68.679 102.05 66.817 104.379 65.771C103.96 65.032 103.131 63.786 103.627 62.984C104.016 62.355 105.724 63.097 106.23 63.878C107.486 61.82 108.924 60.624 110.846 60.532C113.082 60.425 115.048 61.404 116.008 63.721C116.942 63.278 117.72 62.816 118.978 62.792L118.399 65.817C120.241 67.006 121.349 68.537 121.415 70.41C121.489 72.511 120.368 74.265 118.352 75.372L118.965 78.112C118.477 78.691 116.913 78.211 116.208 77.532C113.979 79.342 115.556 81.802 113.415 83.351L113.284 102.083C114.896 102.478 116.196 102.364 118.099 102.146C118.54 102.096 118.786 103.627 117.917 103.75C117.441 103.817 116.746 103.878 116.58 104.127C116.413 104.377 116.387 105.154 116.506 105.428C116.63 105.712 117.367 105.871 117.9 105.791C118.68 105.674 118.764 107.094 118.114 107.142Z"/>
+</symbol></svg>
+
+<div class="pg">
+
+<header class="topo">
+  <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <span class="assinatura" style="font-size:1.7rem">
+    <span class="assinatura__nome">Carvalho &amp; Seixas</span>
+    <span class="assinatura__categoria">Imóveis</span>
+  </span>
+</header>
+
+<dl class="doc">
+  <div><dt>Peça</dt><dd>Componentes</dd></div>
+  <div><dt>Fase</dt><dd>2 de 3</dd></div>
+  <div><dt>Componentes</dt><dd class="dado">28</dd></div>
+  <div><dt>Data</dt><dd class="dado">09.09.2026</dd></div>
+</dl>
+
+<h1>Tudo o que o site precisa montar</h1>
+
+<p class="abre">Cada componente aqui sai dos tokens da Fase 1. <b>Nenhum valor cru de cor, espaço, raio ou duração.</b> Trocar um token muda todos de uma vez, que é a única razão de um design system existir.</p>
+
+<p class="abre">Estado visual mora no CSS, não em classe ligada por script: <code>:hover</code>, <code>:focus-visible</code>, <code>:disabled</code>, <code>[aria-current]</code>, <code>:checked</code>. Isso mantém o componente funcionando mesmo quando o JavaScript ainda não carregou, e é o que deixa a sanfona abrir sem script nenhum.</p>
+
+<p class="abre">Os imóveis, preços e depoimentos desta página são <b>exemplos para mostrar o componente</b>. Nenhum dado é real. Onde um valor depende de confirmação da cliente, o campo aparece com traço em vez de número plausível, que é como ele vai ao ar.</p>
+
+<section><h2>Núcleo</h2><p class="nota">7 componentes.</p><article class="peca">
+  <div class="peca__cab"><h3>Botão</h3><code>Button</code></div>
+  <p class="peca__regra">Pílula, quatro variantes e três tamanhos. Altura mínima de 44px na variante padrão, que é o alvo de toque confortável. A variante sólida flutua 1px no cursor; contorno e fantasma não, porque ação secundária não disputa altura com a principal.</p>
+  <div class="peca__palco"><div class="fila">
+  <button class="cs-botao">Ver imóveis</button>
+  <button class="cs-botao cs-botao--ouro">Agendar visita</button>
+  <button class="cs-botao cs-botao--contorno">Baixar ficha</button>
+  <button class="cs-botao cs-botao--fantasma">Cancelar</button>
+  <button class="cs-botao" disabled>Indisponível</button>
+</div>
+<div class="fila">
+  <button class="cs-botao cs-botao--g"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar no WhatsApp</button>
+  <button class="cs-botao"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar no WhatsApp</button>
+  <button class="cs-botao cs-botao--p">Limpar filtros</button>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Botão de ícone</h3><code>IconButton</code></div>
+  <p class="peca__regra">Redondo, sempre. Nunca vai ao ar sem <code>aria-label</code>.</p>
+  <div class="peca__palco"><div class="fila">
+  <button class="cs-botao-icone" aria-label="Fechar"><svg class="cs-icone" aria-hidden="true"><use href="#ic-fechar"></use></svg></button>
+  <button class="cs-botao-icone cs-botao-icone--solido" aria-label="Próxima foto"><svg class="cs-icone" aria-hidden="true"><use href="#ic-seta-direita"></use></svg></button>
+  <button class="cs-botao-icone cs-botao-icone--claro" aria-label="Ampliar"><svg class="cs-icone" aria-hidden="true"><use href="#ic-expandir"></use></svg></button>
+  <button class="cs-botao-icone cs-botao-icone--p" aria-label="Filtrar"><svg class="cs-icone" aria-hidden="true"><use href="#ic-filtro"></use></svg></button>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Ícone</h3><code>Icon</code></div>
+  <p class="peca__regra">Traço de 1,75 na grade de 24, igual ao traço do símbolo. Herda a cor do texto. O contentor é círculo, e círculo é a única forma dele.</p>
+  <div class="peca__palco"><div class="fila fila--icones"><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-casa"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-chave"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-quarto"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-banho"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-vaga"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-area"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-mapa"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-whatsapp"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-telefone"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-email"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-instagram"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-documento"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-balanca"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-escudo"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-calendario"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-lupa"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-filtro"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-alerta"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-info"></use></svg><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-check"></use></svg></div>
+<div class="fila" style="margin-top:var(--e-6)">
+  <span class="cs-icone-caixa"><svg class="cs-icone" aria-hidden="true"><use href="#ic-chave"></use></svg></span>
+  <span class="cs-icone-caixa cs-icone-caixa--ouro"><svg class="cs-icone" aria-hidden="true"><use href="#ic-balanca"></use></svg></span>
+  <span class="cs-icone-caixa cs-icone-caixa--solida"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg></span>
+  <span class="cs-icone-caixa cs-icone-caixa--g"><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-escudo"></use></svg></span>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Selo</h3><code>Badge</code></div>
+  <p class="peca__regra">Status, e só status: não vira etiqueta de categoria nem de preço. Sobre foto ele vai de vidro tingido, senão desaparece no claro da imagem.</p>
+  <div class="peca__palco"><div class="fila">
+  <span class="cs-selo cs-selo--novo">Novo</span>
+  <span class="cs-selo cs-selo--exclusivo">Exclusivo</span>
+  <span class="cs-selo cs-selo--ouro">Temporada</span>
+  <span class="cs-selo">Aceita financiamento</span>
+  <span class="cs-selo cs-selo--fechado">Vendido</span>
+</div>
+<div class="fila palco-foto">
+  <span class="cs-selo cs-selo--sobre-foto">Exclusivo</span>
+  <span class="cs-selo cs-selo--sobre-foto"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-quarto"></use></svg> 3 quartos</span>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Pastilha</h3><code>Tag</code></div>
+  <p class="peca__regra">É o filtro da vitrine. Cada opção mostra quantos imóveis devolve, e opção sem resultado fica desabilitada em vez de levar a uma tela vazia.</p>
+  <div class="peca__palco"><div class="fila">
+  <button class="cs-pastilha" aria-pressed="true">Tijuca <span class="cs-pastilha__conta">12</span></button>
+  <button class="cs-pastilha" aria-pressed="false">Centro <span class="cs-pastilha__conta">5</span></button>
+  <button class="cs-pastilha" aria-pressed="false">Zona Sul <span class="cs-pastilha__conta">8</span></button>
+  <button class="cs-pastilha" disabled>Barra <span class="cs-pastilha__conta">0</span></button>
+  <button class="cs-pastilha" aria-pressed="true">2 quartos <span class="cs-pastilha__x"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-fechar"></use></svg></span></button>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Cartão</h3><code>Card</code></div>
+  <p class="peca__regra">Superfície base. Rodapé alinha à direita: nunca <code>space-between</code> com um filho só, senão o botão cai para a esquerda.</p>
+  <div class="peca__palco"><div class="tres">
+  <div class="cs-cartao"><div class="cs-cartao__corpo"><h3>Cartão claro</h3><p>Fundo off-white com traço sutil. É o padrão da vitrine.</p></div></div>
+  <div class="cs-cartao cs-cartao--creme"><div class="cs-cartao__corpo"><h3>Cartão creme</h3><p>Separa seção sem trocar de página.</p></div></div>
+  <div class="cs-cartao cs-cartao--azul"><div class="cs-cartao__corpo"><h3 style="color:var(--cs-creme)">Cartão azul</h3><p style="color:var(--cs-azul-200)">Para o bloco que precisa parar o olho.</p></div></div>
+</div>
+<div class="cs-cartao" style="margin-top:var(--e-6)">
+  <div class="cs-cartao__corpo"><p>Cartão com rodapé de ação.</p></div>
+  <div class="cs-cartao__pe"><button class="cs-botao cs-botao--fantasma cs-botao--p">Depois</button><button class="cs-botao cs-botao--p">Falar agora</button></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Marca e assinatura</h3><code>Logo · Wordmark</code></div>
+  <p class="peca__regra">O símbolo troca de cor por variável, não por arquivo. "Imóveis" fica sempre a 0,72 do tamanho do nome, com 0,325em de espaço antes.</p>
+  <div class="peca__palco"><div class="fila fila--marca">
+  <span class="marca-56"><svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg></span>
+  <span class="assinatura" style="font-size:1.6rem"><span class="assinatura__nome">Carvalho &amp; Seixas</span><span class="assinatura__categoria">Imóveis</span></span>
+</div></div>
+</article></section>
+<section><h2>Formulário</h2><p class="nota">3 componentes.</p><article class="peca">
+  <div class="peca__cab"><h3>Campo</h3><code>Input</code></div>
+  <p class="peca__regra">Rótulo em cima, dica embaixo, erro com ícone. O erro diz o que fazer, não só o que deu errado.</p>
+  <div class="peca__palco"><div class="dois">
+  <label class="cs-campo"><span class="cs-campo__rotulo">Nome</span>
+    <input class="cs-entrada" type="text" value="Marina Duarte"></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">WhatsApp</span>
+    <input class="cs-entrada" type="tel" placeholder="(21) 90000-0000">
+    <span class="cs-campo__dica">É por aqui que a gente responde.</span></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">Buscar</span>
+    <span class="cs-entrada-caixa"><svg class="cs-icone" aria-hidden="true"><use href="#ic-lupa"></use></svg><input class="cs-entrada" type="search" placeholder="Rua, bairro ou código"></span></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">E-mail</span>
+    <input class="cs-entrada" type="email" value="marina@" aria-invalid="true">
+    <span class="cs-campo__erro"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-alerta"></use></svg> Falta o domínio depois do arroba.</span></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">Código do imóvel</span>
+    <input class="cs-entrada" type="text" value="CS-0142" disabled></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">Mensagem</span>
+    <textarea class="cs-area" placeholder="Conte o que você procura."></textarea></label>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Seleção</h3><code>Select</code></div>
+  <p class="peca__regra">Seta desenhada em CSS, sem imagem externa. Mesma altura e mesmo raio do campo.</p>
+  <div class="peca__palco"><div class="dois">
+  <label class="cs-campo"><span class="cs-campo__rotulo">Ordenar por</span>
+    <select class="cs-selecao"><option>Mais recentes</option><option>Menor preço</option><option>Maior área</option></select></label>
+  <label class="cs-campo"><span class="cs-campo__rotulo">Finalidade</span>
+    <select class="cs-selecao"><option>Comprar</option><option>Alugar</option><option>Temporada</option></select></label>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Caixa, rádio e chave</h3><code>Checkbox · Radio · Switch</code></div>
+  <p class="peca__regra">A caixa aceita marca de vários; o rádio é escolha única; a chave liga algo que vale agora, sem confirmar.</p>
+  <div class="peca__palco"><div class="tres">
+  <div class="coluna">
+    <label class="cs-caixa"><input type="checkbox" checked> <span>Aceita financiamento</span></label>
+    <label class="cs-caixa"><input type="checkbox"> <span>Mobiliado</span></label>
+    <label class="cs-caixa"><input type="checkbox" disabled> <span>Com vaga coberta</span></label>
+  </div>
+  <div class="coluna">
+    <label class="cs-radio"><input type="radio" name="fin" checked> <span>Comprar</span></label>
+    <label class="cs-radio"><input type="radio" name="fin"> <span>Alugar</span></label>
+    <label class="cs-radio"><input type="radio" name="fin"> <span>Temporada</span></label>
+  </div>
+  <div class="coluna">
+    <label class="cs-chave"><input type="checkbox" checked> <span>Só imóveis com foto</span></label>
+    <label class="cs-chave"><input type="checkbox"> <span>Avisar sobre novos</span></label>
+  </div>
+</div></div>
+</article></section>
+<section><h2>Retorno</h2><p class="nota">3 componentes.</p><article class="peca">
+  <div class="peca__cab"><h3>Nota</h3><code>Notice</code></div>
+  <p class="peca__regra">Aviso dentro do conteúdo. Só sobrevive a nota que traz consequência que a pessoa não veria sozinha.</p>
+  <div class="peca__palco"><div class="coluna">
+  <div class="cs-nota"><svg class="cs-icone" aria-hidden="true"><use href="#ic-info"></use></svg><div><b>Condomínio e IPTU informados pelo proprietário.</b>A gente confere na documentação antes da proposta.</div></div>
+  <div class="cs-nota cs-nota--atencao"><svg class="cs-icone" aria-hidden="true"><use href="#ic-alerta"></use></svg><div><b>Imóvel em inventário.</b>A venda depende de alvará judicial, e isso muda o prazo. As sócias explicam o caminho.</div></div>
+  <div class="cs-nota cs-nota--erro"><svg class="cs-icone" aria-hidden="true"><use href="#ic-alerta"></use></svg><div><b>Não encontramos esse código.</b>Confira o número ou mande a foto do anúncio no WhatsApp.</div></div>
+  <div class="cs-nota cs-nota--ok"><svg class="cs-icone" aria-hidden="true"><use href="#ic-escudo"></use></svg><div><b>Documentação conferida.</b>Matrícula, certidões e habite-se verificados em 09/09/2026.</div></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Aviso flutuante</h3><code>Toast</code></div>
+  <p class="peca__regra">Confirma o que acabou de acontecer, no verbo do que a pessoa fez. Some sozinho, e nunca carrega ação que só existe ali.</p>
+  <div class="peca__palco"><div class="coluna" style="align-items:flex-start">
+  <div class="cs-aviso"><svg class="cs-icone" aria-hidden="true"><use href="#ic-check"></use></svg> <span>Link do imóvel copiado.</span><button class="cs-botao-icone cs-botao-icone--p" aria-label="Fechar aviso"><svg class="cs-icone" aria-hidden="true"><use href="#ic-fechar"></use></svg></button></div>
+  <div class="cs-aviso"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> <span>Mensagem enviada. A gente responde no WhatsApp.</span><button class="cs-botao-icone cs-botao-icone--p" aria-label="Fechar aviso"><svg class="cs-icone" aria-hidden="true"><use href="#ic-fechar"></use></svg></button></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Diálogo e dica</h3><code>Dialog · Tooltip</code></div>
+  <p class="peca__regra">O rodapé do diálogo alinha à direita, com a ação principal por último. A dica aparece no foco também, não só no cursor.</p>
+  <div class="peca__palco"><div class="cs-dialogo cs-dialogo--estatico">
+  <div class="cs-dialogo__cab"><h2>Agendar visita</h2><button class="cs-botao-icone" aria-label="Fechar"><svg class="cs-icone" aria-hidden="true"><use href="#ic-fechar"></use></svg></button></div>
+  <div class="cs-dialogo__corpo"><p>A visita ao <b>CS-0142</b> é acompanhada por uma das sócias. Escolha o melhor dia e a gente confirma no WhatsApp.</p></div>
+  <div class="cs-dialogo__pe"><button class="cs-botao cs-botao--fantasma">Agora não</button><button class="cs-botao">Escolher dia</button></div>
+</div>
+<div class="fila" style="margin-top:var(--e-8)">
+  <span class="cs-dica"><button class="cs-botao cs-botao--contorno cs-botao--p"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-info"></use></svg> ITBI</button>
+    <span class="cs-dica__balao" role="tooltip">Imposto de transmissão, pago na compra. A alíquota entra aqui quando as sócias confirmarem.</span></span>
+  <span class="cs-dica"><button class="cs-botao-icone" aria-label="O que é área útil"><svg class="cs-icone" aria-hidden="true"><use href="#ic-info"></use></svg></button>
+    <span class="cs-dica__balao" role="tooltip">Área privativa, sem contar as áreas comuns do prédio.</span></span>
+</div></div>
+</article></section>
+<section><h2>Navegação</h2><p class="nota">3 componentes.</p><article class="peca">
+  <div class="peca__cab"><h3>Trilha e abas</h3><code>Breadcrumb · Tabs</code></div>
+  <p class="peca__regra">A aba controla só o que está abaixo dela. O sublinhado em ouro cresce da esquerda, com a duração padrão.</p>
+  <div class="peca__palco"><nav class="cs-trilha" aria-label="Você está aqui">
+  <a href="#">Início</a><svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-direita"></use></svg><a href="#">Imóveis</a><svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-direita"></use></svg><a href="#">Tijuca</a><svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-direita"></use></svg><span aria-current="page">CS-0142</span>
+</nav>
+<div class="cs-abas" role="tablist" style="margin-top:var(--e-7)">
+  <button class="cs-abas__item" role="tab" aria-selected="true">Sobre o imóvel</button>
+  <button class="cs-abas__item" role="tab" aria-selected="false">Custos</button>
+  <button class="cs-abas__item" role="tab" aria-selected="false">O bairro</button>
+  <button class="cs-abas__item" role="tab" aria-selected="false">Documentação</button>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Paginação</h3><code>Pagination</code></div>
+  <p class="peca__regra">Número em mono tabular, para a largura não pular entre páginas.</p>
+  <div class="peca__palco"><nav class="cs-paginacao" aria-label="Páginas">
+  <a class="cs-paginacao__item" href="#" aria-label="Anterior"><svg class="cs-icone" aria-hidden="true"><use href="#ic-seta-esquerda"></use></svg></a>
+  <a class="cs-paginacao__item" href="#" aria-current="page">1</a>
+  <a class="cs-paginacao__item" href="#">2</a>
+  <a class="cs-paginacao__item" href="#">3</a>
+  <a class="cs-paginacao__item" href="#" aria-label="Próxima"><svg class="cs-icone" aria-hidden="true"><use href="#ic-seta-direita"></use></svg></a>
+</nav></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Sanfona</h3><code>Accordion</code></div>
+  <p class="peca__regra">Feita com <code>&lt;details&gt;</code>, então abre sem script e sem depender de JavaScript carregado. É a base do bloco de perguntas da área jurídica.</p>
+  <div class="peca__palco"><div class="cs-sanfona">
+  <details class="cs-sanfona__item" open><summary>Quais certidões eu preciso pedir antes de comprar?<svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-baixo"></use></svg></summary>
+    <div class="cs-sanfona__corpo">Matrícula atualizada do imóvel, certidões do vendedor e do imóvel, e a certidão negativa de débitos do condomínio. As sócias levantam tudo isso antes da proposta.</div></details>
+  <details class="cs-sanfona__item"><summary>O que muda quando o imóvel está em inventário?<svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-baixo"></use></svg></summary>
+    <div class="cs-sanfona__corpo">A venda depende de autorização judicial, o que altera o prazo e a ordem dos documentos.</div></details>
+  <details class="cs-sanfona__item"><summary>Quem paga o ITBI e o registro?<svg class="cs-icone" aria-hidden="true"><use href="#ic-chevron-baixo"></use></svg></summary>
+    <div class="cs-sanfona__corpo">Em regra o comprador. O valor entra no simulador de custos assim que as alíquotas forem confirmadas.</div></details>
+</div></div>
+</article></section>
+<section><h2>Imóveis</h2><p class="nota">12 componentes.</p><article class="peca">
+  <div class="peca__cab"><h3>Cartão de imóvel</h3><code>PropertyCard</code></div>
+  <p class="peca__regra">O link cobre o cartão inteiro, e o rodapé fica por cima dele para o código continuar selecionável. A foto cresce no cursor, e é essa foto que a transição leva para a ficha.</p>
+  <div class="peca__palco"><div class="tres">
+  <article class="cs-imovel">
+    <div class="cs-imovel__midia"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div>
+      <div class="cs-imovel__selos"><span class="cs-selo cs-selo--sobre-foto">Exclusivo</span></div>
+      <div class="cs-imovel__favorito"><button class="cs-botao-icone cs-botao-icone--claro cs-botao-icone--p" aria-label="Ver no mapa"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-mapa"></use></svg></button></div>
+    </div>
+    <div class="cs-imovel__corpo">
+      <span class="cs-imovel__bairro">Tijuca</span>
+      <h3 class="cs-imovel__titulo"><a class="cs-imovel__link" href="#">Apartamento na Conde de Bonfim</a></h3>
+      <div class="cs-preco"><span class="cs-preco__valor">R$ 780.000</span>
+        <dl class="cs-preco__extras">
+          <div class="cs-preco__extra"><dt>Cond.</dt><dd>R$ 890</dd></div>
+          <div class="cs-preco__extra"><dt>IPTU</dt><dd>R$ 210</dd></div>
+        </dl></div>
+      <div class="cs-imovel__atributos">
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-quarto"></use></svg><b>2</b> quartos</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-banho"></use></svg><b>1</b> suíte</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-vaga"></use></svg><b>1</b> vaga</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-area"></use></svg><b>78</b> m²</span>
+      </div>
+    </div>
+    <div class="cs-imovel__pe"><span class="cs-imovel__codigo">CS-0142</span>
+      <a class="cs-botao cs-botao--p" href="#"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar</a></div>
+  </article>
+
+  <article class="cs-imovel">
+    <div class="cs-imovel__midia"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div>
+      <div class="cs-imovel__selos"><span class="cs-selo cs-selo--sobre-foto">Novo</span><span class="cs-selo cs-selo--sobre-foto">Temporada</span></div>
+    </div>
+    <div class="cs-imovel__corpo">
+      <span class="cs-imovel__bairro">Zona Sul</span>
+      <h3 class="cs-imovel__titulo"><a class="cs-imovel__link" href="#">Studio a duas quadras do metrô</a></h3>
+      <div class="cs-preco"><span class="cs-preco__valor">R$ 4.200</span>
+        <dl class="cs-preco__extras">
+          <div class="cs-preco__extra"><dt>Cond.</dt><dd>R$ 640</dd></div>
+          <div class="cs-preco__extra"><dt>IPTU</dt><dd>—</dd></div>
+        </dl></div>
+      <div class="cs-imovel__atributos">
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-quarto"></use></svg><b>1</b> quarto</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-banho"></use></svg><b>1</b> banheiro</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-area"></use></svg><b>32</b> m²</span>
+      </div>
+    </div>
+    <div class="cs-imovel__pe"><span class="cs-imovel__codigo">CS-0207</span>
+      <a class="cs-botao cs-botao--p" href="#"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar</a></div>
+  </article>
+
+  <article class="cs-imovel">
+    <div class="cs-imovel__midia"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div>
+      <div class="cs-imovel__selos"><span class="cs-selo cs-selo--sobre-foto">Vendido</span></div>
+    </div>
+    <div class="cs-imovel__corpo">
+      <span class="cs-imovel__bairro">Centro</span>
+      <h3 class="cs-imovel__titulo"><a class="cs-imovel__link" href="#">Sala comercial reformada</a></h3>
+      <div class="cs-preco"><span class="cs-preco__valor">R$ 320.000</span>
+        <dl class="cs-preco__extras">
+          <div class="cs-preco__extra"><dt>Cond.</dt><dd>R$ 1.100</dd></div>
+          <div class="cs-preco__extra"><dt>IPTU</dt><dd>R$ 380</dd></div>
+        </dl></div>
+      <div class="cs-imovel__atributos">
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-banho"></use></svg><b>1</b> banheiro</span>
+        <span class="cs-imovel__atributo"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-area"></use></svg><b>41</b> m²</span>
+      </div>
+    </div>
+    <div class="cs-imovel__pe"><span class="cs-imovel__codigo">CS-0088</span>
+      <a class="cs-botao cs-botao--p cs-botao--contorno" href="#">Ver parecidos</a></div>
+  </article>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Barra de filtro</h3><code>FilterBar</code></div>
+  <p class="peca__regra">Horizontal, no topo, nunca em coluna lateral. A contagem é calculada no navegador a partir do arquivo de dados, então sai de graça.</p>
+  <div class="peca__palco"><div class="cs-filtros">
+  <span class="cs-filtros__rotulo">Bairro</span>
+  <div class="cs-filtros__grupo">
+    <button class="cs-pastilha" aria-pressed="true">Tijuca <span class="cs-pastilha__conta">12</span></button>
+    <button class="cs-pastilha" aria-pressed="false">Centro <span class="cs-pastilha__conta">5</span></button>
+    <button class="cs-pastilha" aria-pressed="false">Zona Sul <span class="cs-pastilha__conta">8</span></button>
+  </div>
+  <div class="cs-filtros__fim">
+    <span class="cs-filtros__resultado"><b>12</b> imóveis</span>
+    <select class="cs-selecao" style="width:auto" aria-label="Ordenar"><option>Mais recentes</option><option>Menor preço</option></select>
+  </div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Galeria</h3><code>Gallery</code></div>
+  <p class="peca__regra">A primeira foto nunca entra em carregamento tardio: ela é o LCP. Todas as outras entram. Setas do teclado navegam, e o texto alternativo descreve o cômodo, não a posição na fila.</p>
+  <div class="peca__palco"><div class="cs-galeria">
+  <div class="cs-galeria__palco"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div>
+    <div class="cs-galeria__nav">
+      <button class="cs-botao-icone cs-botao-icone--claro" aria-label="Foto anterior"><svg class="cs-icone" aria-hidden="true"><use href="#ic-seta-esquerda"></use></svg></button>
+      <button class="cs-botao-icone cs-botao-icone--claro" aria-label="Próxima foto"><svg class="cs-icone" aria-hidden="true"><use href="#ic-seta-direita"></use></svg></button>
+    </div>
+    <span class="cs-galeria__conta">1 / 24</span>
+  </div>
+  <div class="cs-galeria__tiras"><button class="cs-galeria__tira" aria-current="true" aria-label="Foto 1"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 2"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 3"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 4"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 5"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 6"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button><button class="cs-galeria__tira" aria-label="Foto 7"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div></button></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Grade da ficha</h3><code>SpecGrid</code></div>
+  <p class="peca__regra">Rótulo em cima, valor embaixo, número em tabular. Campo sem informação recebe traço, nunca um número plausível de exemplo: número plausível numa grade lê como ficha preenchida.</p>
+  <div class="peca__palco"><dl class="cs-ficha">
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Área útil</dt><dd class="cs-ficha__valor">78 m²</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Quartos</dt><dd class="cs-ficha__valor">2</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Suítes</dt><dd class="cs-ficha__valor">1</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Banheiros</dt><dd class="cs-ficha__valor">2</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Vagas</dt><dd class="cs-ficha__valor">1</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Andar</dt><dd class="cs-ficha__valor">7º</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Ano</dt><dd class="cs-ficha__valor cs-ficha__valor--vazio">—</dd></div>
+  <div class="cs-ficha__item"><dt class="cs-ficha__rotulo">Código</dt><dd class="cs-ficha__valor">CS-0142</dd></div>
+</dl></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Ação de WhatsApp e barra fixa</h3><code>WhatsAppAction · StickyBar</code></div>
+  <p class="peca__regra">A mensagem já vai preenchida com o código do imóvel, senão a corretora precisa perguntar de qual imóvel se trata e a resposta atrasa. A disponibilidade real fica escrita ao lado, em vez de um selo de "online agora".</p>
+  <div class="peca__palco"><div class="dois">
+  <div class="cs-zap">
+    <a class="cs-botao cs-botao--g cs-botao--cheio" href="#"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar sobre este imóvel</a>
+    <span class="cs-zap__aviso"><span class="cs-zap__ponto"></span> Costumamos responder em poucos minutos, das 9h às 19h.</span>
+  </div>
+  <div class="cs-zap">
+    <a class="cs-botao cs-botao--contorno cs-botao--g cs-botao--cheio" href="#"><svg class="cs-icone" aria-hidden="true"><use href="#ic-telefone"></use></svg> Ligar para a Marina</a>
+    <span class="cs-zap__aviso">Marina Carvalho · sócia responsável pela Tijuca.</span>
+  </div>
+</div>
+<div class="cs-barra-fixa" style="margin-top:var(--e-8);border-radius:var(--r-3)">
+  <div><span class="cs-barra-fixa__rotulo">CS-0142</span><span class="cs-barra-fixa__preco">R$ 780.000</span></div>
+  <a class="cs-botao" href="#"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Falar sobre este imóvel</a>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Simulador de custos</h3><code>CostSimulator</code></div>
+  <p class="peca__regra">Substitui a calculadora de financiamento. Parcela errada num site assinado por advogadas é passivo, e ITBI, escritura e registro são valores que as sócias podem afirmar. A peça carrega a data da última conferência.</p>
+  <div class="peca__palco"><div class="cs-cartao cs-cartao--creme"><div class="cs-cartao__corpo">
+  <div class="cs-simulador">
+    <div>
+      <h3>Quanto custa além do preço</h3>
+      <p style="color:var(--txt-suave);margin-top:var(--e-2)">Sobre R$ 780.000, no Rio de Janeiro.</p>
+    </div>
+    <dl class="cs-simulador__linhas">
+      <div class="cs-simulador__linha"><dt>ITBI</dt><dd>—</dd></div>
+      <div class="cs-simulador__linha"><dt>Escritura</dt><dd>—</dd></div>
+      <div class="cs-simulador__linha"><dt>Registro</dt><dd>—</dd></div>
+    </dl>
+    <dl class="cs-simulador__total"><dt>Total estimado</dt><dd>—</dd></dl>
+    <p class="cs-simulador__conferido">Alíquotas aguardando confirmação das sócias.</p>
+  </div>
+</div></div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Etapas</h3><code>Steps</code></div>
+  <p class="peca__regra">É o diferencial jurídico virando estrutura. No desktop a seção prende a tela e a linha do tempo anda com a rolagem. No celular vira lista, porque prender a tela em telefone atrapalha.</p>
+  <div class="peca__palco"><ol class="cs-etapas">
+  <li class="cs-etapa"><span class="cs-etapa__numero">1</span><div class="cs-etapa__corpo">
+    <h3>Visita e proposta</h3><p>A visita é acompanhada por uma das sócias. A proposta sai por escrito, com as condições que você definiu.</p></div></li>
+  <li class="cs-etapa"><span class="cs-etapa__numero">2</span><div class="cs-etapa__corpo">
+    <h3>Levantamento de documentos</h3><p>Matrícula atualizada, certidões do vendedor e do imóvel, e débitos do condomínio. É aqui que aparece o que trava uma venda.</p></div></li>
+  <li class="cs-etapa"><span class="cs-etapa__numero">3</span><div class="cs-etapa__corpo">
+    <h3>Contrato</h3><p>Redigido pelas sócias, que são advogadas. Você entende cada cláusula antes de assinar.</p></div></li>
+  <li class="cs-etapa"><span class="cs-etapa__numero">4</span><div class="cs-etapa__corpo">
+    <h3>Escritura e registro</h3><p>A compra só termina no registro. Antes disso o imóvel ainda não é seu.</p></div></li>
+</ol></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Registro profissional</h3><code>Credential</code></div>
+  <p class="peca__regra">Selo de confiança genérico não prova nada. Número de registro prova, porque dá para conferir. Enquanto os números não chegam, o espaço fica reservado e vazio, sem exemplo no lugar.</p>
+  <div class="peca__palco"><div class="fila">
+  <div class="cs-registro"><svg class="cs-icone" aria-hidden="true"><use href="#ic-casa"></use></svg><div><span class="cs-registro__rotulo">CRECI</span><span class="cs-registro__numero cs-registro__numero--vazio">—</span></div></div>
+  <div class="cs-registro"><svg class="cs-icone" aria-hidden="true"><use href="#ic-balanca"></use></svg><div><span class="cs-registro__rotulo">OAB · Marina Carvalho</span><span class="cs-registro__numero cs-registro__numero--vazio">—</span></div></div>
+  <div class="cs-registro"><svg class="cs-icone" aria-hidden="true"><use href="#ic-balanca"></use></svg><div><span class="cs-registro__rotulo">OAB · sócia</span><span class="cs-registro__numero cs-registro__numero--vazio">—</span></div></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Cartão de bairro e mapa</h3><code>NeighborhoodCard · StaticMap</code></div>
+  <p class="peca__regra">Um bairro, uma página, uma história. O mapa é parado e só aparece na ficha do imóvel, mostrando o entorno: com portfólio curado, o eixo de comparação é o bairro, não a coordenada.</p>
+  <div class="peca__palco"><div class="dois">
+  <a class="cs-bairro" href="#"><div class="cs-foto foto-exemplo" role="img" aria-label="Exemplo de foto de imóvel"></div><h3 class="cs-bairro__nome">Tijuca</h3><span class="cs-bairro__conta">12 imóveis</span></a>
+  <div class="cs-mapa"><div class="mapa-exemplo" role="img" aria-label="Exemplo de mapa do entorno"></div>
+    <span class="cs-mapa__pino"><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-mapa"></use></svg></span>
+    <div class="cs-mapa__pe"><svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-info"></use></svg> Rua Conde de Bonfim · a 400 m do metrô</div></div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Estado vazio</h3><code>EmptyState</code></div>
+  <p class="peca__regra">Filtro que não devolve nada é o pior lugar para um site que precisa passar confiança. O vazio oferece saída, e a saída principal é falar com uma pessoa.</p>
+  <div class="peca__palco"><div class="cs-vazio">
+  <span class="cs-icone-caixa cs-icone-caixa--g"><svg class="cs-icone cs-icone--g" aria-hidden="true"><use href="#ic-lupa"></use></svg></span>
+  <h3>Nenhum imóvel com esses filtros</h3>
+  <p>Você pediu três quartos com vaga no Centro. Ainda não temos esse. Conte o que procura e a gente avisa quando entrar.</p>
+  <div class="cs-vazio__acoes">
+    <button class="cs-botao"><svg class="cs-icone" aria-hidden="true"><use href="#ic-whatsapp"></use></svg> Contar o que procuro</button>
+    <button class="cs-botao cs-botao--contorno">Limpar filtros</button>
+  </div>
+</div></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Título de seção e citação</h3><code>SectionHeading · Quote</code></div>
+  <p class="peca__regra">O título de seção carrega um traço de ouro curto, que é a única ornamentação recorrente do sistema. A citação é depoimento, e depoimento sem nome não vai ao ar.</p>
+  <div class="peca__palco"><div class="cs-titulo-secao">
+  <div class="cs-titulo-secao__linha"><h2>Imóveis em destaque</h2>
+    <a class="cs-botao cs-botao--fantasma cs-botao--p cs-titulo-secao__acao" href="#">Ver todos <svg class="cs-icone cs-icone--p" aria-hidden="true"><use href="#ic-seta-direita"></use></svg></a></div>
+  <p>Selecionados pelas sócias, com documentação já conferida.</p>
+</div>
+<figure class="cs-citacao">
+  <blockquote>Comprei sem entender nada de escritura. Elas explicaram o que eu estava assinando, linha por linha.</blockquote>
+  <figcaption><b>Depoimento de cliente</b> · o nome e a foto entram quando a cliente autorizar.</figcaption>
+</figure></div>
+</article>
+<article class="peca">
+  <div class="peca__cab"><h3>Cena em três dimensões e revelação</h3><code>Scene3D · Reveal</code></div>
+  <p class="peca__regra">A imagem de reserva já está no lugar antes do módulo carregar, e é ela o LCP. A revelação parte de um estado visível: nada de opacidade zero parada esperando o observador, porque é isso que deixa a página branca em link direto e para o robô de busca.</p>
+  <div class="peca__palco"><div class="cs-cena"><div class="cs-cena__reserva cena-exemplo" role="img" aria-label="Reserva estática da cena do relevo do Rio"></div>
+  <span class="cena-rotulo">Relevo do Rio · Centro, Tijuca e Zona Sul</span></div></div>
+</article></section>
+
+<div class="pe">
+  <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <p>Fase 2 de 3. Vêm em seguida as sete telas, montadas só com estas peças, com o GSAP e a cena em three.js ligados. Depois o brandbook, em página e em deck.</p>
+</div>
+
+</div>

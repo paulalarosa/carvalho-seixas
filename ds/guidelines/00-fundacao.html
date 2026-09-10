@@ -1,0 +1,844 @@
+<title>Fundação da Marca</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* ==== tokens do design system, inteiros, sem edicao ==== */
+/* Carvalho & Seixas · cor
+   Marca: azul #163864 · ouro #C9A24C · creme #F3EFE4 · grafite #2B2B2B.
+   As quatro cores acima foram definidas pela cliente. Todo o resto desta folha
+   e derivado delas em OKLCH, mantendo matiz e afunilando a cromia nas pontas.
+   Todo par usado em texto foi medido: nenhum abaixo de 4,5:1. */
+:root{
+  /* --- as quatro cores da marca --- */
+  --cs-azul: #163864;
+  --cs-ouro: #C9A24C;
+  --cs-creme: #F3EFE4;
+  --cs-grafite: #2B2B2B;
+
+  /* --- rampa do azul --- */
+  --cs-azul-50: #EEF4FC;
+  --cs-azul-100: #E0E9F5;
+  --cs-azul-200: #C6D6EA;
+  --cs-azul-300: #A3B9D8;
+  --cs-azul-400: #7694BD;
+  --cs-azul-500: #163864;
+  --cs-azul-600: #082A55;
+  --cs-azul-700: #011F46;
+  --cs-azul-800: #001436;
+  --cs-azul-900: #000B25;
+
+  /* --- rampa do ouro --- */
+  --cs-ouro-50: #FEF6E6;
+  --cs-ouro-100: #F8ECD2;
+  --cs-ouro-200: #EFDAB0;
+  --cs-ouro-300: #E5C98E;
+  --cs-ouro-400: #D9B66B;
+  --cs-ouro-500: #C9A24C;
+  --cs-ouro-600: #AC862C;
+  --cs-ouro-700: #8D6A0C;
+  --cs-ouro-800: #6E5000;
+  --cs-ouro-900: #4F3700;
+
+  /* --- neutros, na matiz do creme --- */
+  --cs-neutro-50: #FEFDFA;
+  --cs-neutro-100: #F8F7F2;
+  --cs-neutro-200: #F1EFE8;
+  --cs-neutro-300: #E1DED6;
+  --cs-neutro-400: #C0BDB6;
+  --cs-neutro-500: #95928A;
+  --cs-neutro-600: #6E6C64;
+  --cs-neutro-700: #4F4D46;
+  --cs-neutro-800: #302E28;
+  --cs-neutro-900: #14130F;
+
+  /* --- ouro legivel em corpo de texto (4,54:1 sobre creme) --- */
+  --cs-ouro-texto: #8A6705;
+
+  /* --- semanticos: superficie --- */
+  --sup-base: var(--cs-neutro-50);
+  --sup-faixa: var(--cs-creme);
+  --sup-cartao: var(--cs-neutro-50);
+  --sup-elevada: #FFFFFF;
+  --sup-inversa: var(--cs-azul);
+  --sup-sutil: var(--cs-neutro-100);
+
+  /* --- semanticos: texto --- */
+  --txt-forte: var(--cs-azul);
+  --txt-corpo: var(--cs-grafite);
+  --txt-suave: var(--cs-neutro-600);
+  --txt-ouro: var(--cs-ouro-texto);
+  --txt-sobre-azul: var(--cs-creme);
+  --txt-sobre-azul-suave: var(--cs-azul-200);
+
+  /* --- semanticos: traco --- */
+  --tra-sutil: var(--cs-neutro-300);
+  --tra-medio: var(--cs-neutro-400);
+  --tra-forte: var(--cs-azul);
+  --tra-ouro: var(--cs-ouro);
+  --tra-foco: var(--cs-ouro);
+
+  /* --- semanticos: acao --- */
+  --acao-fundo: var(--cs-azul);
+  --acao-fundo-hover: var(--cs-azul-600);
+  --acao-fundo-ativo: var(--cs-azul-700);
+  --acao-texto: var(--cs-creme);
+  --acao-ouro-fundo: var(--cs-ouro);
+  --acao-ouro-texto: var(--cs-azul);
+
+  /* --- estado. Nenhum deles e a cor de destaque da marca --- */
+  --est-ok: #1F6B4A;
+  --est-ok-sup: #E6F2EC;
+  --est-atencao: #8A5A08;
+  --est-atencao-sup: #FBF0DC;
+  --est-erro: #A32C22;
+  --est-erro-sup: #FAE9E7;
+  --est-info: var(--cs-azul-600);
+  --est-info-sup: var(--cs-azul-50);
+}
+
+/* Tema escuro. O azul deixa de ser destaque e passa a ser chao,
+   entao o papel de destaque vai para o ouro e para o azul-200. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sup-base: #00183A;
+    --sup-faixa: #09274D;
+    --sup-cartao: #09274D;
+    --sup-elevada: #1F3E65;
+    --sup-inversa: var(--cs-creme);
+    --sup-sutil: #09274D;
+
+    --txt-forte: var(--cs-creme);
+    --txt-corpo: var(--cs-neutro-200);
+    --txt-suave: var(--cs-neutro-400);
+    --txt-ouro: var(--cs-ouro-300);
+    --txt-sobre-azul: var(--cs-creme);
+    --txt-sobre-azul-suave: var(--cs-azul-200);
+
+    --tra-sutil: #09274D;
+    --tra-medio: #1F3E65;
+    --tra-forte: var(--cs-azul-200);
+    --tra-ouro: var(--cs-ouro-300);
+
+    --acao-fundo: var(--cs-ouro);
+    --acao-fundo-hover: var(--cs-ouro-300);
+    --acao-fundo-ativo: var(--cs-ouro-200);
+    --acao-texto: var(--cs-azul-800);
+    --acao-ouro-fundo: var(--cs-ouro-300);
+    --acao-ouro-texto: var(--cs-azul-800);
+
+    --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+    --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+    --est-erro: #F0A79E; --est-erro-sup: #33110D;
+    --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+  }
+}
+:root[data-theme="dark"]{
+  --sup-base: #00183A;
+  --sup-faixa: #09274D;
+  --sup-cartao: #09274D;
+  --sup-elevada: #1F3E65;
+  --sup-inversa: var(--cs-creme);
+  --sup-sutil: #09274D;
+  --txt-forte: var(--cs-creme);
+  --txt-corpo: var(--cs-neutro-200);
+  --txt-suave: var(--cs-neutro-400);
+  --txt-ouro: var(--cs-ouro-300);
+  --tra-sutil: #09274D;
+  --tra-medio: #1F3E65;
+  --tra-forte: var(--cs-azul-200);
+  --tra-ouro: var(--cs-ouro-300);
+  --acao-fundo: var(--cs-ouro);
+  --acao-fundo-hover: var(--cs-ouro-300);
+  --acao-fundo-ativo: var(--cs-ouro-200);
+  --acao-texto: var(--cs-azul-800);
+  --acao-ouro-fundo: var(--cs-ouro-300);
+  --acao-ouro-texto: var(--cs-azul-800);
+  --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+  --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+  --est-erro: #F0A79E; --est-erro-sup: #33110D;
+  --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+}
+/* Carvalho & Seixas · tipografia
+   Josefin Sans e a fonte da assinatura, medida no arquivo da marca:
+   o nome e peso 700 e "Imoveis" e peso 600. O avanco de "Carvalho & Seixas"
+   e 8,7150 vezes o corpo, que casa exatamente com o peso 700 do Josefin Sans
+   do Google Fonts. Tracking zero.
+   Josefin Sans tem altura de x de 0,378em, muito baixa: nao serve para corpo
+   de texto. O corpo e Source Sans 3, o par que o material da marca ja usava.
+
+   Nota de engenharia: os passos da escala NAO ficam guardados como shorthand
+   `font:` dentro de custom property. Shorthand em variavel zera line-height,
+   font-variant e font-stretch de uma vez e nao pode ser sobrescrito em parte.
+   Cada passo tem tamanho e entrelinha proprios, e as classes abaixo montam. */
+
+:root{
+  --fam-display: "Josefin Sans", "Century Gothic", Futura, sans-serif;
+  --fam-corpo: "Source Sans 3", "Segoe UI", system-ui, Arial, sans-serif;
+  --fam-dado: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+
+  --fw-corpo: 400;
+  --fw-forte: 600;
+  --fw-marca: 700;
+
+  /* Josefin so a partir de 20px: abaixo disso ela nao le. */
+  --fs-display-1: 3.75rem;  --lh-display-1: 1.02;
+  --fs-display-2: 2.75rem;  --lh-display-2: 1.06;
+  --fs-display-3: 2rem;     --lh-display-3: 1.12;
+  --fs-titulo-1: 1.5rem;    --lh-titulo-1: 1.2;
+  --fs-titulo-2: 1.25rem;   --lh-titulo-2: 1.25;
+  --fs-corpo-g: 1.125rem;   --lh-corpo-g: 1.6;
+  --fs-corpo: 1rem;         --lh-corpo: 1.62;
+  --fs-corpo-p: 0.875rem;   --lh-corpo-p: 1.55;
+  --fs-rotulo: 0.75rem;     --lh-rotulo: 1.2;
+  --fs-dado: 0.875rem;      --lh-dado: 1.4;
+
+  --tr-display: -.015em;
+  --tr-titulo: -.005em;
+  --tr-rotulo: .12em;
+  --tr-eyebrow: .22em;
+
+  /* Fatos medidos do lockup, nao estimados. */
+  --lockup-razao-imoveis: 0.72;
+  --lockup-espaco-imoveis: 0.325em;
+}
+
+.t-display-1,.t-display-2,.t-display-3{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  letter-spacing: var(--tr-display);
+}
+.t-display-1{ font-size: var(--fs-display-1); line-height: var(--lh-display-1) }
+.t-display-2{ font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+.t-display-3{ font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+
+.t-titulo-1,.t-titulo-2{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  letter-spacing: var(--tr-titulo);
+}
+.t-titulo-1{ font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1) }
+.t-titulo-2{ font-size: var(--fs-titulo-2); line-height: var(--lh-titulo-2) }
+
+.t-corpo-g,.t-corpo,.t-corpo-p{
+  font-family: var(--fam-corpo); font-weight: var(--fw-corpo); letter-spacing: 0;
+}
+.t-corpo-g{ font-size: var(--fs-corpo-g); line-height: var(--lh-corpo-g) }
+.t-corpo{ font-size: var(--fs-corpo); line-height: var(--lh-corpo) }
+.t-corpo-p{ font-size: var(--fs-corpo-p); line-height: var(--lh-corpo-p) }
+
+/* Rotulo e sempre caixa alta em Source Sans 3 semibold com tracking.
+   Mono e so para numero, nunca para rotulo. */
+.rotulo{
+  font-family: var(--fam-corpo); font-weight: var(--fw-forte);
+  font-size: var(--fs-rotulo); line-height: var(--lh-rotulo);
+  letter-spacing: var(--tr-rotulo); text-transform: uppercase;
+  color: var(--txt-suave);
+}
+.dado{
+  font-family: var(--fam-dado); font-weight: 500;
+  font-size: var(--fs-dado); line-height: var(--lh-dado);
+  font-variant-numeric: tabular-nums;
+}
+.num-tabular{ font-variant-numeric: tabular-nums }
+/* Carvalho & Seixas · espaco. Base de 4px. */
+:root{
+  --e-0: 0;
+  --e-1: .125rem;
+  --e-2: .25rem;
+  --e-3: .5rem;
+  --e-4: .75rem;
+  --e-5: 1rem;
+  --e-6: 1.25rem;
+  --e-7: 1.5rem;
+  --e-8: 2rem;
+  --e-9: 2.5rem;
+  --e-10: 3rem;
+  --e-11: 4rem;
+  --e-12: 5rem;
+  --e-13: 6rem;
+  --e-14: 8rem;
+
+  --lar-texto: 66ch;
+  --lar-conteudo: 72rem;
+  --lar-largo: 84rem;
+  --resp-secao: var(--e-13);
+  --resp-secao-mobile: var(--e-10);
+
+  /* Respiro da marca, como fracao da largura do simbolo.
+     As quatro variantes do arquivo original usavam 0,17 / 0,27 / 0,12 / 0,05,
+     ou seja, nao havia regra. Estes valores normalizam isso. */
+  --marca-protecao: .5;
+  --marca-gap-horizontal: .25;
+  --marca-gap-vertical: .12;
+}
+/* Carvalho & Seixas · raio.
+   A direcao da marca no digital e ARREDONDADA E FLUTUANTE: nada de canto
+   reto em componente. O simbolo continua sendo de traco reto, e e esse
+   contraste que faz a marca aparecer em cima da interface macia.
+
+   A escala e a MESMA do app em React (`web/src/app/globals.css`), onde
+   `--radius: 1.25rem` alimenta a escala do shadcn. Mudou aqui, muda la:
+   sao dois arquivos, mas e um numero so.
+
+   Pilula deixou de ser excecao: botao, pastilha, selo, filtro e a barra do
+   topo sao pilula. Reto (`--r-0`) sobrou para linha de tabela e para foto
+   que sangra ate a borda da tela. */
+:root{
+  --r-0: 0;
+  --r-1: 8px;    /* detalhe: miniatura, quadro pequeno */
+  --r-2: 12px;   /* campo, nota, aviso */
+  --r-3: 16px;   /* cartao pequeno, registro */
+  --r-4: 24px;   /* cartao, foto, galeria */
+  --r-5: 36px;   /* painel e ilha */
+  --r-6: 44px;   /* ilha grande: abertura, chamada final */
+  --r-pilula: 999px;
+}
+/* Carvalho & Seixas · elevacao e material.
+   Duas coisas moram aqui: a SOMBRA, que faz o componente flutuar, e o
+   VIDRO, que e o material dos paineis.
+
+   Sombra tingida de azul, nunca preta: preto sobre creme acinzenta a
+   pagina. E sempre em DUAS camadas: um contato curto, que encosta a peca
+   no fundo, e uma queda longa e aberta, que e o que da a sensacao de
+   flutuar. Sombra de uma camada so parece adesivo colado. */
+:root{
+  --sombra-0: none;
+  --sombra-1: 0 1px 2px rgba(22,56,100,.06), 0 6px 16px -6px rgba(22,56,100,.14);
+  --sombra-2: 0 2px 6px rgba(22,56,100,.07), 0 18px 40px -14px rgba(22,56,100,.22);
+  --sombra-3: 0 4px 10px rgba(22,56,100,.08), 0 36px 70px -24px rgba(22,56,100,.30);
+  --sombra-vidro: 0 24px 60px -20px rgba(3,12,28,.55);
+  --anel-foco: 0 0 0 2px var(--sup-base), 0 0 0 4px var(--tra-foco);
+
+  /* --- vidro: TRES receitas, e a escolha nao e gosto ---------------
+     `--vidro-*`        painel sobre cena escura (3D, faixa azul);
+     `--vidro-claro-*`  painel sobre o off-white;
+     `--vidro-tinta-*`  controle sobre IMAGEM (etiqueta, seta, contador).
+     A terceira existe porque texto creme em vidro claro some na parte
+     clara de uma foto. Vidro sobre imagem precisa de tinta.
+     Vidro sobre cor chapada nao refrata nada: ali use superficie solida. */
+  --vidro-desfoque: 22px;
+  --vidro-saturacao: 165%;
+
+  --vidro-fundo: rgba(243,239,228,.10);
+  --vidro-traco: rgba(243,239,228,.26);
+  --vidro-realce: rgba(255,255,255,.34);
+
+  --vidro-claro-fundo: rgba(255,255,255,.66);
+  --vidro-claro-traco: rgba(22,56,100,.10);
+  --vidro-claro-realce: rgba(255,255,255,.90);
+
+  --vidro-tinta-fundo: rgba(6,20,40,.50);
+  --vidro-tinta-traco: rgba(243,239,228,.22);
+  --vidro-tinta-realce: rgba(255,255,255,.18);
+}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+    --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+    --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+    --vidro-claro-fundo: rgba(9,39,77,.66);
+    --vidro-claro-traco: rgba(243,239,228,.14);
+    --vidro-claro-realce: rgba(243,239,228,.18);
+  }
+}
+:root[data-theme="dark"]{
+  --sombra-1: 0 1px 2px rgba(0,0,0,.5);
+  --sombra-2: 0 2px 8px rgba(0,0,0,.55);
+  --sombra-3: 0 10px 28px rgba(0,0,0,.6);
+  --vidro-claro-fundo: rgba(9,39,77,.66);
+  --vidro-claro-traco: rgba(243,239,228,.14);
+  --vidro-claro-realce: rgba(243,239,228,.18);
+}
+/* Carvalho & Seixas · movimento.
+   O site usa GSAP e three.js, entao cada duracao tem o ease equivalente do
+   GSAP anotado ao lado. Use os mesmos valores nos dois lados para o
+   movimento de CSS e o de GSAP nao brigarem. */
+:root{
+  --d-instante: 90ms;
+  --d-rapido: 160ms;   /* GSAP duration .16 */
+  --d-padrao: 260ms;   /* GSAP duration .26 */
+  --d-lento: 420ms;    /* GSAP duration .42 */
+  --d-cena: 900ms;     /* entrada de secao e Flip da foto */
+
+  --ea-saida: cubic-bezier(.22,.61,.36,1);      /* GSAP power2.out */
+  --ea-entrada: cubic-bezier(.55,.06,.68,.19);  /* GSAP power2.in */
+  --ea-suave: cubic-bezier(.65,.05,.36,1);      /* GSAP power3.inOut */
+  --ea-firme: cubic-bezier(.16,1,.3,1);         /* GSAP expo.out */
+
+  --escalonar: 60ms;   /* stagger entre cartoes, ScrollTrigger.batch */
+}
+
+/* Toda animacao decorativa e a cena em tres dimensoes desligam aqui.
+   No GSAP a mesma trava vive em gsap.matchMedia(). */
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --d-rapido: 0ms;
+    --d-padrao: 0ms;
+    --d-lento: 0ms;
+    --d-cena: 0ms;
+    --escalonar: 0ms;
+  }
+}
+
+/* ==== base do design system ==== */
+
+*,*::before,*::after{ box-sizing: border-box }
+
+body{
+  margin: 0;
+  background: var(--sup-base);
+  color: var(--txt-corpo);
+  font-family: var(--fam-corpo);
+  font-weight: var(--fw-corpo);
+  font-size: var(--fs-corpo);
+  line-height: var(--lh-corpo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3{
+  margin: 0;
+  color: var(--txt-forte);
+  text-wrap: balance;
+  font-family: var(--fam-display);
+  letter-spacing: var(--tr-display);
+}
+h1{ font-weight: var(--fw-marca); font-size: var(--fs-display-2); line-height: var(--lh-display-2) }
+h2{ font-weight: var(--fw-marca); font-size: var(--fs-display-3); line-height: var(--lh-display-3) }
+h3{ font-weight: var(--fw-forte); font-size: var(--fs-titulo-1); line-height: var(--lh-titulo-1);
+    letter-spacing: var(--tr-titulo) }
+
+p{ margin: 0; max-width: var(--lar-texto) }
+img{ max-width: 100%; height: auto }
+
+a{ color: var(--txt-forte); text-decoration-color: var(--tra-ouro); text-underline-offset: .18em }
+:focus-visible{ outline: 2px solid var(--tra-foco); outline-offset: 2px }
+
+/* A assinatura, medida no .ai. O nome e 700, "Imoveis" e 600 a 0,72 do
+   tamanho do nome, com 0,325em de espaco antes.
+
+   🔴 Os 0,325em sao ESPACO ENTRE AS PALAVRAS, nao entreletra, e no arquivo
+   "Imoveis" esta em caixa BAIXA com entreletra ZERO. A versao anterior daqui
+   punha caixa alta e 0,22em de entreletra: as duas coisas eram invencao.
+
+   O arquivo traz dois lockups. Em LINHA (padrao) e EMPILHADO (principal,
+   com "Carvalho" / "& Seixas" / "Imoveis" em tres linhas). No empilhado,
+   "Seixas" e 1,081 maior que "Carvalho", a linha 2 desce 1,297 e "Imoveis"
+   desce mais 1,171 (tudo em multiplos do tamanho do nome). */
+.assinatura{ display: inline-flex; align-items: baseline; gap: var(--lockup-espaco-imoveis) }
+.assinatura__nome{
+  font-family: var(--fam-display); font-weight: var(--fw-marca);
+  font-size: 1em; line-height: 1.04; color: var(--txt-forte); letter-spacing: -.01em;
+}
+.assinatura__categoria{
+  font-family: var(--fam-display); font-weight: var(--fw-forte);
+  font-size: calc(1em * var(--lockup-razao-imoveis)); line-height: 1.1;
+  color: var(--cs-ouro); letter-spacing: 0;
+}
+.assinatura--empilhada{ display: inline-flex; flex-direction: column; gap: 0; line-height: 1 }
+.assinatura--empilhada .assinatura__nome{ line-height: 1 }
+.assinatura--empilhada .assinatura__nome + .assinatura__nome{ margin-top: .297em }
+.assinatura--empilhada .assinatura__grande{ font-size: 1.081em }
+.assinatura--empilhada .assinatura__categoria{ margin-top: .24em; line-height: 1 }
+
+/* ==== so desta pagina de guideline ==== */
+.pg{max-width:var(--lar-conteudo);margin:0 auto;padding:0 var(--e-6) var(--e-14)}
+.topo{display:flex;gap:var(--e-6);align-items:center;padding:var(--e-11) 0 var(--e-6)}
+.marca{width:64px;height:auto;flex:none}
+.doc{display:flex;flex-wrap:wrap;gap:var(--e-2) var(--e-8);border-top:2px solid var(--tra-forte);
+  border-bottom:1px solid var(--tra-sutil);padding:var(--e-4) 0;margin-bottom:var(--e-11)}
+.doc div{display:flex;gap:var(--e-3);align-items:baseline}
+.doc dt{font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--txt-suave)}
+.doc dd{margin:0;font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);font-weight:600;color:var(--txt-corpo)}
+h1{font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-1);line-height:var(--lh-display-1);letter-spacing:var(--tr-display);max-width:20ch;margin-bottom:var(--e-5)}
+.abre{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-g);line-height:var(--lh-corpo-g);color:var(--txt-corpo);max-width:64ch}
+.abre + .abre{margin-top:var(--e-4)}
+.abre b{font-weight:600;color:var(--txt-forte)}
+section{margin-top:var(--resp-secao)}
+h2{margin-bottom:var(--e-2)}
+.nota{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave);max-width:62ch;margin:0 0 var(--e-7);
+  padding-bottom:var(--e-5);border-bottom:1px solid var(--tra-sutil)}
+h3{margin:var(--e-9) 0 var(--e-4)}
+h3:first-of-type{margin-top:0}
+.sub{font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--txt-suave);
+  margin:var(--e-9) 0 var(--e-4);padding-bottom:var(--e-3);border-bottom:1px solid var(--tra-sutil)}
+
+/* marca */
+.variantes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:var(--e-5)}
+.var{border:1px solid var(--tra-sutil);border-radius:var(--r-4);overflow:hidden}
+.var__palco{display:grid;place-items:center;padding:var(--e-8) var(--e-5);min-height:9rem}
+.var__palco svg{width:76px;height:auto}
+.var__pe{padding:var(--e-3) var(--e-4);border-top:1px solid var(--tra-sutil);background:var(--sup-sutil)}
+.var__pe code{display:block;font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-forte)}
+.var__pe small{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+.lockups{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:var(--e-7)}
+.lk{border:1px solid var(--tra-sutil);border-radius:var(--r-4);padding:var(--e-7);background:var(--sup-cartao)}
+.lk--esc{background:var(--cs-azul);border-color:var(--cs-azul)}
+.lk--esc .assinatura__nome{color:var(--cs-creme)}
+.lk--esc .assinatura__categoria{color:var(--cs-ouro)}
+.lk--esc .lk__rot{color:var(--cs-azul-200)}
+.lk__rot{display:block;font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;
+  color:var(--txt-suave);margin-top:var(--e-5)}
+.lk__h{display:flex;align-items:center;gap:calc(56px * var(--marca-gap-horizontal))}
+.lk__v{display:flex;flex-direction:column;align-items:flex-start;gap:calc(56px * var(--marca-gap-vertical))}
+.lk svg{width:56px;height:auto;flex:none}
+.lk .assinatura{font-size:1.5rem}
+.lk--emp .assinatura{flex-direction:column;align-items:flex-start;gap:.1em}
+
+/* cor */
+.paleta{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--e-4)}
+.sw{border-radius:var(--r-3);padding:var(--e-5);min-height:6.5rem;display:flex;flex-direction:column;
+  justify-content:flex-end;gap:var(--e-1);border:1px solid rgba(22,56,100,.10)}
+.sw b{font-family:var(--fam-display);font-weight:var(--fw-forte);font-size:var(--fs-titulo-2);line-height:var(--lh-titulo-2);letter-spacing:var(--tr-titulo)}
+.sw code{font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado)}
+.sw span{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);opacity:.8}
+.rampa{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;border-radius:var(--r-2);overflow:hidden}
+.sw--passo{border-radius:0;border:0;padding:var(--e-4) var(--e-3);min-height:5.5rem}
+.sw--passo b{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);font-weight:600}
+.sw--passo code{font-size:.62rem;font-family:var(--fam-dado);opacity:.85}
+.sw--marca{outline:2px solid var(--cs-ouro);outline-offset:-2px}
+@media (max-width:820px){.rampa{grid-template-columns:repeat(5,1fr)}}
+.proporcao{display:flex;height:3.5rem;border-radius:var(--r-2);overflow:hidden;border:1px solid var(--tra-sutil)}
+.proporcao div{display:grid;place-items:center;font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase}
+
+/* tabelas */
+.rol{overflow-x:auto;border:1px solid var(--tra-sutil);border-radius:var(--r-2)}
+table{border-collapse:collapse;width:100%;min-width:38rem;font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p)}
+th,td{text-align:left;padding:var(--e-3) var(--e-4);border-bottom:1px solid var(--tra-sutil);vertical-align:top}
+thead th{background:var(--sup-sutil);font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);
+  text-transform:uppercase;color:var(--txt-suave);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+td b{font-weight:600;color:var(--txt-forte);display:block}
+td small{color:var(--txt-suave)}
+td.dado{font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-corpo);white-space:nowrap}
+.selo{display:inline-block;font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;
+  padding:var(--e-1) var(--e-3);border-radius:var(--r-pilula);white-space:nowrap}
+.selo--ok{background:var(--est-ok-sup);color:var(--est-ok)}
+.selo--meio{background:var(--est-atencao-sup);color:var(--est-atencao)}
+.selo--ruim{background:var(--est-erro-sup);color:var(--est-erro)}
+
+/* tipo */
+.esc{display:grid;grid-template-columns:11rem minmax(0,1fr);gap:var(--e-6);align-items:baseline;
+  padding:var(--e-5) 0;border-bottom:1px solid var(--tra-sutil)}
+.esc:last-of-type{border-bottom:0}
+.esc__meta code{display:block;font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-forte)}
+.esc__meta small{display:block;font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+.esc__amostra{color:var(--txt-forte);min-width:0;overflow-wrap:anywhere}
+@media (max-width:700px){.esc{grid-template-columns:1fr;gap:var(--e-2)}}
+
+/* espaco, raio */
+.esps,.rais{display:flex;flex-direction:column;gap:var(--e-3)}
+.esp{display:flex;align-items:center;gap:var(--e-4)}
+.esp span{height:1rem;background:var(--cs-azul);border-radius:var(--r-1);flex:none}
+.esp code{font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-forte);width:4.5rem;flex:none}
+.esp small{color:var(--txt-suave)}
+.rais{flex-direction:row;flex-wrap:wrap;gap:var(--e-5)}
+.rai{display:flex;flex-direction:column;gap:var(--e-2);width:8rem}
+.rai span{display:block;height:4rem;background:var(--cs-azul-100);border:1px solid var(--cs-azul-300)}
+.rai code{font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-forte)}
+.rai small{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+
+/* elevacao */
+.elevs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:var(--e-6)}
+.vidros{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--e-5)}
+.vidros__palco{display:grid;place-items:center;min-height:9rem;border-radius:var(--r-4);padding:var(--e-6)}
+.vidros__palco--escuro{background:radial-gradient(60% 70% at 30% 20%,#1d4a80,transparent 70%),linear-gradient(160deg,#14345c,#0a1d38)}
+.vidros__palco--claro{background:radial-gradient(50% 60% at 20% 20%,rgba(201,162,76,.22),transparent 70%),var(--sup-faixa)}
+.vidros__palco--foto{background:linear-gradient(180deg,#8fb2d8 0 52%,#16324f 52%),radial-gradient(circle at 70% 30%,#e5c98e 0 12%,transparent 13%)}
+.vidros [class^="cs-vidro"]{display:flex;flex-direction:column;gap:var(--e-1);padding:var(--e-5) var(--e-6);
+  font-family:var(--fam-dado);font-size:var(--fs-corpo-p)}
+.vidros [class^="cs-vidro"] small{font-family:var(--fam-corpo);opacity:.8}
+.vidros .cs-vidro-claro{color:var(--txt-forte)}
+.elev{background:var(--sup-elevada);border-radius:var(--r-4);padding:var(--e-6);min-height:6rem;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:var(--e-1)}
+.elev code{font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);color:var(--txt-forte)}
+.elev small{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+
+/* slogan */
+.slogan{background:var(--cs-azul);border-radius:var(--r-5);padding:var(--e-11) var(--e-8);text-align:center}
+.slogan p{font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-3);line-height:var(--lh-display-3);letter-spacing:var(--tr-display);color:var(--cs-creme);max-width:none;margin:0 auto}
+.slogan svg{width:44px;height:auto;margin-bottom:var(--e-6)}
+.slogan .lk__rot{color:var(--cs-azul-200);margin-top:var(--e-5)}
+
+/* proibicoes */
+.nao{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:var(--e-5)}
+.nao div{border:1px solid var(--tra-sutil);border-left:3px solid var(--est-erro);border-radius:var(--r-2);
+  padding:var(--e-5)}
+.nao b{display:block;font-weight:600;color:var(--txt-forte);margin-bottom:var(--e-2)}
+.nao small{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave)}
+
+.pe{margin-top:var(--e-14);padding-top:var(--e-8);border-top:2px solid var(--tra-forte);
+  display:flex;gap:var(--e-5);align-items:center}
+.pe svg{width:34px;height:auto;opacity:.9}
+.pe p{font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p);color:var(--txt-suave);max-width:54ch}
+</style>
+
+<svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="marca" viewBox="0 0 142.267 143.163">
+<path class="cs-navy" fill="var(--cs-azul)" d="M36.687 88.679L36.677 136.383L61.781 136.388L61.791 88.684L36.687 88.679M6.728 136.371L33.729 136.359L33.69 85.787L64.703 85.769L64.69 136.343L74.368 136.365L74.387 143.149L0.029 143.145L0 49.334L7.961 41.187L11.64 37.503L34.783 14.127L48.753 0L69.477 20.934L75.021 26.669L75.016 36.622L71.446 33.016L58.52 19.878L48.612 9.791L43.937 14.577L29.188 29.563L8.406 50.548L6.722 52.568L6.728 136.371Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M57.819 117.764L53.978 117.807L54.773 113.389C53.319 112.602 52.915 110.92 53.839 109.666C54.795 108.368 56.492 108.273 57.618 109.372C58.797 110.523 58.57 112.45 57.037 113.375L57.819 117.764Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M60.37 64.447C60 65.129 59.228 65.367 58.541 65.362L50.68 65.309L50.624 55.708L59.364 55.685C59.88 55.684 60.28 56.135 60.305 56.626L60.37 64.447Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.821 60.549C48.012 62.198 48.113 63.645 47.804 65.335L38.293 65.232C38.748 64.893 38.849 64.547 38.915 64.086C39.007 63.445 38.533 63.097 38.02 62.741L38.112 56.873L38.715 56.355C38.794 56.286 38.43 56.084 38.298 55.721L47.572 55.788C48.138 56.19 48.107 57.678 47.796 58.148C47.581 58.408 47.224 58.272 47.256 58.165C47.295 58.029 47.403 57.631 47.092 57.464L47.311 62.109C47.317 62.238 47.457 62.298 47.548 62.236C47.688 61.801 47.233 61.179 47.821 60.549Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M59.474 53.009L50.756 53.08L50.648 43.732L58.457 43.658C58.796 43.655 59.209 43.373 59.436 43.433C59.818 43.534 60.164 43.792 60.332 44.274L60.267 52.673C59.867 52.64 59.763 52.274 59.658 52.286C59.518 52.301 59.491 52.776 59.474 53.009Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M47.707 53.049L39.939 53.004C39.417 53.001 38.822 52.172 38.042 52.788L38.003 47.612C38.001 47.305 38.54 46.967 38.783 46.766L38.277 43.717L47.85 43.723C48.015 46.131 48.31 48.379 47.246 48.335C47.12 48.329 46.503 51.087 47.707 53.049Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 55.155H48.392V65.901H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M37.646 43.01H48.392V53.756H37.646Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 43.01H61.228V53.756H50.482Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M50.482 55.155H61.228V65.901H50.482Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.972 78.306L91.745 82.646L102.076 92.357L102.075 101.981L89.398 90.327L84.588 85.856L80.289 81.616L80.312 30.84L142.24 30.828L142.267 65.521L135.556 65.62L135.561 37.566L86.956 37.55L86.972 78.306Z"/>
+  <path class="cs-navy" fill="var(--cs-azul)" d="M86.933 117.446L86.956 136.368L135.544 136.35L135.527 99.859L120.396 86.16L120.306 80.808L122.895 79.256L137.602 92.589L142.255 97.052L142.254 143.155L80.302 143.163L80.304 117.477L86.933 117.446Z"/>
+  <path class="cs-ouro" fill="var(--cs-ouro)" d="M108.915 73.093C107.984 75.354 108.264 76.909 109.674 78.007C110.838 78.912 112.717 78.761 113.683 77.205C114.401 76.049 114.081 74.771 113.825 73.023C116.071 73.936 117.599 73.57 118.5 72.464C119.662 71.04 119.32 69.225 117.926 68.25C116.773 67.444 115.493 67.577 113.55 68.216C114.539 66.146 114.294 64.578 113.205 63.469C111.998 62.239 109.977 62.542 109.087 63.664C108.072 64.943 108.157 66.458 109.079 68.102C106.029 67.144 103.584 68.072 103.33 70.13C103.135 71.708 104.039 72.682 105.118 73.223C106.321 73.827 107.415 73.388 108.915 73.093M118.114 107.142C116.928 107.23 116.548 107.504 116.426 108.093C116.219 109.094 116.698 109.624 117.9 109.434C118.596 109.324 118.749 110.798 118.214 110.872C116.896 111.054 114.845 110.283 113.446 111.269C112.392 112.012 110.426 112.681 109.261 111.621L109.179 83.725L107.845 81.601C108.223 80.207 107.314 77.768 106.043 77.801C105.384 77.84 103.871 79.065 103.357 77.814L104.24 75.378C102.277 74.446 101.162 72.745 101.138 70.868C101.11 68.679 102.05 66.817 104.379 65.771C103.96 65.032 103.131 63.786 103.627 62.984C104.016 62.355 105.724 63.097 106.23 63.878C107.486 61.82 108.924 60.624 110.846 60.532C113.082 60.425 115.048 61.404 116.008 63.721C116.942 63.278 117.72 62.816 118.978 62.792L118.399 65.817C120.241 67.006 121.349 68.537 121.415 70.41C121.489 72.511 120.368 74.265 118.352 75.372L118.965 78.112C118.477 78.691 116.913 78.211 116.208 77.532C113.979 79.342 115.556 81.802 113.415 83.351L113.284 102.083C114.896 102.478 116.196 102.364 118.099 102.146C118.54 102.096 118.786 103.627 117.917 103.75C117.441 103.817 116.746 103.878 116.58 104.127C116.413 104.377 116.387 105.154 116.506 105.428C116.63 105.712 117.367 105.871 117.9 105.791C118.68 105.674 118.764 107.094 118.114 107.142Z"/>
+</symbol></svg>
+
+<div class="pg">
+
+<header class="topo">
+  <svg class="marca" viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <span class="assinatura" style="font-size:1.9rem">
+    <span class="assinatura__nome">Carvalho &amp; Seixas</span>
+    <span class="assinatura__categoria">Imóveis</span>
+  </span>
+</header>
+
+<dl class="doc">
+  <div><dt>Peça</dt><dd>Fundação do design system</dd></div>
+  <div><dt>Fase</dt><dd>1 de 3</dd></div>
+  <div><dt>Data</dt><dd class="dado">09.09.2026</dd></div>
+  <div><dt>Origem</dt><dd class="dado">LOGO CARVALHO E SEIXAS.ai</dd></div>
+</dl>
+
+<h1>A marca, medida</h1>
+
+<p class="abre">Esta é a fundação remontada. O sistema anterior partia de um SVG que não era a marca: trazia outro símbolo, outra fonte e outros códigos de cor. <b>Tudo aqui vem do arquivo em Illustrator</b>, medido glifo por glifo e caminho por caminho, ou foi definido por você.</p>
+
+<p class="abre">Nada nesta página é estimativa. Os pesos da assinatura foram confirmados comparando o avanço das letras do arquivo com cada peso do Josefin Sans. As rampas de cor foram derivadas em OKLCH a partir das suas quatro cores, mantendo a matiz. <b>Todo par de cor usado em texto foi medido, e nenhum ficou abaixo de 4,5 para 1.</b></p>
+
+<section>
+  <h2>Símbolo</h2>
+  <p class="nota">Casa e chave em traço, lendo C e S. Treze caminhos, só preenchimento, nenhum contorno, duas cores. O arquivo tem 4,6 KB e é quadrado: 142,267 por 143,163.</p>
+
+  <div class="variantes">
+    <div class="var"><div class="var__palco" style="background:var(--sup-base)">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Símbolo positivo"><use href="#marca"></use></svg>
+    </div><div class="var__pe"><code>simbolo.svg</code><small>Positivo, fundo claro</small></div></div>
+
+    <div class="var"><div class="var__palco" style="background:var(--cs-azul)">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Símbolo reverso"
+        style="--cs-azul:#F3EFE4"><use href="#marca"></use></svg>
+    </div><div class="var__pe"><code>simbolo-reverso.svg</code><small>Traço em creme, chave em ouro</small></div></div>
+
+    <div class="var"><div class="var__palco" style="background:var(--cs-creme)">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Símbolo monocromático azul"
+        style="--cs-ouro:#163864"><use href="#marca"></use></svg>
+    </div><div class="var__pe"><code>simbolo-mono-azul.svg</code><small>Uma cor, para carimbo e fax</small></div></div>
+
+    <div class="var"><div class="var__palco" style="background:var(--cs-grafite)">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Símbolo monocromático creme"
+        style="--cs-azul:#F3EFE4;--cs-ouro:#F3EFE4"><use href="#marca"></use></svg>
+    </div><div class="var__pe"><code>simbolo-mono-creme.svg</code><small>Uma cor, sobre foto escura</small></div></div>
+  </div>
+
+  <p class="sub">Respiro mínimo</p>
+  <p class="nota" style="border:0;padding:0;margin-bottom:var(--e-5)">As quatro variantes do arquivo original usavam respiros de 0,17, 0,27, 0,12 e 0,05 da largura do símbolo. Não havia regra. O sistema passa a ter uma: área de proteção de <b>meia largura do símbolo</b> em volta, gap de <b>0,25</b> quando o texto fica ao lado e <b>0,12</b> quando fica embaixo.</p>
+</section>
+
+<section>
+  <h2>Assinatura</h2>
+  <p class="nota">Josefin Sans. O nome é peso <b>700</b> e a palavra Imóveis é peso <b>600</b>, a 0,72 do tamanho do nome, com 0,325em de espaço antes. Tracking zero. Os três números foram medidos no arquivo, não escolhidos: o avanço de "Carvalho &amp; Seixas" é 8,7150 vezes o corpo, que casa com o peso 700 do Josefin Sans com erro de 0,00 por cento. O arquivo declarava a fonte como Thin, e isso era rótulo errado do Illustrator: a haste do "l" mede 0,140em, que é a haste do 700.</p>
+
+  <div class="lockups">
+    <div class="lk"><div class="lk__h">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+      <span class="assinatura"><span class="assinatura__nome">Carvalho &amp; Seixas</span><span class="assinatura__categoria">Imóveis</span></span>
+    </div><span class="lk__rot">Horizontal · uso padrão</span></div>
+
+    <div class="lk lk--emp"><div class="lk__h">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+      <span class="assinatura"><span class="assinatura__nome">Carvalho<br>&amp; Seixas</span><span class="assinatura__categoria">Imóveis</span></span>
+    </div><span class="lk__rot">Horizontal empilhada · espaço estreito</span></div>
+
+    <div class="lk"><div class="lk__v">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+      <span class="assinatura"><span class="assinatura__nome">Carvalho &amp; Seixas</span><span class="assinatura__categoria">Imóveis</span></span>
+    </div><span class="lk__rot">Vertical · rodapé e documento</span></div>
+
+    <div class="lk lk--esc"><div class="lk__h">
+      <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:#F3EFE4"><use href="#marca"></use></svg>
+      <span class="assinatura"><span class="assinatura__nome">Carvalho &amp; Seixas</span><span class="assinatura__categoria">Imóveis</span></span>
+    </div><span class="lk__rot">Reverso · sobre o azul da marca</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Cor</h2>
+  <p class="nota">Quatro cores definidas por você. Todo o resto desta seção é derivado delas em OKLCH, mantendo a matiz e afunilando a cromia nas pontas para o claro não ficar lavado e o escuro não ficar sujo.</p>
+
+  <div class="paleta">
+    <div class="sw" style="background:#163864;color:#FEFDFA"><b>Azul</b><code>#163864</code><span>Marca, título, ação</span></div>
+    <div class="sw" style="background:#C9A24C;color:#163864"><b>Ouro</b><code>#C9A24C</code><span>Detalhe e destaque</span></div>
+    <div class="sw" style="background:#F3EFE4;color:#163864"><b>Creme</b><code>#F3EFE4</code><span>Faixa e cartão</span></div>
+    <div class="sw" style="background:#2B2B2B;color:#FEFDFA"><b>Grafite</b><code>#2B2B2B</code><span>Corpo de texto</span></div>
+  </div>
+
+  <p class="sub">Rampa do azul</p>
+  <div class="rampa"><div class="sw sw--passo" style="background:#EEF4FC;color:#163864"><b>50</b><code>#EEF4FC</code></div>
+<div class="sw sw--passo" style="background:#E0E9F5;color:#163864"><b>100</b><code>#E0E9F5</code></div>
+<div class="sw sw--passo" style="background:#C6D6EA;color:#163864"><b>200</b><code>#C6D6EA</code></div>
+<div class="sw sw--passo" style="background:#A3B9D8;color:#163864"><b>300</b><code>#A3B9D8</code></div>
+<div class="sw sw--passo" style="background:#7694BD;color:#FEFDFA"><b>400</b><code>#7694BD</code></div>
+<div class="sw sw--passo sw--marca" style="background:#163864;color:#FEFDFA"><b>500</b><code>#163864</code></div>
+<div class="sw sw--passo" style="background:#082A55;color:#FEFDFA"><b>600</b><code>#082A55</code></div>
+<div class="sw sw--passo" style="background:#011F46;color:#FEFDFA"><b>700</b><code>#011F46</code></div>
+<div class="sw sw--passo" style="background:#001436;color:#FEFDFA"><b>800</b><code>#001436</code></div>
+<div class="sw sw--passo" style="background:#000B25;color:#FEFDFA"><b>900</b><code>#000B25</code></div></div>
+
+  <p class="sub">Rampa do ouro</p>
+  <div class="rampa"><div class="sw sw--passo" style="background:#FEF6E6;color:#163864"><b>50</b><code>#FEF6E6</code></div>
+<div class="sw sw--passo" style="background:#F8ECD2;color:#163864"><b>100</b><code>#F8ECD2</code></div>
+<div class="sw sw--passo" style="background:#EFDAB0;color:#163864"><b>200</b><code>#EFDAB0</code></div>
+<div class="sw sw--passo" style="background:#E5C98E;color:#163864"><b>300</b><code>#E5C98E</code></div>
+<div class="sw sw--passo" style="background:#D9B66B;color:#163864"><b>400</b><code>#D9B66B</code></div>
+<div class="sw sw--passo sw--marca" style="background:#C9A24C;color:#163864"><b>500</b><code>#C9A24C</code></div>
+<div class="sw sw--passo" style="background:#AC862C;color:#FEFDFA"><b>600</b><code>#AC862C</code></div>
+<div class="sw sw--passo" style="background:#8D6A0C;color:#FEFDFA"><b>700</b><code>#8D6A0C</code></div>
+<div class="sw sw--passo" style="background:#6E5000;color:#FEFDFA"><b>800</b><code>#6E5000</code></div>
+<div class="sw sw--passo" style="background:#4F3700;color:#FEFDFA"><b>900</b><code>#4F3700</code></div></div>
+
+  <p class="sub">Neutros, na matiz do creme</p>
+  <div class="rampa"><div class="sw sw--passo" style="background:#FEFDFA;color:#163864"><b>50</b><code>#FEFDFA</code></div>
+<div class="sw sw--passo" style="background:#F8F7F2;color:#163864"><b>100</b><code>#F8F7F2</code></div>
+<div class="sw sw--passo" style="background:#F1EFE8;color:#163864"><b>200</b><code>#F1EFE8</code></div>
+<div class="sw sw--passo" style="background:#E1DED6;color:#163864"><b>300</b><code>#E1DED6</code></div>
+<div class="sw sw--passo" style="background:#C0BDB6;color:#163864"><b>400</b><code>#C0BDB6</code></div>
+<div class="sw sw--passo" style="background:#95928A;color:#FEFDFA"><b>500</b><code>#95928A</code></div>
+<div class="sw sw--passo" style="background:#6E6C64;color:#FEFDFA"><b>600</b><code>#6E6C64</code></div>
+<div class="sw sw--passo" style="background:#4F4D46;color:#FEFDFA"><b>700</b><code>#4F4D46</code></div>
+<div class="sw sw--passo" style="background:#302E28;color:#FEFDFA"><b>800</b><code>#302E28</code></div>
+<div class="sw sw--passo" style="background:#14130F;color:#FEFDFA"><b>900</b><code>#14130F</code></div></div>
+
+  <p class="sub">Proporção na página</p>
+  <p class="nota" style="border:0;padding:0;margin-bottom:var(--e-5)">O fundo é off-white, não bege. O creme entra como faixa e como preenchimento de cartão, para separar seção sem trocar de página. Azul e ouro são dose, não superfície: o ouro em especial só aparece em detalhe, botão e chave da marca.</p>
+  <div class="proporcao">
+    <div style="flex:70;background:var(--cs-neutro-50);color:var(--cs-azul)">Off-white 70</div>
+    <div style="flex:18;background:var(--cs-creme);color:var(--cs-azul)">Creme 18</div>
+    <div style="flex:9;background:var(--cs-azul);color:var(--cs-creme)">Azul 9</div>
+    <div style="flex:3;background:var(--cs-ouro);color:var(--cs-azul)">Ouro 3</div>
+  </div>
+
+  <p class="sub">Contraste medido</p>
+  <div class="rol"><table>
+    <thead><tr><th>Par</th><th>Frente</th><th>Fundo</th><th>Razão</th><th>WCAG</th></tr></thead>
+    <tbody><tr><td><b>Azul no fundo</b><small>Título e texto forte</small></td><td class="dado">#163864</td><td class="dado">#FEFDFA</td><td class="dado num-tabular">11.57</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Grafite no fundo</b><small>Corpo de texto</small></td><td class="dado">#2B2B2B</td><td class="dado">#FEFDFA</td><td class="dado num-tabular">13.92</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Neutro 600 no fundo</b><small>Texto de apoio</small></td><td class="dado">#6E6C64</td><td class="dado">#FEFDFA</td><td class="dado num-tabular">5.17</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Ouro-texto no fundo</b><small>Rótulo e valor em ouro</small></td><td class="dado">#8A6705</td><td class="dado">#FEFDFA</td><td class="dado num-tabular">5.13</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Azul no creme</b><small>Título sobre faixa</small></td><td class="dado">#163864</td><td class="dado">#F3EFE4</td><td class="dado num-tabular">10.25</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Grafite no creme</b><small>Corpo sobre faixa</small></td><td class="dado">#2B2B2B</td><td class="dado">#F3EFE4</td><td class="dado num-tabular">12.32</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Ouro-texto no creme</b><small>O par mais apertado do sistema</small></td><td class="dado">#8A6705</td><td class="dado">#F3EFE4</td><td class="dado num-tabular">4.54</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Creme no azul</b><small>Texto sobre fundo de marca</small></td><td class="dado">#F3EFE4</td><td class="dado">#163864</td><td class="dado num-tabular">10.25</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Ouro no azul</b><small>Botão de ouro e destaque</small></td><td class="dado">#C9A24C</td><td class="dado">#163864</td><td class="dado num-tabular">4.91</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Azul 200 no azul</b><small>Apoio sobre fundo de marca</small></td><td class="dado">#C6D6EA</td><td class="dado">#163864</td><td class="dado num-tabular">7.96</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Creme no escuro</b><small>Tema escuro</small></td><td class="dado">#F3EFE4</td><td class="dado">#00183A</td><td class="dado num-tabular">15.34</td><td><span class="selo selo--ok">AA</span></td></tr>
+<tr><td><b>Ouro 300 no escuro</b><small>Tema escuro, destaque</small></td><td class="dado">#E5C98E</td><td class="dado">#00183A</td><td class="dado num-tabular">10.97</td><td><span class="selo selo--ok">AA</span></td></tr></tbody>
+  </table></div>
+  <p class="nota" style="border:0;padding:var(--e-4) 0 0;margin:0">O ouro da marca sobre off-white dá 2,36 para 1 e por isso <b>nunca é cor de texto pequeno</b>. Para texto em ouro o sistema tem <code>--cs-ouro-texto</code>, que é o ouro escurecido até passar em 4,5 sobre o creme, que é o fundo mais apertado do sistema.</p>
+</section>
+
+<section>
+  <h2>Tipografia</h2>
+  <p class="nota">Josefin Sans tem altura de x de 0,378em, muito baixa. Ela é ótima em título e péssima em corpo de texto, então a regra é: Josefin só a partir de 20px, corpo sempre em Source Sans 3, que é o par que o material da marca já usava. Mono só para número.</p>
+  <div class="esc"><div class="esc__meta"><code>display-1</code><small>60 / 1.02</small><small>Josefin Sans 700</small></div><div class="esc__amostra" style="font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-1);line-height:var(--lh-display-1);letter-spacing:var(--tr-display)">Aqui seu sonho</div></div>
+<div class="esc"><div class="esc__meta"><code>display-2</code><small>44 / 1.06</small><small>Josefin Sans 700</small></div><div class="esc__amostra" style="font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-2);line-height:var(--lh-display-2);letter-spacing:var(--tr-display)">vira patrimônio</div></div>
+<div class="esc"><div class="esc__meta"><code>display-3</code><small>32 / 1.12</small><small>Josefin Sans 700</small></div><div class="esc__amostra" style="font-family:var(--fam-display);font-weight:var(--fw-marca);font-size:var(--fs-display-3);line-height:var(--lh-display-3);letter-spacing:var(--tr-display)">Apartamento na Tijuca</div></div>
+<div class="esc"><div class="esc__meta"><code>titulo-1</code><small>24 / 1.2</small><small>Josefin Sans 600</small></div><div class="esc__amostra" style="font-family:var(--fam-display);font-weight:var(--fw-forte);font-size:var(--fs-titulo-1);line-height:var(--lh-titulo-1);letter-spacing:var(--tr-titulo)">Documentação e risco</div></div>
+<div class="esc"><div class="esc__meta"><code>titulo-2</code><small>20 / 1.25</small><small>Josefin Sans 600</small></div><div class="esc__amostra" style="font-family:var(--fam-display);font-weight:var(--fw-forte);font-size:var(--fs-titulo-2);line-height:var(--lh-titulo-2);letter-spacing:var(--tr-titulo)">Custos da aquisição</div></div>
+<div class="esc"><div class="esc__meta"><code>corpo-g</code><small>18 / 1.6</small><small>Source Sans 3 400</small></div><div class="esc__amostra" style="font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-g);line-height:var(--lh-corpo-g)">As sócias são advogadas e corretoras, e é isso que muda a conversa.</div></div>
+<div class="esc"><div class="esc__meta"><code>corpo</code><small>16 / 1.62</small><small>Source Sans 3 400</small></div><div class="esc__amostra" style="font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo);line-height:var(--lh-corpo)">Rua Conde de Bonfim, 2 quartos, uma suíte, uma vaga, 78 m² de área útil.</div></div>
+<div class="esc"><div class="esc__meta"><code>corpo-p</code><small>14 / 1.55</small><small>Source Sans 3 400</small></div><div class="esc__amostra" style="font-family:var(--fam-corpo);font-weight:var(--fw-corpo);font-size:var(--fs-corpo-p);line-height:var(--lh-corpo-p)">Condomínio e IPTU informados pelo proprietário, sujeitos a conferência.</div></div>
+<div class="esc"><div class="esc__meta"><code>rotulo</code><small>12 / 1.2</small><small>Source Sans 3 600 caixa alta</small></div><div class="esc__amostra" style="font-family:var(--fam-corpo);font-weight:var(--fw-forte);font-size:var(--fs-rotulo);line-height:var(--lh-rotulo);letter-spacing:var(--tr-rotulo);text-transform:uppercase;color:var(--txt-suave)">ÁREA ÚTIL</div></div>
+<div class="esc"><div class="esc__meta"><code>dado</code><small>14</small><small>IBM Plex Mono 500 tabular</small></div><div class="esc__amostra" style="font-family:var(--fam-dado);font-weight:500;font-size:var(--fs-dado);line-height:var(--lh-dado);font-variant-numeric:tabular-nums">R$ 780.000 · 78 m² · CS-0142</div></div>
+</section>
+
+<section>
+  <h2>Espaço, raio e elevação</h2>
+  <p class="nota">Base de 4px. A interface é <b>arredondada e flutuante</b>: o símbolo continua de canto reto, e é esse contraste que faz a marca aparecer em cima dela. Pílula deixou de ser exceção e vale para botão, pastilha, selo e filtro. A sombra é tingida de azul, porque preto sobre creme acinzenta a página, e tem sempre duas camadas: um contato curto e uma queda longa, que é a que faz flutuar.</p>
+
+  <p class="sub">Espaço</p>
+  <div class="esps"><div class="esp"><span style="width:var(--e-2)"></span><code>e-2</code><small>4px</small></div>
+<div class="esp"><span style="width:var(--e-3)"></span><code>e-3</code><small>8px</small></div>
+<div class="esp"><span style="width:var(--e-4)"></span><code>e-4</code><small>12px</small></div>
+<div class="esp"><span style="width:var(--e-5)"></span><code>e-5</code><small>16px</small></div>
+<div class="esp"><span style="width:var(--e-7)"></span><code>e-7</code><small>24px</small></div>
+<div class="esp"><span style="width:var(--e-8)"></span><code>e-8</code><small>32px</small></div>
+<div class="esp"><span style="width:var(--e-10)"></span><code>e-10</code><small>48px</small></div>
+<div class="esp"><span style="width:var(--e-11)"></span><code>e-11</code><small>64px</small></div>
+<div class="esp"><span style="width:var(--e-13)"></span><code>e-13</code><small>96px</small></div></div>
+
+  <p class="sub">Raio</p>
+  <div class="rais"><div class="rai"><span style="border-radius:var(--r-1)"></span><code>r-1</code><small>8px</small><small>Miniatura e detalhe</small></div>
+<div class="rai"><span style="border-radius:var(--r-2)"></span><code>r-2</code><small>12px</small><small>Campo e nota</small></div>
+<div class="rai"><span style="border-radius:var(--r-3)"></span><code>r-3</code><small>16px</small><small>Cartão pequeno</small></div>
+<div class="rai"><span style="border-radius:var(--r-4)"></span><code>r-4</code><small>24px</small><small>Cartão, foto e galeria</small></div>
+<div class="rai"><span style="border-radius:var(--r-5)"></span><code>r-5</code><small>36px</small><small>Painel e ilha</small></div>
+<div class="rai"><span style="border-radius:var(--r-6)"></span><code>r-6</code><small>44px</small><small>Ilha grande</small></div>
+<div class="rai"><span style="border-radius:var(--r-pilula)"></span><code>r-pilula</code><small>999px</small><small>Botão, pastilha, selo e filtro</small></div></div>
+
+  <p class="sub">Elevação</p>
+  <div class="elevs">
+    <div class="elev" style="box-shadow:var(--sombra-1)"><code>--sombra-1</code><small>Cartão em repouso</small></div>
+    <div class="elev" style="box-shadow:var(--sombra-2)"><code>--sombra-2</code><small>Cartão sob o cursor</small></div>
+    <div class="elev" style="box-shadow:var(--sombra-3)"><code>--sombra-3</code><small>Modal e painel</small></div>
+    </div>
+
+    <p class="sub" style="margin-top:var(--e-9)">Vidro</p>
+    <p class="nota">Três receitas, e a escolha não é gosto: depende do que está <b>atrás</b> do painel. Sobre cor chapada não se usa vidro, porque não há o que refratar.</p>
+    <div class="vidros">
+      <div class="vidros__palco vidros__palco--escuro">
+        <span class="cs-vidro">.cs-vidro<small>sobre cena escura</small></span>
+      </div>
+      <div class="vidros__palco vidros__palco--claro">
+        <span class="cs-vidro-claro">.cs-vidro-claro<small>sobre o off-white</small></span>
+      </div>
+      <div class="vidros__palco vidros__palco--foto">
+        <span class="cs-vidro-tinta">.cs-vidro-tinta<small>sobre imagem</small></span>
+      </div>
+</section>
+
+<section>
+  <h2>Movimento</h2>
+  <p class="nota">O site vai usar GSAP e three.js, então cada duração aqui já vem com o ease equivalente do GSAP. Use os mesmos valores nos dois lados, senão o movimento de CSS e o de GSAP brigam na mesma tela. Em <code>prefers-reduced-motion</code> todas as durações vão a zero, e no GSAP a mesma trava vive em <code>gsap.matchMedia()</code>.</p>
+  <div class="rol"><table>
+    <thead><tr><th>Token</th><th>Duração</th><th>Ease no GSAP</th><th>Onde</th></tr></thead>
+    <tbody><tr><td><code>--d-rapido</code></td><td class="dado">160ms</td><td class="dado">power2.out</td><td>Estado de botão e campo</td></tr>
+<tr><td><code>--d-padrao</code></td><td class="dado">260ms</td><td class="dado">power2.out</td><td>Abrir menu, pastilha de filtro</td></tr>
+<tr><td><code>--d-lento</code></td><td class="dado">420ms</td><td class="dado">power3.inOut</td><td>Modal e painel</td></tr>
+<tr><td><code>--d-cena</code></td><td class="dado">900ms</td><td class="dado">expo.out</td><td>Entrada de seção e Flip da foto</td></tr>
+<tr><td><code>--escalonar</code></td><td class="dado">60ms</td><td class="dado">stagger</td><td>Entre cartões, via ScrollTrigger.batch</td></tr></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Slogan</h2>
+  <p class="nota">Frase da identidade. Entra em Josefin Sans, sobre o azul, e nunca junto da assinatura na mesma linha: ela é frase, não parte da marca.</p>
+  <div class="slogan">
+    <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas" style="--cs-azul:#F3EFE4"><use href="#marca"></use></svg>
+    <p>Aqui seu sonho vira patrimônio.</p>
+    <span class="lk__rot">Uso em abertura, cartão e rodapé</span>
+  </div>
+</section>
+
+<section>
+  <h2>O que não fazer</h2>
+  <div class="nao">
+    <div><b>Não usar o protótipo de chave sozinha</b><small>Aquele estudo tinha chave sem casa e assinatura em serifada. Não é a marca. A marca é a casa com a chave, em Josefin Sans.</small></div>
+    <div><b>Não usar degradê no ouro</b><small>O material antigo tinha degradê de vinte tons. O ouro da marca é chapado, um valor só.</small></div>
+    <div><b>Não usar Josefin Sans em corpo de texto</b><small>Altura de x de 0,378em. Abaixo de 20px ela deixa de ser legível.</small></div>
+    <div><b>Não usar ouro em texto pequeno</b><small>2,36 para 1 sobre off-white. Existe <code>--cs-ouro-texto</code> para isso.</small></div>
+    <div><b>Não recolorir o símbolo fora das quatro variantes</b><small>Positivo, reverso, mono azul e mono creme. Nada além.</small></div>
+    <div><b>Não apertar o respiro</b><small>Meia largura do símbolo de área livre em volta, sempre.</small></div>
+  </div>
+</section>
+
+<div class="pe">
+  <svg viewBox="0 0 142.267 143.163" role="img" aria-label="Carvalho e Seixas"><use href="#marca"></use></svg>
+  <p>Fase 1 de 3. Vêm em seguida os componentes, dos vinte e dois que já existiam mais os dezessete que o site pede, e depois as sete telas. Os tokens desta página são os arquivos de verdade em <code>ds/tokens/</code>, colados aqui sem edição.</p>
+</div>
+
+</div>

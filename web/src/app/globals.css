@@ -1,0 +1,461 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================ MARCA
+   Os valores vêm do design system em `../../ds/tokens`. Aqui eles entram no
+   tema do Tailwind para virar utilitário (`bg-azul-500`, `text-ouro-500`).
+   Fonte única de verdade continua sendo o DS: mudou lá, muda aqui. */
+@theme {
+  --color-azul-50: #eef4fc;
+  --color-azul-100: #e0e9f5;
+  --color-azul-200: #c6d6ea;
+  --color-azul-300: #a3b9d8;
+  --color-azul-400: #7694bd;
+  --color-azul-500: #163864;
+  --color-azul-600: #082a55;
+  --color-azul-700: #011f46;
+  --color-azul-800: #001436;
+  --color-azul-900: #000b25;
+
+  --color-ouro-50: #fef6e6;
+  --color-ouro-100: #f8ecd2;
+  --color-ouro-200: #efdab0;
+  --color-ouro-300: #e5c98e;
+  --color-ouro-400: #d9b66b;
+  --color-ouro-500: #c9a24c;
+  --color-ouro-600: #ac862c;
+  --color-ouro-700: #8d6a0c;
+  /* Ouro que pode virar TEXTO: o ouro da marca dá 2,36:1 sobre o off-white
+     e reprova em qualquer tamanho. Este dá 4,54:1. */
+  --color-ouro-texto: #8a6705;
+
+  --color-creme: #f3efe4;
+  --color-grafite: #2b2b2b;
+
+  --color-neutro-50: #fefdfa;
+  --color-neutro-100: #f8f7f2;
+  --color-neutro-200: #f1efe8;
+  --color-neutro-300: #e1ded6;
+  --color-neutro-400: #c0bdb6;
+  --color-neutro-500: #95928a;
+  --color-neutro-600: #6e6c64;
+  --color-neutro-700: #4f4d46;
+  --color-neutro-800: #302e28;
+  --color-neutro-900: #14130f;
+
+  --font-display: var(--font-josefin), "Century Gothic", Futura, sans-serif;
+  --font-sans: var(--font-source), "Segoe UI", system-ui, Arial, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+
+  /* Raio generoso: a direção é arredondada e flutuante. `--radius` alimenta
+     a escala do shadcn (sm .6 · md .8 · lg 1 · xl 1.4 · 2xl 1.8 · 3xl 2.2). */
+  --radius: 1.25rem;
+
+  /* Sombra SEMPRE tingida de azul. Preto sobre creme acinzenta a página.
+     Duas camadas: contato curto e queda longa. É a queda longa que faz o
+     componente flutuar em vez de parecer colado. */
+  --shadow-flutua-1: 0 1px 2px rgba(22, 56, 100, 0.06), 0 6px 16px -6px rgba(22, 56, 100, 0.14);
+  --shadow-flutua-2: 0 2px 6px rgba(22, 56, 100, 0.07), 0 18px 40px -14px rgba(22, 56, 100, 0.22);
+  --shadow-flutua-3: 0 4px 10px rgba(22, 56, 100, 0.08), 0 36px 70px -24px rgba(22, 56, 100, 0.3);
+  --shadow-vidro: 0 24px 60px -20px rgba(3, 12, 28, 0.55);
+
+  --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-firme: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Altura ocupada pela barra do topo, contando o vão acima dela. Toda
+     página reserva ESTE número; foi a falta dele que deixou o menu por
+     cima da abertura em tela baixa. */
+  --altura-topo: 4.75rem;
+}
+
+/* ------------------------------------------- ponte com o shadcn
+   Os componentes do shadcn usam utilitário (`border-border`, `bg-primary`),
+   e utilitário só existe se a cor estiver registrada no tema. Este bloco é
+   a ponte entre as variáveis semânticas de baixo e o Tailwind. Ele veio no
+   template e não pode sair: sem ele o build para em "unknown utility". */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-heading: var(--font-display);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ------------------------------------------------- semânticos shadcn
+   Os componentes do shadcn leem estas variáveis. Mapear aqui faz botão,
+   campo e diálogo já nascerem na cor da marca, sem `className` por cima. */
+:root {
+  --background: #fefdfa;
+  --foreground: #163864;
+  --card: #ffffff;
+  --card-foreground: #163864;
+  --popover: #ffffff;
+  --popover-foreground: #163864;
+  --primary: #163864;
+  --primary-foreground: #f3efe4;
+  --secondary: #f3efe4;
+  --secondary-foreground: #163864;
+  --muted: #f1efe8;
+  --muted-foreground: #6e6c64;
+  --accent: #f8ecd2;
+  --accent-foreground: #8a6705;
+  --destructive: #a32c22;
+  --border: #e1ded6;
+  --input: #c0bdb6;
+  --ring: #c9a24c;
+  --chart-1: #163864;
+  --chart-2: #c9a24c;
+  --chart-3: #7694bd;
+  --chart-4: #8a6705;
+  --chart-5: #a3b9d8;
+  --sidebar: #f8f7f2;
+  --sidebar-foreground: #163864;
+  --sidebar-primary: #163864;
+  --sidebar-primary-foreground: #f3efe4;
+  --sidebar-accent: #f8ecd2;
+  --sidebar-accent-foreground: #8a6705;
+  --sidebar-border: #e1ded6;
+  --sidebar-ring: #c9a24c;
+
+  /* Vidro. Duas receitas, e a escolha entre elas não é gosto:
+     `--vidro-*` é para painel sobre CENA ESCURA (a casa 3D, foto, faixa azul);
+     `--vidro-claro-*` é para painel sobre o off-white.
+     Vidro sobre cor chapada não refrata nada e vira só uma caixa clara. */
+  --vidro-fundo: rgba(243, 239, 228, 0.1);
+  --vidro-traco: rgba(243, 239, 228, 0.26);
+  --vidro-realce: rgba(255, 255, 255, 0.34);
+  --vidro-claro-fundo: rgba(255, 255, 255, 0.66);
+  --vidro-claro-traco: rgba(22, 56, 100, 0.1);
+  --vidro-claro-realce: rgba(255, 255, 255, 0.9);
+  --vidro-desfoque: 22px;
+}
+
+.dark {
+  --background: #00183a;
+  --foreground: #f3efe4;
+  --card: #09274d;
+  --card-foreground: #f3efe4;
+  --popover: #09274d;
+  --popover-foreground: #f3efe4;
+  --primary: #c9a24c;
+  --primary-foreground: #001436;
+  --secondary: #09274d;
+  --secondary-foreground: #f3efe4;
+  --muted: #09274d;
+  --muted-foreground: #c0bdb6;
+  --accent: #1f3e65;
+  --accent-foreground: #e5c98e;
+  --destructive: #e58b81;
+  --border: rgba(243, 239, 228, 0.12);
+  --input: rgba(243, 239, 228, 0.18);
+  --ring: #c9a24c;
+  --sidebar: #09274d;
+  --sidebar-foreground: #f3efe4;
+  --sidebar-primary: #c9a24c;
+  --sidebar-primary-foreground: #001436;
+  --sidebar-accent: #1f3e65;
+  --sidebar-accent-foreground: #e5c98e;
+  --sidebar-border: rgba(243, 239, 228, 0.12);
+  --sidebar-ring: #c9a24c;
+
+  --vidro-claro-fundo: rgba(9, 39, 77, 0.66);
+  --vidro-claro-traco: rgba(243, 239, 228, 0.14);
+  --vidro-claro-realce: rgba(243, 239, 228, 0.18);
+}
+
+/* ============================================================= VIDRO
+   Painel de vidro tem quatro partes, e faltando uma ele vira caixa cinza:
+   1. desfoque COM saturação (sem saturar, a cor de trás sai lavada);
+   2. traço de 1px na borda, que é o corte do vidro;
+   3. realce interno no topo, que é a luz batendo na quina;
+   4. sombra longa, que é o que faz flutuar.
+   Onde não há `backdrop-filter` o painel fica opaco: legibilidade primeiro. */
+@utility vidro {
+  background: var(--vidro-fundo);
+  border: 1px solid var(--vidro-traco);
+  box-shadow:
+    inset 0 1px 0 var(--vidro-realce),
+    var(--shadow-vidro);
+  -webkit-backdrop-filter: blur(var(--vidro-desfoque)) saturate(165%);
+  backdrop-filter: blur(var(--vidro-desfoque)) saturate(165%);
+}
+
+/* Terceira receita, e a mais usada em cima de imagem: vidro TINGIDO de
+   azul. A receita clara não escurece o bastante e o texto creme some sobre
+   a parte clara de uma foto ou ilustração. Aqui o painel garante contraste
+   sem deixar de ser vidro, que é o material para controle sobre imagem. */
+@utility vidro-tinta {
+  background: rgba(6, 20, 40, 0.5);
+  border: 1px solid rgba(243, 239, 228, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 10px 26px -12px rgba(3, 12, 28, 0.6);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+
+/* Etiqueta e controle SOBRE IMAGEM. Parece vidro tingido, mas não desfoca:
+   sobre foto ou ilustração o desfoque não muda a leitura, e cada elemento
+   com `backdrop-filter` é uma passada de composição que lê o fundo. Eram 29
+   numa página só, a maioria etiqueta de preço. Vidro de verdade ficou onde
+   ele é o material principal: barra do topo, painel da abertura, busca,
+   barra de filtro e o slogan de dentro do apartamento. */
+@utility tinta {
+  background: rgba(6, 20, 40, 0.64);
+  border: 1px solid rgba(243, 239, 228, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: var(--color-creme);
+}
+
+@utility vidro-claro {
+  background: var(--vidro-claro-fundo);
+  border: 1px solid var(--vidro-claro-traco);
+  box-shadow:
+    inset 0 1px 0 var(--vidro-claro-realce),
+    var(--shadow-flutua-2);
+  -webkit-backdrop-filter: blur(var(--vidro-desfoque)) saturate(150%);
+  backdrop-filter: blur(var(--vidro-desfoque)) saturate(150%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .vidro {
+    background: rgba(6, 22, 45, 0.86);
+  }
+  .vidro-claro {
+    background: #ffffff;
+  }
+  .vidro-tinta {
+    background: rgba(6, 20, 40, 0.86);
+  }
+}
+
+/* Brilho que corre na borda do painel quando o cursor entra. É o único
+   efeito de "vidro premium" que eu deixo: um só, e no elemento que a
+   pessoa está tocando. */
+@utility borda-viva {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      130deg,
+      transparent 20%,
+      var(--color-ouro-300) 46%,
+      transparent 62%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-saida);
+    pointer-events: none;
+  }
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Campo de luz atrás do vidro. Sem nada por trás, vidro não tem o que
+   refratar: é este campo que dá o que borrar nas faixas claras. */
+@utility campo-luz {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    /* Sem vazamento LATERAL: medido, o campo de luz saindo 10% para fora do
+       trilho criava 94px de rolagem horizontal, e nem `overflow-x: clip` no
+       html segurou. Vazar só na vertical resolve na origem. */
+    inset: -20% 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(38% 44% at 18% 24%, rgba(201, 162, 76, 0.18), transparent 70%),
+      radial-gradient(42% 50% at 82% 30%, rgba(118, 148, 189, 0.22), transparent 72%),
+      radial-gradient(50% 40% at 50% 100%, rgba(22, 56, 100, 0.1), transparent 70%);
+    filter: blur(6px);
+  }
+}
+
+/* Ritmo vertical em DOIS valores, não em seis. Seção com py-12, py-16 e
+   py-24 espalhados pela página é o que faz o olho achar que algo está
+   desalinhado, mesmo quando cada bloco está certo sozinho. */
+@utility secao {
+  padding-block: 5rem;
+}
+@utility secao-alta {
+  padding-block: 7rem;
+}
+@media (max-width: 640px) {
+  .secao {
+    padding-block: 3.5rem;
+  }
+  .secao-alta {
+    padding-block: 4.5rem;
+  }
+}
+
+/* Ilha: bloco arredondado que ocupa o trilho. O recuo interno é o MESMO em
+   todas, senão o texto de dentro desalinha do texto das seções de fora. */
+@utility ilha {
+  border-radius: 2.5rem;
+  padding: 3.5rem 2rem;
+}
+@media (min-width: 640px) {
+  .ilha {
+    padding: 3.5rem 3rem;
+  }
+}
+
+@utility trilho {
+  width: min(100% - 2.5rem, 84rem);
+  margin-inline: auto;
+}
+
+/* Grão de papel por cima de tudo. Vidro sem grão fica plástico. */
+@utility grao {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23r)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+}
+
+/* Revelação por rolagem. O estado escondido mora num ATRIBUTO que o
+   JavaScript só escreve depois de confirmar que existe viewport: sem isso,
+   um gatilho que não dispara deixaria a seção invisível para sempre, que é
+   exatamente o defeito que já apareceu duas vezes aqui.
+
+   🔴 Esconder é INSTANTÂNEO e a transição só entra depois, com o segundo
+   atributo. Com a transição valendo desde o começo, as dezesseis seções
+   apareciam no carregamento e SUMIAM em sete décimos, uma por uma, antes de
+   voltar na rolagem. Animação para entrar, corte seco para sair de cena. */
+[data-revela][data-oculto="1"] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+[data-revela][data-anima="1"] {
+  transition:
+    opacity 0.7s var(--ease-saida),
+    transform 0.7s var(--ease-saida);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-revela][data-oculto="1"] {
+    opacity: 1;
+    transform: none;
+  }
+  [data-revela][data-anima="1"] {
+    transition: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  /* O corte tem de ser no HTML, nao no BODY: o body propaga o overflow para
+     a viewport e computa `visible` para si mesmo, entao `overflow-x: clip`
+     no body NAO impede a rolagem lateral (medido: rolava 94px mesmo assim).
+     `clip` e nao `hidden` porque clip nao cria contexto de rolagem, e assim
+     `position: sticky` continua valendo. O campo de luz vaza 10% para fora
+     do trilho de proposito, e e esse vazamento que o corte segura. */
+  html {
+    overflow-x: clip;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Entrelinha junto do tamanho: display grande com entrelinha de corpo
+     abre buraco entre as linhas e desmancha o titulo. */
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-azul-500 dark:text-creme;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+  h1 {
+    font-weight: 700;
+    line-height: 1.03;
+  }
+  h2 {
+    font-weight: 700;
+    line-height: 1.08;
+  }
+  h3 {
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  /* Número é mono e tabular; rótulo em maiúscula é sans 600 espaçado. */
+  .num {
+    @apply font-mono tabular-nums;
+  }
+  .rotulo {
+    @apply font-sans text-[0.75rem] font-semibold uppercase;
+    letter-spacing: 0.12em;
+  }
+  ::selection {
+    background: var(--color-ouro-200);
+    color: var(--color-azul-700);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

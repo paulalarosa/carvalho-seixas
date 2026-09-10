@@ -1,0 +1,155 @@
+/* Carvalho & Seixas · cor
+   Marca: azul #163864 · ouro #C9A24C · creme #F3EFE4 · grafite #2B2B2B.
+   As quatro cores acima foram definidas pela cliente. Todo o resto desta folha
+   e derivado delas em OKLCH, mantendo matiz e afunilando a cromia nas pontas.
+   Todo par usado em texto foi medido: nenhum abaixo de 4,5:1. */
+:root{
+  /* --- as quatro cores da marca --- */
+  --cs-azul: #163864;
+  --cs-ouro: #C9A24C;
+  --cs-creme: #F3EFE4;
+  --cs-grafite: #2B2B2B;
+
+  /* --- rampa do azul --- */
+  --cs-azul-50: #EEF4FC;
+  --cs-azul-100: #E0E9F5;
+  --cs-azul-200: #C6D6EA;
+  --cs-azul-300: #A3B9D8;
+  --cs-azul-400: #7694BD;
+  --cs-azul-500: #163864;
+  --cs-azul-600: #082A55;
+  --cs-azul-700: #011F46;
+  --cs-azul-800: #001436;
+  --cs-azul-900: #000B25;
+
+  /* --- rampa do ouro --- */
+  --cs-ouro-50: #FEF6E6;
+  --cs-ouro-100: #F8ECD2;
+  --cs-ouro-200: #EFDAB0;
+  --cs-ouro-300: #E5C98E;
+  --cs-ouro-400: #D9B66B;
+  --cs-ouro-500: #C9A24C;
+  --cs-ouro-600: #AC862C;
+  --cs-ouro-700: #8D6A0C;
+  --cs-ouro-800: #6E5000;
+  --cs-ouro-900: #4F3700;
+
+  /* --- neutros, na matiz do creme --- */
+  --cs-neutro-50: #FEFDFA;
+  --cs-neutro-100: #F8F7F2;
+  --cs-neutro-200: #F1EFE8;
+  --cs-neutro-300: #E1DED6;
+  --cs-neutro-400: #C0BDB6;
+  --cs-neutro-500: #95928A;
+  --cs-neutro-600: #6E6C64;
+  --cs-neutro-700: #4F4D46;
+  --cs-neutro-800: #302E28;
+  --cs-neutro-900: #14130F;
+
+  /* --- ouro legivel em corpo de texto (4,54:1 sobre creme) --- */
+  --cs-ouro-texto: #8A6705;
+
+  /* --- semanticos: superficie --- */
+  --sup-base: var(--cs-neutro-50);
+  --sup-faixa: var(--cs-creme);
+  --sup-cartao: var(--cs-neutro-50);
+  --sup-elevada: #FFFFFF;
+  --sup-inversa: var(--cs-azul);
+  --sup-sutil: var(--cs-neutro-100);
+
+  /* --- semanticos: texto --- */
+  --txt-forte: var(--cs-azul);
+  --txt-corpo: var(--cs-grafite);
+  --txt-suave: var(--cs-neutro-600);
+  --txt-ouro: var(--cs-ouro-texto);
+  --txt-sobre-azul: var(--cs-creme);
+  --txt-sobre-azul-suave: var(--cs-azul-200);
+
+  /* --- semanticos: traco --- */
+  --tra-sutil: var(--cs-neutro-300);
+  --tra-medio: var(--cs-neutro-400);
+  --tra-forte: var(--cs-azul);
+  --tra-ouro: var(--cs-ouro);
+  --tra-foco: var(--cs-ouro);
+
+  /* --- semanticos: acao --- */
+  --acao-fundo: var(--cs-azul);
+  --acao-fundo-hover: var(--cs-azul-600);
+  --acao-fundo-ativo: var(--cs-azul-700);
+  --acao-texto: var(--cs-creme);
+  --acao-ouro-fundo: var(--cs-ouro);
+  --acao-ouro-texto: var(--cs-azul);
+
+  /* --- estado. Nenhum deles e a cor de destaque da marca --- */
+  --est-ok: #1F6B4A;
+  --est-ok-sup: #E6F2EC;
+  --est-atencao: #8A5A08;
+  --est-atencao-sup: #FBF0DC;
+  --est-erro: #A32C22;
+  --est-erro-sup: #FAE9E7;
+  --est-info: var(--cs-azul-600);
+  --est-info-sup: var(--cs-azul-50);
+}
+
+/* Tema escuro. O azul deixa de ser destaque e passa a ser chao,
+   entao o papel de destaque vai para o ouro e para o azul-200. */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --sup-base: #00183A;
+    --sup-faixa: #09274D;
+    --sup-cartao: #09274D;
+    --sup-elevada: #1F3E65;
+    --sup-inversa: var(--cs-creme);
+    --sup-sutil: #09274D;
+
+    --txt-forte: var(--cs-creme);
+    --txt-corpo: var(--cs-neutro-200);
+    --txt-suave: var(--cs-neutro-400);
+    --txt-ouro: var(--cs-ouro-300);
+    --txt-sobre-azul: var(--cs-creme);
+    --txt-sobre-azul-suave: var(--cs-azul-200);
+
+    --tra-sutil: #09274D;
+    --tra-medio: #1F3E65;
+    --tra-forte: var(--cs-azul-200);
+    --tra-ouro: var(--cs-ouro-300);
+
+    --acao-fundo: var(--cs-ouro);
+    --acao-fundo-hover: var(--cs-ouro-300);
+    --acao-fundo-ativo: var(--cs-ouro-200);
+    --acao-texto: var(--cs-azul-800);
+    --acao-ouro-fundo: var(--cs-ouro-300);
+    --acao-ouro-texto: var(--cs-azul-800);
+
+    --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+    --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+    --est-erro: #F0A79E; --est-erro-sup: #33110D;
+    --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+  }
+}
+:root[data-theme="dark"]{
+  --sup-base: #00183A;
+  --sup-faixa: #09274D;
+  --sup-cartao: #09274D;
+  --sup-elevada: #1F3E65;
+  --sup-inversa: var(--cs-creme);
+  --sup-sutil: #09274D;
+  --txt-forte: var(--cs-creme);
+  --txt-corpo: var(--cs-neutro-200);
+  --txt-suave: var(--cs-neutro-400);
+  --txt-ouro: var(--cs-ouro-300);
+  --tra-sutil: #09274D;
+  --tra-medio: #1F3E65;
+  --tra-forte: var(--cs-azul-200);
+  --tra-ouro: var(--cs-ouro-300);
+  --acao-fundo: var(--cs-ouro);
+  --acao-fundo-hover: var(--cs-ouro-300);
+  --acao-fundo-ativo: var(--cs-ouro-200);
+  --acao-texto: var(--cs-azul-800);
+  --acao-ouro-fundo: var(--cs-ouro-300);
+  --acao-ouro-texto: var(--cs-azul-800);
+  --est-ok: #7FD3AC;   --est-ok-sup: #0C2A1F;
+  --est-atencao: var(--cs-ouro-300); --est-atencao-sup: #2A1F06;
+  --est-erro: #F0A79E; --est-erro-sup: #33110D;
+  --est-info: var(--cs-azul-200); --est-info-sup: #09274D;
+}
