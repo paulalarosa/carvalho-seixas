@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Painel } from "@/components/painel";
+import { TELEFONE } from "@/lib/site";
 
 /* O consentimento é trava, não enfeite: sem ele marcado o envio não passa, e
    o erro aparece junto do campo. O WhatsApp continua sendo o caminho rápido;
@@ -32,6 +33,7 @@ export function FormContato() {
   const [nome, setNome] = useState("");
   const [contato, setContato] = useState("");
   const [ok, setOk] = useState(false);
+  const [mensagem, setMensagem] = useState("");
   const [erros, setErros] = useState<Erros>({});
   const [tentou, setTentou] = useState(false);
   const [enviado, setEnviado] = useState(false);
@@ -54,6 +56,29 @@ export function FormContato() {
       return;
     }
     setEnviado(true);
+
+    /* 🔴 Entregar de verdade, com o que existe. O site é estático e não há
+       CRM, então não há para onde POSTAR. Mas o canal delas é WhatsApp:
+       montar a mensagem e abrir a conversa entrega o recado sem servidor
+       nenhum, e a pessoa só confirma no aplicativo.
+
+       Sem número cadastrado isto não roda, e o aviso abaixo diz a verdade
+       em vez de fingir envio. */
+    if (TELEFONE) {
+      const texto = [
+        `Olá! Sou ${nome.trim()}.`,
+        `Meu contato: ${contato.trim()}.`,
+        mensagem.trim() ? `O que procuro: ${mensagem.trim()}` : "",
+        "(enviado pelo formulário do site)",
+      ]
+        .filter(Boolean)
+        .join("\n");
+      window.open(
+        `https://wa.me/${TELEFONE.replace(/\D/g, "")}?text=${encodeURIComponent(texto)}`,
+        "_blank",
+        "noopener,noreferrer",
+      );
+    }
   }
 
   return (
@@ -115,6 +140,8 @@ export function FormContato() {
           rows={4}
           className="rounded-2xl"
           placeholder="Bairro, número de quartos, faixa de valor, prazo."
+          value={mensagem}
+          onChange={(e) => setMensagem(e.target.value)}
         />
       </label>
 
@@ -167,7 +194,9 @@ export function FormContato() {
           aria-live="polite"
         >
           <Check className="size-5 text-ouro-300" aria-hidden />
-          Recado registrado. No site de verdade, ele chega no WhatsApp das sócias.
+          {TELEFONE
+            ? "Recado pronto no WhatsApp. Confirme o envio na conversa que abriu."
+            : "Recado montado. Falta o número único da empresa entrar no ar para ele ser entregue."}
         </p>
       )}
     </form>

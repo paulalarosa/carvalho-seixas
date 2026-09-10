@@ -5,7 +5,7 @@ import { SITE } from "@/lib/site";
 
    O protótipo tem imóveis, preços e depoimento de exemplo. Indexado, ele
    competiria com o site de verdade quando o domínio da cliente entrar no
-   ar, e pior: alguém podeia achar um imóvel que não existe. Quando o
+   ar, e pior: alguém poderia achar um imóvel que não existe. Quando o
    domínio real for configurado em `NEXT_PUBLIC_SITE_URL`, a liberação
    volta sozinha. */
 const previa = SITE.includes("github.io") || SITE.includes("localhost");
