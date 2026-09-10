@@ -8,6 +8,7 @@ import { Cena } from "@/components/cenas";
 import { Midia } from "@/components/midia";
 import { EntradaAbertura, Revela } from "@/components/entrada";
 import { IMOVEIS, BAIRROS, IMOVEIS as TODOS } from "@/lib/imoveis";
+import { SOCIAS } from "@/lib/site";
 
 const FATOS = [
   {
@@ -18,25 +19,12 @@ const FATOS = [
   {
     n: "02",
     titulo: "Quem te atende assina o contrato",
-    texto: "As duas têm CRECI e OAB. Você não é passado para outro setor.",
+    texto: "As duas têm CRECI e CNAI. Você não é passado para outro setor.",
   },
   {
     n: "03",
     titulo: "A resposta chega no mesmo dia",
     texto: "No WhatsApp da Carvalho ou da Seixas. Sem atendente e sem fila.",
-  },
-];
-
-const SOCIAS = [
-  {
-    inicial: "C",
-    nome: "Carvalho",
-    linha: "Tijuca e Grajaú. Cuida dos contratos.",
-  },
-  {
-    inicial: "S",
-    nome: "Seixas",
-    linha: "Centro e Zona Sul. Cuida da temporada.",
   },
 ];
 
@@ -62,8 +50,8 @@ export default function Home() {
               data-entra="linha"
               className="mt-4 max-w-[46ch] text-base leading-relaxed text-azul-200 sm:mt-6 sm:text-lg"
             >
-              Duas sócias <b className="font-semibold text-creme">advogadas e
-              corretoras</b>. A mesma pessoa cuida da visita, da papelada e do
+              Duas sócias <b className="font-semibold text-creme">corretoras e
+              avaliadoras</b>. A mesma pessoa cuida da visita, da papelada e do
               contrato.
             </p>
             <p
@@ -303,10 +291,13 @@ export default function Home() {
               </div>
               <div>
                 <span className="rotulo block text-ouro-texto">
-                  Sócia · advogada e corretora
+                  Sócia · corretora e avaliadora
                 </span>
                 <span className="font-display text-3xl font-bold text-azul-500">
                   {s.nome}
+                </span>
+                <span className="num mt-2 block text-sm text-neutro-500">
+                  {s.creci} · {s.cnai}
                 </span>
               </div>
               <p className="text-neutro-600">{s.linha}</p>
@@ -315,7 +306,7 @@ export default function Home() {
                 className="inline-flex w-fit items-center gap-2 rounded-full border border-azul-500/20 px-5 py-2.5 text-sm font-semibold text-azul-500 transition-colors hover:bg-azul-500/6"
               >
                 <MessageCircle className="size-4" aria-hidden />
-                Falar com a {s.nome}
+                Falar com a {s.sobrenome}
               </Link>
             </div>
           ))}
@@ -323,17 +314,21 @@ export default function Home() {
           <Painel data-revela className="h-fit p-8">
             <h3 className="font-display text-xl">Registro profissional</h3>
             <p className="mt-3 text-neutro-600">
-              Número de registro dá para conferir no CRECI e na OAB. Selo
-              desenhado, não.
+              Número dá para conferir no conselho. Selo desenhado, não.
             </p>
             <div className="mt-6 space-y-3">
-              {["CRECI", "OAB"].map((r) => (
+              {SOCIAS.map((s) => (
                 <div
-                  key={r}
-                  className="flex items-center justify-between rounded-2xl border border-azul-500/10 bg-neutro-100 px-4 py-3"
+                  key={s.sobrenome}
+                  className="rounded-2xl border border-azul-500/10 bg-neutro-100 px-4 py-3"
                 >
-                  <span className="rotulo text-neutro-600">{r}</span>
-                  <span className="num text-neutro-500">—</span>
+                  <span className="rotulo text-neutro-600">{s.sobrenome}</span>
+                  <span className="num mt-1 block text-sm text-neutro-500">
+                    {s.creci}
+                  </span>
+                  <span className="num block text-sm text-neutro-500">
+                    {s.cnai}
+                  </span>
                 </div>
               ))}
             </div>

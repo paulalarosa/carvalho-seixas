@@ -1,23 +1,29 @@
 import Link from "next/link";
 /* O lucide tirou as marcas do pacote, entao o Instagram entra pelo
    arroba: e sinal de perfil e nao finge ser o logo de terceiro. */
-import { MessageCircle, Mail, AtSign, Home, Scale } from "lucide-react";
+import { MessageCircle, Mail, AtSign, MapPin } from "lucide-react";
 import { Simbolo } from "@/components/marca";
 import { Assinatura } from "@/components/assinatura";
+import { ENDERECO, SOCIAS } from "@/lib/site";
 
-/* Registro profissional em painel próprio, e VAZIO enquanto os números não
-   chegam. Selo de confiança desenhado não prova nada; número de registro
-   prova, porque dá para conferir. Placeholder plausível aqui seria mentira. */
-function Registro({ rotulo, icone }: { rotulo: string; icone: React.ReactNode }) {
+/* Registro profissional em painel próprio. Selo de confiança desenhado não
+   prova nada; número de registro prova, porque qualquer pessoa confere no
+   conselho. Ficou vazio enquanto os números não chegavam, e agora tem os
+   dois de cada sócia. */
+function Registro({
+  quem,
+  creci,
+  cnai,
+}: {
+  quem: string;
+  creci: string;
+  cnai: string;
+}) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-white/12 bg-white/6 px-4 py-3">
-      <span className="text-ouro-300" aria-hidden>
-        {icone}
-      </span>
-      <span>
-        <span className="rotulo block text-azul-200">{rotulo}</span>
-        <span className="num text-creme/50">—</span>
-      </span>
+    <div className="rounded-2xl border border-white/12 bg-white/6 px-4 py-3">
+      <span className="rotulo block text-azul-200">{quem}</span>
+      <span className="num block text-sm text-creme/80">{creci}</span>
+      <span className="num block text-sm text-creme/60">{cnai}</span>
     </div>
   );
 }
@@ -86,14 +92,30 @@ export function Rodape() {
                 <AtSign className="size-4" aria-hidden /> Instagram
               </Link>
             </li>
+            <li className="flex gap-2 pt-2 text-sm leading-relaxed">
+              <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden />
+              <address className="not-italic">
+                {ENDERECO.rua}
+                <br />
+                {ENDERECO.complemento} · {ENDERECO.bairro}
+                <br />
+                {ENDERECO.cidade}/{ENDERECO.estado} · {ENDERECO.cep}
+              </address>
+            </li>
           </ul>
         </div>
 
         <div>
           <h3 className="rotulo mb-5 text-ouro-300">Registro</h3>
           <div className="space-y-3">
-            <Registro rotulo="CRECI" icone={<Home className="size-4" />} />
-            <Registro rotulo="OAB" icone={<Scale className="size-4" />} />
+            {SOCIAS.map((s) => (
+              <Registro
+                key={s.sobrenome}
+                quem={s.sobrenome}
+                creci={s.creci}
+                cnai={s.cnai}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import "./globals.css";
 import { Topo } from "@/components/topo";
 import { Rodape } from "@/components/rodape";
 import { SpriteCenas } from "@/components/cenas";
-import { SITE, NOME, DESCRICAO } from "@/lib/site";
+import { SITE, NOME, DESCRICAO, ENDERECO, SOCIAS } from "@/lib/site";
 
 /* Josefin Sans é a fonte do logo, medida no arquivo `.ai`: o nome está em
    700 e a palavra "Imóveis" em 600, com entreletra zero. Source Sans 3 é o
@@ -70,6 +70,21 @@ const DADOS = {
     { "@type": "Place", name: "Tijuca, Rio de Janeiro" },
     { "@type": "Place", name: "Zona Sul, Rio de Janeiro" },
   ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: `${ENDERECO.rua}, ${ENDERECO.complemento}`,
+    addressLocality: ENDERECO.cidade,
+    addressRegion: ENDERECO.estado,
+    postalCode: ENDERECO.cep,
+    addressCountry: "BR",
+  },
+  /* Cada sócia com o registro que dá para conferir no conselho. É o campo
+     que a busca usa para casar o negócio com a pessoa. */
+  employee: SOCIAS.map((s) => ({
+    "@type": "RealEstateAgent",
+    name: s.nome,
+    identifier: [s.creci, s.cnai],
+  })),
   knowsLanguage: "pt-BR",
   slogan: "Aqui seu sonho vira patrimônio.",
 };

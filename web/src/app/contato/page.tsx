@@ -3,23 +3,13 @@ import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
 import { FormContato } from "@/components/form-contato";
 import { linkZap } from "@/lib/imoveis";
+import { ENDERECO, SOCIAS } from "@/lib/site";
 
 export const metadata = {
   title: "Falar com a gente · Carvalho & Seixas",
   description:
     "Fale direto com uma das sócias. Das 9h às 19h, de segunda a sábado.",
 };
-
-const SOCIAS = [
-  {
-    nome: "Carvalho",
-    linha: "Tijuca e Grajaú. Cuida dos contratos.",
-  },
-  {
-    nome: "Seixas",
-    linha: "Centro e Zona Sul. Cuida da temporada.",
-  },
-];
 
 export default function PaginaContato() {
   return (
@@ -32,17 +22,20 @@ export default function PaginaContato() {
 
       <div className="campo-luz trilho secao relative grid gap-6 md:grid-cols-2">
         {SOCIAS.map((s) => (
-          <Painel key={s.nome} className="borda-viva h-full p-8">
+          <Painel key={s.sobrenome} className="borda-viva h-full p-8">
             <div className="flex items-center gap-4">
               <span className="grid size-14 place-items-center rounded-full bg-azul-50 text-azul-500">
                 <Scale className="size-6" aria-hidden />
               </span>
               <span>
                 <span className="rotulo block text-ouro-texto">
-                  Sócia · advogada e corretora
+                  Sócia · corretora e avaliadora
                 </span>
                 <span className="font-display text-2xl font-bold text-azul-500">
                   {s.nome}
+                </span>
+                <span className="num mt-1 block text-sm text-neutro-500">
+                  {s.creci} · {s.cnai}
                 </span>
               </span>
             </div>

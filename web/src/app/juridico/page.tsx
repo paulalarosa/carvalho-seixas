@@ -6,7 +6,7 @@ import { Painel } from "@/components/painel";
 export const metadata = {
   title: "A compra, do começo ao registro · Carvalho & Seixas",
   description:
-    "As quatro etapas da compra de um imóvel no Rio, por quem é advogada e corretora: visita, documentação, contrato e registro.",
+    "As quatro etapas da compra de um imóvel no Rio, por quem confere a documentação antes da proposta: visita, documentação, contrato e registro.",
 };
 
 const ETAPAS = [
