@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ClipboardCheck, MessageCircle } from "lucide-react";
+import { ArrowRight, ClipboardCheck, MessageCircle } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
 import { metaDaPagina } from "@/lib/site";
@@ -104,6 +104,12 @@ export default function PaginaJuridico() {
             As sócias também são advogadas. É de onde vem a ordem do processo
             aqui: documento antes de proposta, e não o contrário.
           </p>
+          <Link
+            href="/avaliacao"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-azul-500/20 px-5 py-2.5 text-sm font-semibold text-azul-500 transition-colors hover:bg-azul-500/6"
+          >
+            Como funciona a avaliação <ArrowRight className="size-4" aria-hidden />
+          </Link>
         </div>
         <ul className="space-y-4">
           {AVALIACAO.map((linha) => (

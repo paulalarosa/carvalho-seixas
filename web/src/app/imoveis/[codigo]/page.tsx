@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MessageCircle, ShieldCheck, ArrowRight, Check } from "lucide-react";
 import { Galeria } from "@/components/galeria";
+import { Compartilhar } from "@/components/compartilhar";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Painel } from "@/components/painel";
 import { IMOVEIS, BAIRROS, moeda, linkZap } from "@/lib/imoveis";
@@ -17,11 +18,30 @@ export async function generateMetadata({ params }: PageProps<"/imoveis/[codigo]"
   if (!im) return { title: "Imóvel" };
   /* Barra no fim: `trailingSlash` está ligado, e canônico que aponta para
      endereço sem barra aponta para uma página que não existe. */
-  return metaDaPagina({
+  const meta = metaDaPagina({
     titulo: `${im.titulo} · ${im.bairro}`,
     descricao: im.resumo,
     caminho: `/imoveis/${im.codigo}`,
   });
+  /* 🔴 A imagem é declarada COM extensão. O Next exporta a rota de imagem
+     sem extensão nenhuma, e hospedagem estática decide o tipo pelo nome:
+     sem `.png` o arquivo sai como `application/octet-stream` e o WhatsApp
+     descarta. A cópia com extensão é feita por `scripts/og-com-extensao`,
+     que roda junto do build. */
+  return {
+    ...meta,
+    openGraph: {
+      ...meta.openGraph,
+      images: [
+        {
+          url: `/imoveis/${im.codigo}/opengraph-image.png`,
+          width: 1200,
+          height: 630,
+          alt: `${im.titulo}, ${im.bairro}`,
+        },
+      ],
+    },
+  };
 }
 
 /* O que a gente confere antes da proposta. Não é lista de serviço
@@ -233,6 +253,8 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
             <span className="size-2 rounded-full bg-[#1F6B4A]" aria-hidden />
             Resposta em minutos, das 9h às 19h.
           </p>
+
+          <Compartilhar titulo={`${im.titulo} · ${im.bairro}`} />
 
           <p className="num mt-6 text-sm text-neutro-500">
             Código {im.codigo}

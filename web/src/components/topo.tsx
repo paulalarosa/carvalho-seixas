@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/imoveis", texto: "Imóveis" },
   { href: "/bairros", texto: "Bairros" },
+  { href: "/avaliacao", texto: "Avaliação" },
   { href: "/juridico", texto: "Jurídico" },
   { href: "/contato", texto: "Contato" },
 ];

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CartaoImovel } from "@/components/cartao-imovel";
-import { Midia } from "@/components/midia";
 import { BAIRROS, IMOVEIS, moeda, retratoDaRegiao } from "@/lib/imoveis";
 import { metaDaPagina } from "@/lib/site";
 
@@ -45,6 +44,7 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
       <CabecaPagina
         titulo={b.nome}
         linha={b.linha}
+        cena={b.cena}
         trilha={[
           { href: "/", texto: "Início" },
           { href: "/bairros", texto: "Bairros" },
@@ -52,15 +52,13 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
         ]}
       />
 
-      <div className="trilho secao grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
-        <p className="max-w-[62ch] text-lg leading-relaxed text-neutro-600">{b.texto}</p>
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] shadow-[var(--shadow-flutua-3)]">
-          <Midia
-            cena={b.cena}
-            rotulo={`Ilustração da marca: ${b.nome}`}
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-        </div>
+      {/* O texto do bairro em coluna de leitura, sem a imagem ao lado: ela
+          agora é a própria abertura, e repetir a mesma cena duas vezes na
+          mesma tela era a redundância que sobrava aqui. */}
+      <div className="trilho secao">
+        <p className="max-w-[62ch] text-[clamp(1.05rem,1.5vw,1.35rem)] leading-relaxed text-neutro-600">
+          {b.texto}
+        </p>
       </div>
 
       {/* Fita de números do bairro, tirada da carteira. A página falava do

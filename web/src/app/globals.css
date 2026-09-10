@@ -459,3 +459,80 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================================ IMPRESSÃO
+
+   Quem visita imóvel leva papel: a ficha impressa é peça de trabalho da
+   corretora e do cliente. Sem esta regra, a folha sai com o topo fixo em
+   cima do texto, a cena 3D como um retângulo escuro, botão de WhatsApp que
+   ninguém clica no papel, e sombra de caixa borrando a tinta.
+
+   🔴 A trava mais importante é a última: a revelação por rolagem esconde
+   seção com opacidade zero, e opacidade zero IMPRIME EM BRANCO. Sem forçar
+   a volta, metade da ficha sai como página vazia. */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+    color: #16181d !important;
+  }
+  /* Fora do papel: navegação, rodapé, cena, ação e decoração. */
+  header,
+  footer,
+  nav,
+  canvas,
+  .grao,
+  [data-sem-impressao],
+  [data-cena],
+  a[href^="https://wa.me"],
+  button {
+    display: none !important;
+  }
+  /* Sem sombra e sem vidro: no papel viram borrão cinza. */
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    text-shadow: none !important;
+  }
+  .vidro,
+  .vidro-tinta,
+  .vidro-claro,
+  .tinta,
+  .campo-luz,
+  .ilha {
+    background: #fff !important;
+    color: #16181d !important;
+    border: 1px solid #c9c6bd !important;
+  }
+  /* 🔴 Seção escondida pela revelação sairia em branco. */
+  [data-revela],
+  [data-oculto="1"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Coluna de preço deixa de flutuar: no papel não existe rolagem. */
+  .sticky {
+    position: static !important;
+  }
+  img {
+    max-height: 9cm;
+    object-fit: contain !important;
+  }
+  h1 {
+    font-size: 22pt !important;
+  }
+  h2 {
+    font-size: 15pt !important;
+    break-after: avoid;
+  }
+  article,
+  li,
+  dl {
+    break-inside: avoid;
+  }
+}
