@@ -378,6 +378,41 @@ export function pedra(cor: string, nitidez: number): Pele {
   };
 }
 
+/* ------------------------------------------------------ CÉU DO FIM DA TARDE
+   A cúpula do céu da cena. 🔴 Sem ela a silhueta do morro não existe:
+   pedra escura contra céu escuro chapado não tem contorno, e o cartão
+   postal do Rio é a montanha RECORTADA contra o fim da tarde. Vai de azul
+   profundo no alto a âmbar na linha do horizonte, com as primeiras
+   estrelas na metade de cima. */
+export function ceuDaTarde(): THREE.Texture {
+  const L = 32;
+  const A = 512;
+  const { c, x } = tela(L, A);
+  /* 🔴 A LINHA DO HORIZONTE É O EQUADOR DA CÚPULA, ou seja, a METADE da
+     textura. Na primeira tentativa eu pus o âmbar no fim do degradê, que
+     na esfera é o fundo, embaixo dos pés: o céu continuou chapado no
+     quadro inteiro e eu procurei defeito no material. */
+  const g = x.createLinearGradient(0, 0, 0, A);
+  g.addColorStop(0, "#091530");
+  g.addColorStop(0.24, "#102244");
+  g.addColorStop(0.4, "#26365c");
+  g.addColorStop(0.46, "#6b5a73");
+  g.addColorStop(0.49, "#c98d5e");
+  g.addColorStop(0.505, "#f2c286");
+  g.addColorStop(0.53, "#7a5a52");
+  g.addColorStop(0.62, "#1d2a42");
+  g.addColorStop(1, "#0c1526");
+  x.fillStyle = g;
+  x.fillRect(0, 0, L, A);
+  // Estrelas só no alto: perto do horizonte a luz do sol ainda apaga.
+  for (let i = 0; i < 90; i++) {
+    const y = Math.random() * A * 0.34;
+    x.fillStyle = `rgba(255,255,255,${0.1 + Math.random() * 0.5})`;
+    x.fillRect(Math.random() * L, y, 1, 1);
+  }
+  return daTela(c, 1, 1, 2);
+}
+
 /* ---------------------------------------------------------- CREPÚSCULO
    O céu visto pela janela do fundo. Retângulo azul claro chapado põe
    meio-dia dentro de uma cena de fim de tarde, e é dissonância que o olho

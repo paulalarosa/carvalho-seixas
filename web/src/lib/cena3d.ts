@@ -187,8 +187,11 @@ export function pisoDaCalcada(nitidez: number) {
   var c = document.createElement('canvas');
   c.width = c.height = 128;
   var x = c.getContext('2d')!, i, j;
-  x.fillStyle = '#d9d2c2'; x.fillRect(0, 0, 128, 128);
-  x.strokeStyle = '#6b6e77'; x.lineWidth = 8; x.lineCap = 'round';
+  /* Calçadão de Copacabana: pedra CLARA com a onda PRETA. Em cinza sobre
+     bege o desenho existe mas não é reconhecido, e é o contraste que faz a
+     onda dizer Rio de Janeiro. */
+  x.fillStyle = '#e7e2d6'; x.fillRect(0, 0, 128, 128);
+  x.strokeStyle = '#2f3138'; x.lineWidth = 9; x.lineCap = 'round';
   for (j = -1; j < 3; j++) {
     x.beginPath();
     for (i = 0; i <= 128; i += 4) {
@@ -198,7 +201,8 @@ export function pisoDaCalcada(nitidez: number) {
   }
   var t = new THREE.CanvasTexture(c);
   t.wrapS = t.wrapT = THREE.RepeatWrapping;
-  t.repeat.set(124, 31);
+  // Onda maior: em 124 repetições ela virava textura de ruído.
+  t.repeat.set(62, 16);
   t.anisotropy = nitidez || 1;
   aplicarSRGB(t);
   return t;

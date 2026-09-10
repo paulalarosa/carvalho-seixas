@@ -87,8 +87,14 @@ export function montarPredio(alvo: HTMLElement): CenaPredio | null {
   const alturaPx = alvo.clientHeight || 540;
 
   const cena = new THREE.Scene();
-  cena.fog = new THREE.Fog(0x102a4c, 150, 460);
-  const camera = new THREE.PerspectiveCamera(38, largura / alturaPx, 0.5, 600);
+  /* Alcance grande: com 460 o morro do outro lado da baía nascia apagado.
+     A cor é a do HORIZONTE, não um azul qualquer: neblina de cor diferente
+     do céu vira uma mancha visível onde a cidade some. */
+  cena.fog = new THREE.Fog(0x2b3a58, 220, 1100);
+  /* 🔴 O plano distante era 600, e por isso a cúpula do céu (raio 1200) e
+     o morro do outro lado da baía simplesmente não desenhavam: ficavam
+     inteiros atrás do corte da câmera, sem erro nenhum no console. */
+  const camera = new THREE.PerspectiveCamera(38, largura / alturaPx, 0.5, 2600);
 
   let renderer: THREE.WebGLRenderer;
   try {
@@ -916,25 +922,110 @@ export function montarPredio(alvo: HTMLElement): CenaPredio | null {
   const VELOCIDADE = 26; // unidades por segundo
   let xCarro = -40;
 
-  /* Fundo: silhueta de quadra distante e morro. É o que impede o céu de
-     encostar no telhado dos vizinhos e entregar que a cidade acaba ali. */
+  /* ===================================================== O RIO AO FUNDO
+
+     A rua terminava em neblina, e três cones de cinco lados faziam de
+     morro atrás do quarteirão. Cone é montanha genérica, e atrás do
+     quarteirão ninguém vê. O que identifica a cidade é o que fica NA
+     DIREÇÃO EM QUE A CÂMERA OLHA em t=0: a rua desembocando na baía, com o
+     morro do outro lado e o Cristo aceso no alto.
+
+     Escala: um andar tem 9 unidades, uns 3 metros. O Pão de Açúcar tem 396
+     metros, e por isso ele domina o fim da avenida como domina de verdade
+     em Botafogo. */
+  /* Cúpula do céu, FORA da neblina: ela é o fundo, não pode ser apagada
+     por ele. Escrita de dentro (BackSide) e sem escrever profundidade,
+     então nada nela atrapalha o resto da cena. */
+  const peleCeu2 = tex.ceuDaTarde();
+  peleCeu2.colorSpace = THREE.SRGBColorSpace;
+  descartaveis.push(peleCeu2);
+  const cupula = new THREE.Mesh(
+    new THREE.SphereGeometry(1200, 24, 16),
+    new THREE.MeshBasicMaterial({
+      map: peleCeu2,
+      side: THREE.BackSide,
+      fog: false,
+      depthWrite: false,
+    }),
+  );
+  cupula.position.y = -120;
+  grupo.add(cupula);
+
   const mLonge = p.mat(0x14304f, 0.95);
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < 12; i++) {
     const larg = 20 + ((i * 37) % 26);
     const alt = 26 + ((i * 53) % 44);
-    grupo.add(p.caixa(larg, alt, 16, mLonge, -300 + i * 40, alt / 2, -120 - ((i * 29) % 60)));
+    grupo.add(p.caixa(larg, alt, 16, mLonge, -300 + i * 34, alt / 2, -120 - ((i * 29) % 60)));
   }
-  const mMorro = p.mat(0x0f2947, 0.98, 0, true);
-  [
-    [-150, 120, 74, -260],
-    [40, 170, 96, -300],
-    [190, 130, 64, -250],
-  ].forEach(([x, larg, alt, z]) => {
-    const m = new THREE.Mesh(new THREE.ConeGeometry(larg, alt, 5), mMorro);
-    m.position.set(x, alt / 2 - 8, z);
-    m.rotation.y = x;
-    grupo.add(m);
+
+  // A baía. Começa onde o quarteirão acaba, e some no horizonte.
+  const mAgua = new THREE.MeshStandardMaterial({
+    color: 0x0d2038,
+    roughness: 0.16,
+    metalness: 0.5,
   });
+  const baia = new THREE.Mesh(new THREE.PlaneGeometry(1500, 1100), mAgua);
+  baia.rotation.x = -Math.PI / 2;
+  baia.position.set(760, -0.8, -120);
+  grupo.add(baia);
+
+  /* Morro carioca: domo de lado quase vertical, não cone. Esfera achatada
+     enterrada até a linha da água é o que reproduz aquele contorno. */
+  /* Mais claro que o céu do alto e mais escuro que o horizonte: é assim
+     que a pedra aparece no fim da tarde, e é o contraste que desenha o
+     contorno do Pão de Açúcar. */
+  const mMorro = p.mat(0x24344e, 0.98, 0, true);
+  /* Fora da neblina: a mais de mil unidades ela apagaria o morro inteiro.
+     A perspectiva atmosférica aqui é feita na COR, que é o que o pintor
+     faz e o que dá para controlar. */
+  mMorro.fog = false;
+  function morro(x: number, z: number, raio: number, alt: number, esticar = 1) {
+    const m = new THREE.Mesh(new THREE.SphereGeometry(raio, 22, 16), mMorro);
+    m.scale.set(esticar, alt / raio, 0.86);
+    m.position.set(x, -0.34 * alt, z);
+    grupo.add(m);
+    // O topo é calculado, não repetido na mão: foi assim que o Cristo
+    // acabou 30 unidades dentro da pedra na primeira tentativa.
+    return { peca: m, topo: m.position.y + alt };
+  }
+  morro(1194, 105, 105, 170, 1.05); // Pão de Açúcar, na ponta da enseada
+  morro(1085, 172, 66, 92, 1.25); // Morro da Urca, na frente e mais baixo
+  morro(1750, -420, 280, 150, 1.7); // a serra do outro lado da baía
+  /* O Corcovado fica no VÃO DA RUA, não atrás do quarteirão: de trás do
+     prédio ninguém vê, e o Cristo é justamente o que identifica a cidade
+     sozinho. */
+  /* 🔴 Posição resolvida pela PROJEÇÃO, não por tentativa. O Cristo sumia
+     em toda tentativa, e não era tamanho nem brilho: com o morro em
+     (700,-430) o cume caía em x=556 da tela, atrás da fileira de prédios
+     da esquerda. O céu aberto no fim da rua começa em x=960; resolvendo a
+     projeção ao contrário para o cume cair em (1060, 300) a 980 de
+     distância, ele tem de ficar em (930, 131, -63), que dá 200 de altura
+     de morro. */
+  const corcovado = morro(930, -63, 110, 200, 0.95);
+
+  /* O Cristo, aceso. À noite ele é um ponto de luz em forma de cruz, e é o
+     item que identifica a cidade sozinho. Emissivo forte de propósito: é
+     ele que o brilho do pós-processamento tem de pegar. */
+  const mCristo = new THREE.MeshStandardMaterial({
+    color: 0xf2ece1,
+    emissive: 0xfff3da,
+    /* Dose baixa: em 1,35 o brilho do pós-processamento fazia um halo de
+       lâmpada em volta dele. O Cristo é iluminado por refletor, não é
+       fonte de luz. */
+    emissiveIntensity: 0.62,
+    roughness: 0.6,
+    fog: false,
+  });
+  const cristo = new THREE.Group();
+  cristo.add(p.caixa(10, 48, 10, mCristo, 0, 24, 0));
+  cristo.add(p.caixa(54, 9, 9, mCristo, 0, 38, 0));
+  const cabeca = new THREE.Mesh(new THREE.SphereGeometry(6.2, 10, 8), mCristo);
+  cabeca.position.y = 51;
+  cristo.add(cabeca);
+  cristo.add(p.caixa(22, 7, 22, p.mat(0x1b3049, 0.95), 0, -3, 0));
+  cristo.position.set(corcovado.peca.position.x, corcovado.topo - 6, corcovado.peca.position.z);
+  cristo.rotation.y = -0.5;
+  grupo.add(cristo);
 
   // --------------------------------------------------------------- luzes
   cena.add(new THREE.HemisphereLight(0x7ba0cd, 0x0a1a30, 0.42));
@@ -996,7 +1087,7 @@ export function montarPredio(alvo: HTMLElement): CenaPredio | null {
     janelaFolha.userData.vidro.emissiveIntensity = 0.4 + acende * 0.45;
 
     // Dentro da sala a neblina fecha: o vizinho não deve aparecer pelo vão.
-    (cena.fog as THREE.Fog).near = 150 - faixa(v, 0.7, 1) * 120;
+    (cena.fog as THREE.Fog).near = 220 - faixa(v, 0.7, 1) * 190;
   }
 
   function moverCarro(dt: number) {
