@@ -3,13 +3,14 @@ import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
 import { FormContato } from "@/components/form-contato";
 import { linkZap } from "@/lib/imoveis";
-import { ENDERECO, HORARIO, SOCIAS, TELEFONE } from "@/lib/site";
+import { ENDERECO, HORARIO, SOCIAS, TELEFONE, metaDaPagina } from "@/lib/site";
 
-export const metadata = {
-  title: "Falar com a gente · Carvalho & Seixas",
-  description:
-    "Fale direto com uma das sócias. Das 9h às 19h, de segunda a sexta.",
-};
+export const metadata = metaDaPagina({
+  titulo: "Falar com a gente",
+  descricao:
+    "Fale direto com uma das sócias, no WhatsApp único da empresa. Das 9h às 19h, de segunda a sexta, no Centro do Rio.",
+  caminho: "/contato",
+});
 
 export default function PaginaContato() {
   return (

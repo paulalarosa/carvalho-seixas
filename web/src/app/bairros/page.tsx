@@ -3,12 +3,14 @@ import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CenaCasa } from "@/components/cena-casa";
 import { Cena } from "@/components/cenas";
 import { BAIRROS, IMOVEIS } from "@/lib/imoveis";
+import { metaDaPagina } from "@/lib/site";
 
-export const metadata = {
-  title: "Onde a gente atua · Carvalho & Seixas",
-  description:
-    "Centro, Tijuca e Zona Sul: três mercados diferentes, três contas diferentes.",
-};
+export const metadata = metaDaPagina({
+  titulo: "Onde a gente atua",
+  descricao:
+    "Centro, Tijuca, Grajaú e Zona Sul: quatro mercados diferentes, quatro contas diferentes.",
+  caminho: "/bairros",
+});
 
 export default function PaginaBairros() {
   return (

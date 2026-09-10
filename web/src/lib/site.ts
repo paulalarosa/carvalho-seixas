@@ -29,6 +29,34 @@ export const TELEFONE: string = "";
 export const EMAIL: string = "";
 export const HORARIO = "Das 9h às 19h, de segunda a sexta.";
 
+/* Metadado de página, num lugar só.
+
+   🔴 Existe porque metadado declarado no layout DESCE para todas as
+   páginas: o `canonical: "/"` que estava lá fazia /contato, /imoveis,
+   /juridico e os quatro bairros dizerem ao buscador que são cópia da home.
+   Com o ajudante, cada página declara o SEU endereço, e o Open Graph sai
+   junto sem ninguém precisar lembrar.
+
+   O caminho vem com barra no fim porque `trailingSlash` está ligado: o
+   canônico tem de ser igual ao endereço que existe de verdade. */
+export function metaDaPagina({
+  titulo,
+  descricao,
+  caminho,
+}: {
+  titulo: string;
+  descricao: string;
+  caminho: string;
+}) {
+  const url = caminho.endsWith("/") ? caminho : `${caminho}/`;
+  return {
+    title: titulo,
+    description: descricao,
+    alternates: { canonical: url },
+    openGraph: { title: `${titulo} · ${NOME}`, description: descricao, url },
+  };
+}
+
 /* As sócias, com registro conferível.
 
    🔴 CPF NÃO ENTRA AQUI. Ela mandou os dois CPFs para o contrato, e

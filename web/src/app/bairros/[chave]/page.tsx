@@ -5,11 +5,32 @@ import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Midia } from "@/components/midia";
 import { BAIRROS, IMOVEIS, moeda, retratoDaRegiao } from "@/lib/imoveis";
+import { metaDaPagina } from "@/lib/site";
 
 /* Rota estática: são três recortes conhecidos, então saem prontos no build
    e não custam servidor. `params` é Promise desde o Next 15. */
 export function generateStaticParams() {
   return BAIRROS.map((b) => ({ chave: b.chave }));
+}
+
+/* 🔴 As quatro páginas de bairro saíam com o título e a descrição PADRÃO
+   da home, porque não havia metadado nenhum aqui. Página de bairro é
+   exatamente o que uma imobiliária quer que a busca local encontre, e as
+   quatro estavam competindo entre si com o mesmo texto. O número vem da
+   carteira, então a descrição também não envelhece. */
+export async function generateMetadata({ params }: PageProps<"/bairros/[chave]">) {
+  const { chave } = await params;
+  const b = BAIRROS.find((x) => x.chave === decodeURIComponent(chave));
+  if (!b) return {};
+  const retrato = retratoDaRegiao(b.chave);
+  const quantos = retrato
+    ? `${retrato.quantos} ${retrato.quantos === 1 ? "imóvel" : "imóveis"} na carteira. `
+    : "";
+  return metaDaPagina({
+    titulo: `Imóveis em ${b.nome}`,
+    descricao: `${quantos}${b.linha} ${b.texto}`.slice(0, 300),
+    caminho: `/bairros/${encodeURIComponent(b.chave)}`,
+  });
 }
 
 export default async function PaginaBairro({ params }: PageProps<"/bairros/[chave]">) {

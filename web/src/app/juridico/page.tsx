@@ -2,12 +2,14 @@ import Link from "next/link";
 import { ClipboardCheck, MessageCircle } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
+import { metaDaPagina } from "@/lib/site";
 
-export const metadata = {
-  title: "A compra, do começo ao registro · Carvalho & Seixas",
-  description:
+export const metadata = metaDaPagina({
+  titulo: "A compra, do começo ao registro",
+  descricao:
     "As quatro etapas da compra de um imóvel no Rio, por quem confere a documentação antes da proposta: visita, documentação, contrato e registro. E avaliação de imóvel com avaliadora cadastrada no CNAI.",
-};
+  caminho: "/juridico",
+});
 
 /* Avaliação é serviço que se CONTRATA, não característica de imóvel, então
    tem bloco próprio e não entra na vitrine. É também o que o CNAI habilita,

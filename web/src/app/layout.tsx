@@ -40,6 +40,10 @@ export const metadata: Metadata = {
     template: `%s · ${NOME}`,
   },
   description: DESCRICAO,
+  /* 🔴 Canônico NÃO mora aqui. Metadado de layout desce para todas as
+     páginas, e apontar todas para "/" é o mesmo que pedir para o buscador
+     ignorar sete páginas de conteúdo. Cada página declara o seu, pelo
+     `metaDaPagina()`. */
   alternates: { canonical: "/" },
   openGraph: {
     title: NOME,

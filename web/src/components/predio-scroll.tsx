@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
 import { ChevronDown } from "lucide-react";
+import cidade from "../../public/abertura-cidade.webp";
 import { MARCA } from "@/lib/site";
 import type { CenaPredio } from "@/lib/cena-predio";
 
@@ -113,7 +115,13 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
             : "relative min-h-[min(44rem,86svh)] overflow-hidden bg-azul-800"
         }
       >
-        {/* Reserva: é ela que aparece no primeiro quadro e é ela o LCP. */}
+        {/* Reserva: é ela que aparece no primeiro quadro e é ela o LCP.
+
+            🔴 No celular ela é o quadro DEFINITIVO, porque a sequência 3D
+            só liga a partir de 768px e desliga com movimento reduzido. Era
+            um degradê, então a maior parte das visitas de uma imobiliária,
+            que chega pelo telefone, nunca via a cena. Agora é a própria
+            cena fotografada em retrato, 87 KB em WebP. */}
         <div
           aria-hidden
           className="absolute inset-0"
@@ -121,7 +129,16 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
             background:
               "radial-gradient(38% 46% at 68% 52%, rgba(255,180,85,.28), transparent 70%), radial-gradient(60% 34% at 40% 98%, #b9ad93, transparent 72%), linear-gradient(168deg,#14345c,#0a1d38)",
           }}
-        />
+        >
+          <Image
+            src={cidade}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[62%_center]"
+          />
+        </div>
         <div
           ref={caixa}
           aria-hidden
@@ -148,9 +165,21 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
           {MARCA}
         </span>
 
+        {/* Véu, em duas versões. No desktop ele escurece da ESQUERDA, que é
+            onde mora o texto, e deixa a cidade limpa à direita. No celular
+            isso apagaria a imagem inteira, porque 62% de 390px é quase a
+            tela toda: lá o véu sobe de BAIXO, que é onde o painel está. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 sm:hidden"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(9,22,42,.94) 24%, rgba(9,22,42,.5) 62%, rgba(9,22,42,.1) 100%)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 max-sm:hidden"
           style={{
             background:
               "linear-gradient(96deg, rgba(9,22,42,.92) 0%, rgba(9,22,42,.7) 34%, rgba(9,22,42,.02) 62%), linear-gradient(to top, rgba(9,22,42,.7), transparent 46%)",

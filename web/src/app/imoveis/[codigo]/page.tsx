@@ -5,7 +5,7 @@ import { Galeria } from "@/components/galeria";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Painel } from "@/components/painel";
 import { IMOVEIS, BAIRROS, moeda, linkZap } from "@/lib/imoveis";
-import { SITE, NOME } from "@/lib/site";
+import { SITE, NOME, metaDaPagina } from "@/lib/site";
 
 export function generateStaticParams() {
   return IMOVEIS.map((im) => ({ codigo: im.codigo }));
@@ -14,11 +14,14 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/imoveis/[codigo]">) {
   const { codigo } = await params;
   const im = IMOVEIS.find((x) => x.codigo === codigo);
-  return {
-    title: im ? `${im.titulo} · ${im.bairro}` : "Imóvel",
-    description: im?.resumo,
-    alternates: { canonical: `/imoveis/${codigo}` },
-  };
+  if (!im) return { title: "Imóvel" };
+  /* Barra no fim: `trailingSlash` está ligado, e canônico que aponta para
+     endereço sem barra aponta para uma página que não existe. */
+  return metaDaPagina({
+    titulo: `${im.titulo} · ${im.bairro}`,
+    descricao: im.resumo,
+    caminho: `/imoveis/${im.codigo}`,
+  });
 }
 
 /* O que a gente confere antes da proposta. Não é lista de serviço
