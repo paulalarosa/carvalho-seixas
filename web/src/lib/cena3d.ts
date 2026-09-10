@@ -147,11 +147,22 @@ export function grade(largura: number, altura: number, matBarra: THREE.Material,
    do próprio azul da marca. Três volumes deslocados, sombreamento chapado. */
 export function folhagem(raio: number, matFolha: THREE.Material) {
   var g = new THREE.Group(), i, b, r;
-  for (i = 0; i < 3; i++) {
-    r = raio * (.68 + i * .16);
-    b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, 0), matFolha);
-    b.position.set((i - 1) * raio * .5, raio * (.5 + i * .3), (i % 2 ? .3 : -.3) * raio);
-    b.rotation.set(i, i * 2, 0);
+  /* Cinco volumes de tamanho e giro diferentes, com um deles subdividido:
+     três bolas iguais eram a coisa mais crua da cena depois que o resto
+     ganhou textura. Copa de árvore é massa irregular, não pilha de bolas. */
+  var arranjo = [
+    [-.55, .42, .28, .62, 0],
+    [.48, .58, -.22, .74, 0],
+    [-.10, .96, .16, .92, 1],
+    [.62, 1.18, .30, .54, 0],
+    [-.52, 1.24, -.26, .48, 0],
+  ];
+  for (i = 0; i < arranjo.length; i++) {
+    var a = arranjo[i];
+    r = raio * a[3];
+    b = new THREE.Mesh(new THREE.IcosahedronGeometry(r, a[4]), matFolha);
+    b.position.set(a[0] * raio, a[1] * raio, a[2] * raio);
+    b.rotation.set(i * 1.7, i * 2.3, i * .8);
     b.castShadow = true;
     g.add(b);
   }

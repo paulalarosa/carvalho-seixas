@@ -80,6 +80,10 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
         end: "bottom bottom",
         onUpdate: (self) => cena.current?.irPara(self.progress),
       });
+      /* Salto sem amortecimento na primeira aplicação. Quem recarrega a
+         página com a sequência já rolada pela metade veria a câmera sair do
+         começo e correr até a posição certa, o que parece defeito. */
+      cena.current?.irPara(st.progress, true);
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: trecho.current,
