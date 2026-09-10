@@ -18,17 +18,15 @@ const REGIOES: Regiao[] = ["Centro", "Tijuca", "Zona Sul"];
    item: sem este mapa o campo aparecia escrito "todos" e "todas". */
 const ROTULOS: Record<string, string> = {
   todos: "Todos os bairros",
-  todas: "Comprar ou alugar",
+  todas: "Comprar ou temporada",
   Centro: "Centro",
   Tijuca: "Tijuca",
   "Zona Sul": "Zona Sul",
   comprar: "Comprar",
-  alugar: "Alugar",
   temporada: "Temporada",
 };
 const FINALIDADES: { valor: Finalidade; texto: string }[] = [
   { valor: "comprar", texto: "Comprar" },
-  { valor: "alugar", texto: "Alugar" },
   { valor: "temporada", texto: "Temporada" },
 ];
 
@@ -97,7 +95,7 @@ export function Busca({ variante = "escuro" }: { variante?: "claro" | "escuro" }
             <SelectValue>{(v) => ROTULOS[String(v)] ?? String(v)}</SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="todas">Comprar ou alugar</SelectItem>
+            <SelectItem value="todas">Comprar ou temporada</SelectItem>
             {FINALIDADES.map((f) => (
               <SelectItem key={f.valor} value={f.valor}>
                 {f.texto}{" "}

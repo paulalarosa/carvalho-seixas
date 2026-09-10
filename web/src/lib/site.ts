@@ -9,7 +9,20 @@ export const SITE =
 
 export const NOME = "Carvalho & Seixas Imóveis";
 export const DESCRICAO =
-  "Imobiliária de duas sócias no Rio, corretoras com CRECI e avaliadoras com CNAI. Compra, venda e locação no Centro, na Tijuca e na Zona Sul, com a documentação conferida antes da proposta.";
+  "Imobiliária de duas sócias no Rio, corretoras com CRECI e avaliadoras com CNAI. Compra, venda, temporada e avaliação no Centro, na Tijuca, no Grajaú e na Zona Sul, com a documentação conferida antes da proposta.";
+
+/* Canal único da empresa, e não um por sócia: foi decisão delas. Enquanto
+   o número não existe a constante fica VAZIA, e quem monta botão de
+   WhatsApp tem de tratar isso: `wa.me/` sem número abre o aplicativo sem
+   destinatário, o que é pior do que não ter botão, porque a pessoa acha
+   que falou com alguém. Quando o número chegar, é só preencher aqui. */
+/* Tipados como `string` e não pelo literal vazio: sem isso o TypeScript
+   entende que TELEFONE só pode ser "" e trata todo caminho com número como
+   inalcançável, o que faz o próprio código que vai usá-lo parar de
+   compilar. */
+export const TELEFONE: string = "";
+export const EMAIL: string = "";
+export const HORARIO = "Das 9h às 19h, de segunda a sexta.";
 
 /* As sócias, com registro conferível.
 
@@ -25,7 +38,10 @@ export const SOCIAS = [
     nome: "Débora de Almeida Carvalho",
     creci: "CRECI/RJ 92.984",
     cnai: "CNAI 53.073",
-    linha: "Tijuca e Grajaú. Cuida dos contratos.",
+    /* 🔴 As duas cuidam de TUDO. A divisão por bairro e por assunto que
+       estava aqui era suposição minha, e elas desfizeram: quem atender
+       resolve compra, venda, temporada e avaliação em todas as regiões. */
+    linha: "Compra, venda, temporada e avaliação nas quatro regiões.",
   },
   {
     inicial: "S",
@@ -33,7 +49,7 @@ export const SOCIAS = [
     nome: "Alessandra Soverchi de Seixas",
     creci: "CRECI/RJ 92.989",
     cnai: "CNAI 53.072",
-    linha: "Centro e Zona Sul. Cuida da temporada.",
+    linha: "Compra, venda, temporada e avaliação nas quatro regiões.",
   },
 ] as const;
 

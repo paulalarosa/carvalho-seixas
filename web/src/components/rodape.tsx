@@ -1,7 +1,7 @@
 import Link from "next/link";
 /* O lucide tirou as marcas do pacote, entao o Instagram entra pelo
    arroba: e sinal de perfil e nao finge ser o logo de terceiro. */
-import { MessageCircle, Mail, AtSign, MapPin } from "lucide-react";
+import { MessageCircle, Mail, MapPin } from "lucide-react";
 import { Simbolo } from "@/components/marca";
 import { Assinatura } from "@/components/assinatura";
 import { ENDERECO, SOCIAS } from "@/lib/site";
@@ -52,7 +52,7 @@ export function Rodape() {
             Aqui seu sonho vira patrimônio.
           </p>
           <p className="mt-4 max-w-[30ch] text-azul-200">
-            Centro, Tijuca e Zona Sul. Das 9h às 19h, de segunda a sábado.
+            Centro, Tijuca, Grajaú e Zona Sul. Das 9h às 19h, de segunda a sexta.
           </p>
         </div>
 
@@ -85,11 +85,6 @@ export function Rodape() {
             <li>
               <Link href="/contato" className="flex items-center gap-2 transition-colors hover:text-creme">
                 <Mail className="size-4" aria-hidden /> E-mail
-              </Link>
-            </li>
-            <li>
-              <Link href="/contato" className="flex items-center gap-2 transition-colors hover:text-creme">
-                <AtSign className="size-4" aria-hidden /> Instagram
               </Link>
             </li>
             <li className="flex gap-2 pt-2 text-sm leading-relaxed">

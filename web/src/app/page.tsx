@@ -61,6 +61,7 @@ export default function Home() {
               <b className="text-creme">{IMOVEIS.length} imóveis</b>
               <b className="text-creme">Centro</b>
               <b className="text-creme">Tijuca</b>
+              <b className="text-creme">Grajaú</b>
               <b className="text-creme">Zona Sul</b>
             </p>
           </Painel>
@@ -248,14 +249,23 @@ export default function Home() {
           />
           <figure className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
             <div>
+              {/* 🔴 Aqui havia um depoimento de cliente ESCRITO POR MIM, com
+                  aviso de que o nome entraria depois. Elogio que ninguém
+                  disse não vai para página pública, mesmo rotulado: se
+                  alguém perguntar quem falou, cai a confiança do site
+                  inteiro. O bloco continua, com a mesma força, assinado por
+                  quem assume: promessa de quem assina o contrato pesa mais
+                  que elogio anônimo, e não depende da autorização de
+                  ninguém. Depoimento real, quando houver, entra aqui. */}
               <Quote className="mb-6 size-10 text-ouro-400" aria-hidden />
               <blockquote className="font-display text-[clamp(1.5rem,2.9vw,2.35rem)] font-semibold leading-tight text-creme">
-                Comprei sem entender nada de escritura. Elas explicaram o que eu
-                estava assinando, linha por linha.
+                Você vai ver a matrícula, as certidões e a dívida do condomínio
+                antes de assinar qualquer coisa. Se aparecer problema, a gente
+                fala antes da proposta.
               </blockquote>
             </div>
             <figcaption className="border-t border-white/20 pt-5 text-sm text-azul-200">
-              Depoimento de cliente. Nome e foto entram quando ela autorizar.
+              Compromisso das sócias, Débora Carvalho e Alessandra Seixas.
             </figcaption>
           </figure>
         </div>

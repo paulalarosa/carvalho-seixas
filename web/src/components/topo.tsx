@@ -154,7 +154,7 @@ export function Topo() {
               ))}
             </nav>
             <p className="mt-10 border-t border-azul-500/10 pt-6 text-sm text-neutro-600">
-              Atendimento das sócias, das 9h às 19h, de segunda a sábado.
+              Atendimento das sócias, das 9h às 19h, de segunda a sexta.
             </p>
           </SheetContent>
         </Sheet>

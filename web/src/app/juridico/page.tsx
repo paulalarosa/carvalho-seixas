@@ -1,13 +1,22 @@
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
+import { ClipboardCheck, MessageCircle } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
 
 export const metadata = {
   title: "A compra, do começo ao registro · Carvalho & Seixas",
   description:
-    "As quatro etapas da compra de um imóvel no Rio, por quem confere a documentação antes da proposta: visita, documentação, contrato e registro.",
+    "As quatro etapas da compra de um imóvel no Rio, por quem confere a documentação antes da proposta: visita, documentação, contrato e registro. E avaliação de imóvel com avaliadora cadastrada no CNAI.",
 };
+
+/* Avaliação é serviço que se CONTRATA, não característica de imóvel, então
+   tem bloco próprio e não entra na vitrine. É também o que o CNAI habilita,
+   e quase nenhuma imobiliária pequena mostra isso. */
+const AVALIACAO = [
+  "Definir preço de venda com base em imóvel comparável, não em achismo de portaria.",
+  "Inventário, divórcio e partilha, quando o valor precisa estar defensável.",
+  "Garantia bancária e financiamento, quando o banco pede parecer técnico.",
+];
 
 const ETAPAS = [
   {
@@ -79,6 +88,34 @@ export default function PaginaJuridico() {
             </li>
           ))}
         </ol>
+      </div>
+
+      <div className="trilho secao grid gap-10 lg:grid-cols-[22rem_1fr]">
+        <div>
+          <h2 className="text-3xl">Avaliação de imóvel</h2>
+          <p className="mt-4 text-neutro-600">
+            As duas são avaliadoras cadastradas no CNAI, e é isso que permite
+            emitir parecer de valor. Serviço à parte da venda, com valor
+            combinado antes.
+          </p>
+          <p className="mt-4 text-sm text-neutro-500">
+            As sócias também são advogadas. É de onde vem a ordem do processo
+            aqui: documento antes de proposta, e não o contrário.
+          </p>
+        </div>
+        <ul className="space-y-4">
+          {AVALIACAO.map((linha) => (
+            <li key={linha}>
+              <Painel className="borda-viva flex gap-5 p-7">
+                <ClipboardCheck
+                  className="mt-0.5 size-5 shrink-0 text-ouro-texto"
+                  aria-hidden
+                />
+                <p className="text-neutro-600">{linha}</p>
+              </Painel>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="trilho pb-8">

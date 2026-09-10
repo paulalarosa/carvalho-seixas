@@ -68,6 +68,7 @@ const DADOS = {
   areaServed: [
     { "@type": "Place", name: "Centro, Rio de Janeiro" },
     { "@type": "Place", name: "Tijuca, Rio de Janeiro" },
+    { "@type": "Place", name: "Grajaú, Rio de Janeiro" },
     { "@type": "Place", name: "Zona Sul, Rio de Janeiro" },
   ],
   address: {

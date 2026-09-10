@@ -5,7 +5,7 @@ import { Vitrine } from "@/components/vitrine";
 export const metadata = {
   title: "A carteira · Carvalho & Seixas",
   description:
-    "Imóveis para comprar, alugar e por temporada no Centro, na Tijuca e na Zona Sul do Rio, com documentação conferida antes da proposta.",
+    "Imóveis para comprar e por temporada no Centro, na Tijuca, no Grajaú e na Zona Sul do Rio, com documentação conferida antes da proposta.",
 };
 
 export default function PaginaImoveis() {

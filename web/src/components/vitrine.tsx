@@ -17,7 +17,6 @@ import { cn } from "@/lib/utils";
 const REGIOES: Regiao[] = ["Centro", "Tijuca", "Zona Sul"];
 const FINALIDADES: [Finalidade, string][] = [
   ["comprar", "Comprar"],
-  ["alugar", "Alugar"],
   ["temporada", "Temporada"],
 ];
 

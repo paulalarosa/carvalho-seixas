@@ -1,4 +1,5 @@
 import type { NomeCena } from "@/components/cenas";
+import { TELEFONE } from "@/lib/site";
 
 /* Carvalho & Seixas · portfólio de exemplo.
    Nenhum imóvel aqui é real. Este arquivo é o que a manutenção mensal edita:
@@ -6,8 +7,11 @@ import type { NomeCena } from "@/components/cenas";
    dos filtros é derivada daqui, e o tipo abaixo é o contrato: faltando campo
    obrigatório, a página nem compila, que é melhor do que publicar torto. */
 
-export type Finalidade = "comprar" | "alugar" | "temporada";
-export type Regiao = "Centro" | "Tijuca" | "Zona Sul";
+/* 🔴 LOCAÇÃO NÃO EXISTE nesta imobiliária: elas trabalham compra, venda,
+   temporada e avaliação. O tipo é o que segura isso: com "alugar" fora da
+   união, qualquer imóvel ou filtro que tente usar aluguel não compila. */
+export type Finalidade = "comprar" | "temporada";
+export type Regiao = "Centro" | "Tijuca" | "Grajaú" | "Zona Sul";
 
 export type Imovel = {
   codigo: string;
@@ -66,8 +70,9 @@ export const IMOVEIS: Imovel[] = [
     titulo: "Studio a duas quadras do metrô",
     bairro: "Botafogo",
     regiao: "Zona Sul",
-    finalidade: "alugar",
-    preco: 4200,
+    finalidade: "temporada",
+    preco: 320,
+    porNoite: true,
     condominio: 640,
     iptu: null,
     quartos: 1,
@@ -80,7 +85,7 @@ export const IMOVEIS: Imovel[] = [
     selos: ["Novo", "Temporada"],
     destaque: true,
     resumo:
-      "Planta inteligente, mobiliado, com academia e lavanderia no prédio. Aceita temporada a partir de trinta dias.",
+      "Planta inteligente, mobiliado, com academia e lavanderia no prédio. Diária mínima de cinco noites, enxoval incluso.",
   },
   {
     codigo: "CS-0088",
@@ -155,8 +160,8 @@ export const IMOVEIS: Imovel[] = [
     titulo: "Conjugado no Largo do Machado",
     bairro: "Catete",
     regiao: "Zona Sul",
-    finalidade: "alugar",
-    preco: 2350,
+    finalidade: "comprar",
+    preco: 295000,
     condominio: 520,
     iptu: 95,
     quartos: 1,
@@ -177,8 +182,8 @@ export const IMOVEIS: Imovel[] = [
     titulo: "Loja de rua na Haddock Lobo",
     bairro: "Tijuca",
     regiao: "Tijuca",
-    finalidade: "alugar",
-    preco: 8900,
+    finalidade: "comprar",
+    preco: 1180000,
     condominio: 0,
     iptu: 610,
     quartos: 0,
@@ -191,7 +196,7 @@ export const IMOVEIS: Imovel[] = [
     selos: [],
     destaque: false,
     resumo:
-      "Ponto com fluxo alto, vitrine de seis metros e mezanino. Contrato com garantia por seguro-fiança.",
+      "Ponto com fluxo alto, vitrine de seis metros e mezanino. Escritura e matrícula conferidas, sem pendência de IPTU.",
   },
   {
     codigo: "CS-0490",
@@ -220,7 +225,7 @@ export const IMOVEIS: Imovel[] = [
     cena: "predio",
     titulo: "Dois quartos no Grajaú",
     bairro: "Grajaú",
-    regiao: "Tijuca",
+    regiao: "Grajaú",
     finalidade: "comprar",
     preco: 530000,
     condominio: 610,
@@ -288,6 +293,14 @@ export const BAIRROS: Bairro[] = [
       "Casa de vila, prédio dos anos 60 e lançamento na mesma rua. Entre a Conde de Bonfim e a Muda o preço muda muito, e essa diferença é metade da negociação.",
   },
   {
+    nome: "Grajaú",
+    chave: "Grajaú",
+    cena: "casa",
+    linha: "Vizinho da Tijuca, com rua arborizada e casa de vila.",
+    texto:
+      "Quem procura espaço pelo mesmo dinheiro da Tijuca acaba aqui. Prédio de poucos andares e casa de vila convivem na mesma quadra, e a diferença entre elas está na documentação, não no anúncio.",
+  },
+  {
     nome: "Zona Sul",
     chave: "Zona Sul",
     cena: "vista",
@@ -309,11 +322,19 @@ export function moeda(v: number | null | undefined) {
 
 /* A mensagem já vai preenchida com o código. Sem isso a corretora precisa
    perguntar de qual imóvel se trata, e a resposta atrasa. */
+/* 🔴 Sem número, NÃO devolve link de WhatsApp. `wa.me/` sem destinatário
+   abre o aplicativo numa tela de "número inválido", e a pessoa sai
+   acreditando que falou com a imobiliária. Enquanto o número único da
+   empresa não é definido, o destino é a página de contato. Assim que
+   `TELEFONE` for preenchido em `lib/site.ts`, todos os botões do site
+   passam a abrir a conversa com a mensagem pronta. */
 export function linkZap(im?: Imovel) {
+  if (!TELEFONE) return "/contato/";
   const texto = im
     ? `Olá! Vi o imóvel ${im.codigo}, ${im.titulo}, no site e queria saber mais.`
     : "Olá! Vim pelo site.";
-  return `https://wa.me/?text=${encodeURIComponent(texto)}`;
+  const numero = TELEFONE.replace(/\D/g, "");
+  return `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
 }
 
 export function contar(regiao?: Regiao | null, finalidade?: Finalidade | null) {
