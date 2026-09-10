@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ChevronDown } from "lucide-react";
+import { MARCA } from "@/lib/site";
 import type { CenaPredio } from "@/lib/cena-predio";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -128,6 +129,25 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
             sequencia ? "opacity-100" : "opacity-0"
           }`}
         />
+        {/* Marca d'água. Vem das referências que ela mandou: o nome em
+            corpo enorme, cortado pelo topo, atrás do prédio. Fica ANTES do
+            véu de propósito, então some junto com o gradiente do lado
+            esquerdo, onde está o texto, e sobra visível do lado do céu, que
+            é onde não havia nada. */}
+        <span
+          data-cena="texto"
+          aria-hidden
+          /* O corpo é calculado para o nome INTEIRO caber na largura: a
+             17 caracteres, o Josefin em 700 pede cerca de 8,8em de avanço,
+             então 10,5vw enche a tela sem passar. Na primeira tentativa eu
+             usei 14,5vw e sobrava "& Sei" no céu, que lê como defeito e não
+             como marca d'água. */
+          className="pointer-events-none absolute inset-x-0 whitespace-nowrap px-4 text-center font-display text-[clamp(2rem,10.5vw,9.5rem)] font-bold leading-[0.8] text-creme/[0.09]"
+          style={{ top: "calc(var(--altura-topo) - 0.75rem)" }}
+        >
+          {MARCA}
+        </span>
+
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"

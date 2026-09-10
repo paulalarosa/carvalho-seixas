@@ -7,7 +7,12 @@
 export const SITE =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
-export const NOME = "Carvalho & Seixas Imóveis";
+/* A marca sem o descritivo. Serve para onde o nome aparece GRANDE, como
+   a marca d'água da abertura: ali "Imóveis" só faria a palavra caber
+   menor. `NOME` continua sendo o nome completo, que é o que vai em título
+   de página, JSON-LD e compartilhamento. */
+export const MARCA = "Carvalho & Seixas";
+export const NOME = `${MARCA} Imóveis`;
 export const DESCRICAO =
   "Imobiliária de duas sócias no Rio, corretoras com CRECI e avaliadoras com CNAI. Compra, venda, temporada e avaliação no Centro, na Tijuca, no Grajaú e na Zona Sul, com a documentação conferida antes da proposta.";
 

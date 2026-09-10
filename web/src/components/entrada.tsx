@@ -27,7 +27,8 @@ export function EntradaAbertura({ children }: { children: React.ReactNode }) {
             .from("[data-entra='titulo']", { y: 26, duration: 0.65 })
             .from("[data-entra='linha']", { y: 18, duration: 0.55 }, "-=0.45")
             .from("[data-entra='frentes']", { y: 14, duration: 0.5 }, "-=0.42")
-            .from("[data-entra='busca']", { y: 24, duration: 0.6 }, "-=0.40");
+            .from("[data-entra='busca']", { y: 24, duration: 0.6 }, "-=0.40")
+            .from("[data-entra='ficha']", { y: 20, duration: 0.55 }, "-=0.38");
         });
       });
     },
@@ -60,9 +61,14 @@ export function EntradaAbertura({ children }: { children: React.ReactNode }) {
 export function Revela({
   children,
   className,
+  /* `id` para poder linkar a seção e para o `#ancora` funcionar em teste de
+     rolagem: sem isso não há como fotografar uma faixa específica da página
+     em navegador sem interface. */
+  id,
 }: {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }) {
   const raiz = useRef<HTMLDivElement>(null);
 
@@ -139,7 +145,7 @@ export function Revela({
   }, []);
 
   return (
-    <div ref={raiz} className={className}>
+    <div ref={raiz} id={id} className={className}>
       {children}
     </div>
   );

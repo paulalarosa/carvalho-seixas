@@ -7,7 +7,7 @@ import { Painel } from "@/components/painel";
 import { Cena } from "@/components/cenas";
 import { Midia } from "@/components/midia";
 import { EntradaAbertura, Revela } from "@/components/entrada";
-import { IMOVEIS, BAIRROS, IMOVEIS as TODOS } from "@/lib/imoveis";
+import { IMOVEIS, BAIRROS, IMOVEIS as TODOS, moeda } from "@/lib/imoveis";
 import { SOCIAS } from "@/lib/site";
 
 const FATOS = [
@@ -54,46 +54,96 @@ export default function Home() {
               avaliadoras</b>. A mesma pessoa cuida da visita, da papelada e do
               contrato.
             </p>
-            <p
+            {/* Fita de números, como nas referências. 🔴 Só entra número
+                que eu consigo CONTAR: quantidade de imóveis na carteira,
+                regiões atendidas e sócias com registro. "4.500 clientes
+                satisfeitos" é o tipo de número que enche essas telas de
+                portfólio e que aqui seria invenção. */}
+            <dl
               data-entra="frentes"
-              className="rotulo mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/18 pt-4 text-azul-200 sm:mt-8 sm:pt-6"
+              className="mt-5 grid grid-cols-3 gap-4 border-t border-white/18 pt-4 sm:mt-8 sm:gap-6 sm:pt-6"
             >
-              <b className="text-creme">{IMOVEIS.length} imóveis</b>
-              <b className="text-creme">Centro</b>
-              <b className="text-creme">Tijuca</b>
-              <b className="text-creme">Grajaú</b>
-              <b className="text-creme">Zona Sul</b>
-            </p>
+              {[
+                [String(IMOVEIS.length), "imóveis na carteira"],
+                ["4", "regiões no Rio"],
+                ["2", "sócias, CRECI e CNAI"],
+              ].map(([n, rotulo]) => (
+                <div key={rotulo}>
+                  <dt className="num text-2xl font-semibold text-creme sm:text-3xl">
+                    {n}
+                  </dt>
+                  <dd className="rotulo mt-1 text-azul-200">{rotulo}</dd>
+                </div>
+              ))}
+            </dl>
           </Painel>
 
           <div data-entra="busca" className="mt-4 max-w-3xl sm:mt-6">
             <Busca />
           </div>
+
+          {/* Ficha flutuando sobre a cena, como no Resido. É o jeito mais
+              curto de a abertura PROVAR que existe carteira, em vez de
+              prometer. Só no desktop: em tela estreita ela tapa a busca, que
+              é o que a página quer que a pessoa use. */}
+          {destaques[0] && (
+            <Link
+              href={`/imoveis/${destaques[0].codigo}/`}
+              data-entra="ficha"
+              className="vidro absolute bottom-24 right-0 hidden w-[19.5rem] items-center gap-4 rounded-3xl p-4 text-creme transition-transform duration-500 ease-[var(--ease-saida)] hover:-translate-y-1 lg:flex"
+            >
+              <span className="relative size-20 shrink-0 overflow-hidden rounded-2xl">
+                <Midia
+                  foto={destaques[0].foto}
+                  alt={destaques[0].alt}
+                  cena={destaques[0].cena}
+                  rotulo={`Ilustração da marca: ${destaques[0].titulo}`}
+                  sizes="5rem"
+                />
+              </span>
+              <span className="min-w-0">
+                <span className="rotulo block text-ouro-300">
+                  {destaques[0].bairro} · {destaques[0].codigo}
+                </span>
+                <span className="mt-1 block truncate font-display text-lg font-semibold">
+                  {destaques[0].titulo}
+                </span>
+                <span className="num mt-1 block text-sm text-azul-200">
+                  {moeda(destaques[0].preco)} · {destaques[0].area} m²
+                </span>
+              </span>
+            </Link>
+          )}
         </EntradaAbertura>
       </PredioScroll>
 
-      {/* ======================================================== FATOS */}
-      <Revela className="campo-luz trilho secao-alta relative">
-        <h2 className="max-w-[22ch] text-[clamp(1.8rem,3.4vw,2.75rem)]">
-          O que acontece antes de você assinar
-        </h2>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {FATOS.map((f) => (
-            <Painel
-              key={f.n}
-              data-revela
-              className="borda-viva flex h-full flex-col gap-4 p-8"
-            >
-              <span className="num text-sm text-ouro-texto">{f.n}</span>
-              <h3 className="font-display text-xl leading-tight">{f.titulo}</h3>
-              <p className="text-neutro-600">{f.texto}</p>
-            </Painel>
-          ))}
+      {/* ======================================================== FATOS
+          Faixa ESCURA de largura total, como o Resido alterna. A home era
+          off-white do fim da abertura até o rodapé, e é essa alternância
+          que dá ritmo sem precisar de mais caixa. Aqui as três linhas são
+          numeradas com fio em cima, não cartão: três caixas iguais lado a
+          lado é o desenho que mais parece gerado. */}
+      <Revela id="fatos" className="secao-alta relative bg-azul-800 text-creme">
+        <div className="trilho">
+          <h2 className="max-w-[22ch] text-[clamp(1.8rem,3.4vw,2.75rem)] text-creme">
+            O que acontece antes de você assinar
+          </h2>
+          <div className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
+            {FATOS.map((f) => (
+              <div key={f.n} data-revela className="border-t border-white/20 pt-6">
+                <span className="num text-sm text-ouro-300">{f.n}</span>
+                <h3 className="mt-3 font-display text-xl leading-tight text-creme">
+                  {f.titulo}
+                </h3>
+                <p className="mt-3 max-w-[34ch] text-azul-200">{f.texto}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </Revela>
 
       {/* ==================================================== DESTAQUES */}
-      <Revela className="trilho secao">
+      <Revela id="destaques" className="trilho secao">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-[clamp(1.8rem,3.4vw,2.75rem)]">Imóveis em destaque</h2>
@@ -125,7 +175,7 @@ export default function Home() {
       </Revela>
 
       {/* ====================================================== BAIRROS */}
-      <Revela className="trilho secao">
+      <Revela id="destaques" className="trilho secao">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-[clamp(1.8rem,3.4vw,2.75rem)]">Onde a gente atua</h2>
