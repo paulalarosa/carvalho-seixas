@@ -12,7 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  IMOVEIS,
+  DISPONIVEIS,
+  VENDIDOS,
   REGIOES,
   linkZap,
   type Finalidade,
@@ -45,7 +46,7 @@ export function Vitrine() {
   const finalidade = params.get("finalidade") as Finalidade | null;
   const ordem = params.get("ordem") && ORDENS[params.get("ordem")!] ? params.get("ordem")! : "selecionados";
 
-  const lista = IMOVEIS.filter(
+  const lista = DISPONIVEIS.filter(
     (im) =>
       (!regiao || im.regiao === regiao) &&
       (!finalidade || im.finalidade === finalidade),
@@ -57,7 +58,7 @@ export function Vitrine() {
   function contarCom(chave: "regiao" | "finalidade", valor: string) {
     const alt = { regiao: regiao as string | null, finalidade: finalidade as string | null };
     alt[chave] = valor;
-    return IMOVEIS.filter(
+    return DISPONIVEIS.filter(
       (im) =>
         (!alt.regiao || im.regiao === alt.regiao) &&
         (!alt.finalidade || im.finalidade === alt.finalidade),
@@ -189,6 +190,31 @@ export function Vitrine() {
           </Painel>
         )}
       </div>
+
+      {/* Venda fechada é prova de trabalho, e por isso fica no site. Fica
+          DEPOIS da lista, em faixa própria e fora de toda contagem: dentro
+          da grade, um imóvel que já saiu inflava o número de disponíveis e
+          fazia a pessoa clicar num anúncio que não existe mais. */}
+      {VENDIDOS.length > 0 && !regiao && !finalidade && (
+        <div className="secao relative bg-azul-800 text-creme">
+          <div className="trilho">
+            <div className="grid gap-4 lg:grid-cols-[1fr_26rem] lg:items-end">
+              <h2 className="text-[clamp(1.6rem,3vw,2.4rem)] text-creme">
+                Já vendidos
+              </h2>
+              <p className="max-w-[42ch] text-azul-200">
+                Saíram da carteira, e ficam aqui porque contam como a gente
+                trabalha. Não entram na contagem de disponíveis.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {VENDIDOS.map((im) => (
+                <CartaoImovel key={im.codigo} im={im} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

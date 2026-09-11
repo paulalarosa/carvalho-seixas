@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CenaCasa } from "@/components/cena-casa";
 import { Cena } from "@/components/cenas";
-import { BAIRROS, IMOVEIS } from "@/lib/imoveis";
+import { BAIRROS, DISPONIVEIS } from "@/lib/imoveis";
 import { metaDaPagina } from "@/lib/site";
 
 export const metadata = metaDaPagina({
@@ -39,7 +39,7 @@ export default function PaginaBairros() {
 
       <div className="trilho secao grid gap-6 md:grid-cols-3">
         {BAIRROS.map((b) => {
-          const n = IMOVEIS.filter((im) => im.regiao === b.chave).length;
+          const n = DISPONIVEIS.filter((im) => im.regiao === b.chave).length;
           return (
             <Link
               key={b.chave}
@@ -48,6 +48,7 @@ export default function PaginaBairros() {
             >
               <Cena
                 nome={b.cena}
+                semente={b.chave}
                 rotulo={`Ilustração da marca: ${b.nome}`}
                 className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-700 group-hover:scale-105"
               />

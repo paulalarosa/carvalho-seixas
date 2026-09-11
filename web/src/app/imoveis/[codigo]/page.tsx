@@ -5,7 +5,7 @@ import { Galeria } from "@/components/galeria";
 import { Compartilhar } from "@/components/compartilhar";
 import { CartaoImovel } from "@/components/cartao-imovel";
 import { Painel } from "@/components/painel";
-import { IMOVEIS, BAIRROS, moeda, linkZap } from "@/lib/imoveis";
+import { IMOVEIS, DISPONIVEIS, BAIRROS, moeda, linkZap } from "@/lib/imoveis";
 import { SITE, NOME, metaDaPagina } from "@/lib/site";
 
 export function generateStaticParams() {
@@ -94,7 +94,7 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
   const { codigo } = await params;
   const im = IMOVEIS.find((x) => x.codigo === codigo);
   if (!im) notFound();
-  const parecidos = IMOVEIS.filter(
+  const parecidos = DISPONIVEIS.filter(
     (x) => x.regiao === im.regiao && x.codigo !== im.codigo,
   ).slice(0, 3);
   /* O texto do bairro é conteúdo que já existe: reaproveitar aqui evita

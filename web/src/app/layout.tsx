@@ -3,7 +3,6 @@ import { Josefin_Sans, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Topo } from "@/components/topo";
 import { Rodape } from "@/components/rodape";
-import { SpriteCenas } from "@/components/cenas";
 import { SITE, NOME, DESCRICAO, FRASE, SLOGAN, ENDERECO, SOCIAS } from "@/lib/site";
 import { REGIOES } from "@/lib/imoveis";
 
@@ -109,7 +108,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             __html: JSON.stringify(DADOS).replace(/</g, "\u003c"),
           }}
         />
-        <SpriteCenas />
         <Topo />
         <main id="conteudo" className="flex-1">
           {children}

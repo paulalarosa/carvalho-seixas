@@ -14,13 +14,21 @@ export function CabecaPagina({
      imóvel. Sem `cena`, fica a ilha azul de sempre, e por isso contato,
      jurídico e carteira não mudam. */
   cena,
+  semente,
   foto,
+  /* Manchete com três números é a abertura de uma das referências que ela
+     mandou, e serve onde a ilha azul estava só com título e uma linha.
+     🔴 Só número DERIVADO entra aqui: "4.500 clientes satisfeitos" é o
+     tipo de fato que enche essas telas e que aqui seria invento. */
+  fatos,
 }: {
   titulo: string;
   linha: string;
   trilha: { href?: string; texto: string }[];
   cena?: NomeCena;
+  semente?: string;
   foto?: string;
+  fatos?: { valor: string; rotulo: string }[];
 }) {
   return (
     <div className="trilho" style={{ paddingTop: "calc(var(--altura-topo) + 1.75rem)" }}>
@@ -37,6 +45,9 @@ export function CabecaPagina({
               <Midia
                 foto={foto}
                 cena={cena}
+                semente={semente}
+                ancora="base"
+                panorama
                 rotulo={`Ilustração da marca: ${titulo}`}
                 sizes="100vw"
                 prioridade
@@ -49,7 +60,7 @@ export function CabecaPagina({
               className="pointer-events-none absolute inset-0 -z-10"
               style={{
                 background:
-                  "linear-gradient(to top, rgba(9,22,42,.9) 6%, rgba(9,22,42,.45) 48%, rgba(9,22,42,.12) 100%)",
+                  "linear-gradient(to top, rgba(9,22,42,.94) 8%, rgba(9,22,42,.68) 52%, rgba(9,22,42,.34) 100%)",
               }}
             />
           </>
@@ -93,6 +104,18 @@ export function CabecaPagina({
           <h1 className="text-[clamp(2.2rem,4.6vw,3.4rem)] text-creme">{titulo}</h1>
           <p className={`text-lg text-azul-200 ${cena ? "mt-3" : ""}`}>{linha}</p>
         </div>
+        {fatos && fatos.length > 0 && (
+          <dl className="mt-9 grid max-w-2xl grid-cols-3 gap-5 border-t border-white/18 pt-6">
+            {fatos.map((f) => (
+              <div key={f.rotulo}>
+                <dt className="num text-2xl font-semibold text-creme sm:text-3xl">
+                  {f.valor}
+                </dt>
+                <dd className="rotulo mt-1 text-azul-200">{f.rotulo}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
     </div>
   );

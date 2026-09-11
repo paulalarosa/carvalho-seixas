@@ -316,6 +316,15 @@ export const BAIRROS: Bairro[] = [
    na carteira e não aparecia em filtro nenhum. */
 export const REGIOES: Regiao[] = BAIRROS.map((b) => b.chave);
 
+/* 🔴 Imóvel VENDIDO não é imóvel disponível, e estava entrando na conta:
+   a carteira dizia "10 imóveis" e a pastilha do Centro dizia 2 contando um
+   que já saiu. Quem procura imóvel lê contagem como oferta.
+
+   Ele continua no site, porque venda fechada é prova de trabalho, mas numa
+   faixa própria no fim da lista e fora de toda contagem. */
+export const DISPONIVEIS = IMOVEIS.filter((im) => !im.fechado);
+export const VENDIDOS = IMOVEIS.filter((im) => im.fechado);
+
 const BRL = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
@@ -351,7 +360,7 @@ export function linkZap(im?: Imovel) {
    Mediana, não média: uma cobertura de 300 m² no meio de conjugados puxa a
    média para um número que não descreve nada. */
 export function retratoDaRegiao(regiao: Regiao) {
-  const lista = IMOVEIS.filter((im) => im.regiao === regiao && !im.porNoite);
+  const lista = DISPONIVEIS.filter((im) => im.regiao === regiao && !im.porNoite);
   if (!lista.length) return null;
   const precos = lista.map((im) => im.preco).sort((a, b) => a - b);
   const areas = lista.map((im) => im.area).sort((a, b) => a - b);
@@ -364,7 +373,7 @@ export function retratoDaRegiao(regiao: Regiao) {
 }
 
 export function contar(regiao?: Regiao | null, finalidade?: Finalidade | null) {
-  return IMOVEIS.filter(
+  return DISPONIVEIS.filter(
     (im) =>
       (!regiao || im.regiao === regiao) &&
       (!finalidade || im.finalidade === finalidade),

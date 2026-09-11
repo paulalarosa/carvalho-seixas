@@ -1,5 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, ClipboardCheck, MessageCircle } from "lucide-react";
+import {
+  ArrowRight,
+  DoorOpen,
+  FileSearch,
+  MessageCircle,
+  ScrollText,
+  Stamp,
+} from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { Painel } from "@/components/painel";
 import { metaDaPagina } from "@/lib/site";
@@ -23,76 +30,76 @@ const AVALIACAO = [
 const ETAPAS = [
   {
     n: "01",
+    Ic: DoorOpen,
     titulo: "Visita e proposta",
     texto:
       "A visita é com uma das sócias. A proposta sai por escrito, nunca só por mensagem.",
   },
   {
     n: "02",
+    Ic: FileSearch,
     titulo: "Levantamento de documentos",
     texto:
       "Matrícula, certidões, condomínio e IPTU. É aqui que aparece o que trava a venda, e vem antes de qualquer sinal.",
   },
   {
     n: "03",
+    Ic: ScrollText,
     titulo: "Contrato",
     texto:
       "Redigido pelas sócias. Você lê com elas antes de assinar, cláusula por cláusula.",
   },
   {
     n: "04",
+    Ic: Stamp,
     titulo: "Escritura e registro",
-    texto:
-      "Escritura no cartório de notas, registro no de imóveis. Só aí o imóvel é seu.",
+    texto: "Escritura no cartório de notas, registro no de imóveis. Só aí o imóvel é seu.",
   },
 ];
 
+/* 🔴 A página era quatro caixas brancas enormes boiando no off-white, com
+   muito ar e nenhuma imagem da abertura ao rodapé. As referências que a
+   cliente mandou pedem o contrário: tipografia grande com interface quase
+   invisível, e serviço numa faixa escura. O padrão certo já existia no
+   site, na /avaliacao: etapa numerada com fio fino sobre azul. Aqui a
+   página passa a usar o mesmo, e as caixas somem. */
 export default function PaginaJuridico() {
   return (
     <>
       <CabecaPagina
         titulo="A compra, do começo ao registro"
         linha="Entenda o processo antes de precisar dele."
+        cena="predio"
+        semente="juridico"
         trilha={[{ href: "/", texto: "Início" }, { texto: "Jurídico" }]}
       />
 
-      <div className="campo-luz trilho secao relative grid gap-12 lg:grid-cols-[22rem_1fr]">
-        <div>
-          <h2 className="text-3xl">Quatro etapas</h2>
-          <p className="mt-4 text-neutro-600">
-            A compra só termina no registro. Antes disso o imóvel não é seu, e essa
-            é a frase que mais economiza dinheiro.
-          </p>
-          {/* Prazo não vai para a tela sem regra confirmada. */}
-          <Painel className="mt-8 border-l-4 border-l-ouro-500 p-6">
-            <b className="block font-semibold text-azul-500">
-              Prazo depende do caso.
-            </b>
-            <span className="mt-1 block text-sm text-neutro-600">
-              Inventário, financiamento e tombamento mudam o prazo. O do seu caso a
-              gente diz na primeira conversa.
-            </span>
-          </Painel>
-        </div>
+      <div className="secao relative mt-12 bg-azul-800 text-creme">
+        <div className="trilho">
+          <div className="grid gap-6 lg:grid-cols-[1fr_26rem] lg:items-end">
+            <h2 className="text-[clamp(1.8rem,3.4vw,2.8rem)] text-creme">
+              Quatro etapas
+            </h2>
+            <p className="max-w-[42ch] text-azul-200">
+              A compra só termina no registro. Antes disso o imóvel não é seu, e
+              essa é a frase que mais economiza dinheiro.
+            </p>
+          </div>
 
-        <ol className="space-y-5">
-          {ETAPAS.map((e) => (
-            <li key={e.n}>
-              <Painel className="borda-viva flex gap-6 p-8">
-                <span className="num shrink-0 rounded-full bg-azul-500 px-4 py-3 text-creme">
-                  {e.n}
-                </span>
-                <span>
-                  <h3 className="font-display text-xl">{e.titulo}</h3>
-                  <p className="mt-2 text-neutro-600">{e.texto}</p>
-                </span>
-              </Painel>
-            </li>
-          ))}
-        </ol>
+          <ol className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {ETAPAS.map(({ n, Ic, titulo, texto }) => (
+              <li key={n} className="border-t border-white/20 pt-6">
+                <span className="num text-sm text-ouro-300">{n}</span>
+                <Ic className="mt-4 size-6 text-ouro-300" aria-hidden />
+                <h3 className="mt-3 font-display text-xl text-creme">{titulo}</h3>
+                <p className="mt-2 max-w-[34ch] text-azul-200">{texto}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
 
-      <div className="trilho secao grid gap-10 lg:grid-cols-[22rem_1fr]">
+      <div className="campo-luz trilho secao relative grid gap-12 lg:grid-cols-[24rem_1fr]">
         <div>
           <h2 className="text-3xl">Avaliação de imóvel</h2>
           <p className="mt-4 text-neutro-600">
@@ -110,17 +117,23 @@ export default function PaginaJuridico() {
           >
             Como funciona a avaliação <ArrowRight className="size-4" aria-hidden />
           </Link>
+
+          {/* Prazo não vai para a tela sem regra confirmada. */}
+          <Painel className="mt-8 border-l-4 border-l-ouro-500 p-6">
+            <b className="block font-semibold text-azul-500">
+              Prazo depende do caso.
+            </b>
+            <span className="mt-1 block text-sm text-neutro-600">
+              Inventário, financiamento e tombamento mudam o prazo. O do seu caso
+              a gente diz na primeira conversa.
+            </span>
+          </Painel>
         </div>
-        <ul className="space-y-4">
+
+        <ul className="grid gap-x-10 gap-y-7 sm:grid-cols-2 lg:self-start">
           {AVALIACAO.map((linha) => (
-            <li key={linha}>
-              <Painel className="borda-viva flex gap-5 p-7">
-                <ClipboardCheck
-                  className="mt-0.5 size-5 shrink-0 text-ouro-texto"
-                  aria-hidden
-                />
-                <p className="text-neutro-600">{linha}</p>
-              </Painel>
+            <li key={linha} className="border-t border-azul-500/12 pt-5">
+              <p className="text-[1.05rem] leading-relaxed text-neutro-600">{linha}</p>
             </li>
           ))}
         </ul>

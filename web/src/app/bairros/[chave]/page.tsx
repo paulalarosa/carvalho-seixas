@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { CabecaPagina } from "@/components/cabeca-pagina";
 import { CartaoImovel } from "@/components/cartao-imovel";
-import { BAIRROS, IMOVEIS, moeda, retratoDaRegiao } from "@/lib/imoveis";
+import { BAIRROS, DISPONIVEIS, moeda, retratoDaRegiao } from "@/lib/imoveis";
 import { metaDaPagina } from "@/lib/site";
 
 /* Rota estática: são três recortes conhecidos, então saem prontos no build
@@ -36,7 +36,7 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
   const { chave } = await params;
   const b = BAIRROS.find((x) => x.chave === decodeURIComponent(chave));
   if (!b) notFound();
-  const lista = IMOVEIS.filter((im) => im.regiao === b.chave);
+  const lista = DISPONIVEIS.filter((im) => im.regiao === b.chave);
   const retrato = retratoDaRegiao(b.chave);
 
   return (
@@ -45,6 +45,7 @@ export default async function PaginaBairro({ params }: PageProps<"/bairros/[chav
         titulo={b.nome}
         linha={b.linha}
         cena={b.cena}
+        semente={b.chave}
         trilha={[
           { href: "/", texto: "Início" },
           { href: "/bairros", texto: "Bairros" },

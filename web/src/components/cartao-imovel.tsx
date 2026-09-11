@@ -40,6 +40,7 @@ export function CartaoImovel({
           foto={im.foto}
           alt={im.alt}
           cena={im.cena}
+          semente={im.codigo}
           rotulo={`Ilustração da marca: ${im.titulo}`}
           sizes={
             largo

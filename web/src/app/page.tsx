@@ -7,7 +7,7 @@ import { Painel } from "@/components/painel";
 import { Cena } from "@/components/cenas";
 import { Midia } from "@/components/midia";
 import { EntradaAbertura, Revela } from "@/components/entrada";
-import { IMOVEIS, BAIRROS, IMOVEIS as TODOS, moeda } from "@/lib/imoveis";
+import { DISPONIVEIS, BAIRROS, REGIOES, IMOVEIS as TODOS, moeda } from "@/lib/imoveis";
 import { SOCIAS } from "@/lib/site";
 
 const FATOS = [
@@ -29,7 +29,7 @@ const FATOS = [
 ];
 
 export default function Home() {
-  const destaques = IMOVEIS.filter((im) => im.destaque);
+  const destaques = DISPONIVEIS.filter((im) => im.destaque);
 
   return (
     <>
@@ -67,8 +67,8 @@ export default function Home() {
                   medido, a 390px cada coluna fica com 84px e "sócias, CRECI
                   e CNAI" quebra em três linhas. */}
               {[
-                [String(IMOVEIS.length), "imóveis", " na carteira"],
-                ["4", "regiões", " no Rio"],
+                [String(DISPONIVEIS.length), "imóveis", " na carteira"],
+                [String(REGIOES.length), "regiões", " no Rio"],
                 ["2", "sócias", ", CRECI e CNAI"],
               ].map(([n, rotulo, resto]) => (
                 <div key={rotulo}>
@@ -103,6 +103,7 @@ export default function Home() {
                   foto={destaques[0].foto}
                   alt={destaques[0].alt}
                   cena={destaques[0].cena}
+                  semente={destaques[0].codigo}
                   rotulo={`Ilustração da marca: ${destaques[0].titulo}`}
                   sizes="5rem"
                 />
@@ -161,7 +162,7 @@ export default function Home() {
             href="/imoveis"
             className="inline-flex items-center gap-2 rounded-full border border-azul-500/15 px-5 py-2.5 text-sm font-semibold text-azul-500 transition-colors hover:bg-azul-500/6"
           >
-            Ver os {IMOVEIS.length} imóveis
+            Ver os {DISPONIVEIS.length} imóveis
             <ArrowRight className="size-4" aria-hidden />
           </Link>
         </div>
@@ -210,6 +211,7 @@ export default function Home() {
               >
                 <Cena
                   nome={b.cena}
+                  semente={b.chave}
                   rotulo={`Ilustração da marca: ${b.nome}`}
                   className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-700 ease-[var(--ease-saida)] group-hover:scale-105"
                 />

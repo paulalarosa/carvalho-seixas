@@ -78,6 +78,7 @@ export function Galeria({ im, capa }: { im: Imovel; capa?: React.ReactNode }) {
             foto={quadros[i].foto}
             alt={im.alt}
             cena={quadros[i].cena}
+            semente={im.codigo}
             rotulo={`Ilustração da marca: ${im.titulo}`}
             sizes="100vw"
             prioridade={i === 0}
@@ -143,7 +144,7 @@ export function Galeria({ im, capa }: { im: Imovel; capa?: React.ReactNode }) {
               k === i ? "border-ouro-500" : "border-transparent opacity-70 hover:opacity-100",
             )}
           >
-            <Midia foto={q.foto} cena={q.cena} rotulo="" sizes="6rem" />
+            <Midia foto={q.foto} cena={q.cena} semente={im.codigo} rotulo="" sizes="6rem" />
           </button>
         ))}
       </div>

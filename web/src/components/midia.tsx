@@ -21,6 +21,9 @@ export function Midia({
   foto,
   alt,
   cena,
+  semente,
+  ancora,
+  panorama,
   rotulo,
   className,
   sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
@@ -29,6 +32,11 @@ export function Midia({
   foto?: string;
   alt?: string;
   cena: NomeCena;
+  /* O que faz a ilustração ser DAQUELE imóvel e não a mesma de sempre.
+     Some junto com a `<Cena>` quando a foto real chegar. */
+  semente?: string;
+  ancora?: "meio" | "base";
+  panorama?: boolean;
   rotulo: string;
   className?: string;
   sizes?: string;
@@ -47,5 +55,14 @@ export function Midia({
       />
     );
   }
-  return <Cena nome={cena} rotulo={rotulo} className={`size-full ${className ?? ""}`} />;
+  return (
+    <Cena
+      nome={cena}
+      semente={semente}
+      ancora={ancora}
+      panorama={panorama}
+      rotulo={rotulo}
+      className={`size-full ${className ?? ""}`}
+    />
+  );
 }
