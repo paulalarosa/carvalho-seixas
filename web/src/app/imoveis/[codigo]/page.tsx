@@ -284,7 +284,18 @@ export default async function PaginaImovel({ params }: PageProps<"/imoveis/[codi
               Ver todos <ArrowRight className="size-4" aria-hidden />
             </Link>
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* 🔴 A grade era sempre de três colunas. Com dois parecidos, e
+              a Tijuca só tem esses, sobrava um buraco do tamanho de um
+              cartão. A coluna acompanha quantos existem. */}
+          <div
+            className={
+              parecidos.length >= 3
+                ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                : parecidos.length === 2
+                  ? "grid gap-6 sm:grid-cols-2"
+                  : "grid max-w-md gap-6"
+            }
+          >
             {parecidos.map((p) => (
               <CartaoImovel key={p.codigo} im={p} />
             ))}

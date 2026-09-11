@@ -70,6 +70,8 @@ export default function PaginaAvaliacao() {
       <CabecaPagina
         titulo="Avaliação de imóvel"
         linha="Quanto vale, com parecer assinado por quem tem cadastro para assinar."
+        cena="casa"
+        semente="avaliacao"
         trilha={[{ href: "/", texto: "Início" }, { texto: "Avaliação" }]}
       />
 
