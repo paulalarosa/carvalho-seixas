@@ -4,7 +4,8 @@ import "./globals.css";
 import { Topo } from "@/components/topo";
 import { Rodape } from "@/components/rodape";
 import { SpriteCenas } from "@/components/cenas";
-import { SITE, NOME, DESCRICAO, ENDERECO, SOCIAS } from "@/lib/site";
+import { SITE, NOME, DESCRICAO, FRASE, SLOGAN, ENDERECO, SOCIAS } from "@/lib/site";
+import { REGIOES } from "@/lib/imoveis";
 
 /* Josefin Sans é a fonte do logo, medida no arquivo `.ai`: o nome está em
    700 e a palavra "Imóveis" em 600, com entreletra zero. Source Sans 3 é o
@@ -47,8 +48,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: NOME,
-    description:
-      "Quem mostra o imóvel é quem lê a matrícula. Centro, Tijuca e Zona Sul.",
+    /* Montada das regiões atendidas, e não escrita à mão: a lista aqui
+       ficou três regiões atrasada depois que o Grajaú entrou. */
+    description: `${FRASE} ${REGIOES.join(", ").replace(/, ([^,]+)$/, " e $1")}.`,
     url: "/",
     siteName: NOME,
     locale: "pt_BR",
@@ -91,7 +93,7 @@ const DADOS = {
     identifier: [s.creci, s.cnai],
   })),
   knowsLanguage: "pt-BR",
-  slogan: "Aqui seu sonho vira patrimônio.",
+  slogan: SLOGAN,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

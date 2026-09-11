@@ -4,7 +4,7 @@ import Link from "next/link";
 import { MessageCircle, Mail, MapPin } from "lucide-react";
 import { Simbolo } from "@/components/marca";
 import { Assinatura } from "@/components/assinatura";
-import { ENDERECO, SOCIAS } from "@/lib/site";
+import { ENDERECO, SOCIAS, SLOGAN } from "@/lib/site";
 
 /* Registro profissional em painel próprio. Selo de confiança desenhado não
    prova nada; número de registro prova, porque qualquer pessoa confere no
@@ -49,7 +49,7 @@ export function Rodape() {
             <Assinatura cores={{ nome: "text-creme", categoria: "text-ouro-300" }} />
           </div>
           <p className="mt-6 font-display text-2xl font-semibold text-creme">
-            Aqui seu sonho vira patrimônio.
+            {SLOGAN}
           </p>
           <p className="mt-4 max-w-[30ch] text-azul-200">
             Centro, Tijuca, Grajaú e Zona Sul. Das 9h às 19h, de segunda a sexta.

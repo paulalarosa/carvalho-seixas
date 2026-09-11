@@ -10,8 +10,28 @@
    Aqui cada arquivo ganha uma cópia com `.png`, e o endereço com extensão
    é o que as páginas declaram no metadado. Roda depois do build, junto
    dele, para não depender de ninguém lembrar. */
-import { readdir, copyFile, stat } from "node:fs/promises";
+import { readdir, copyFile, stat, readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { regioesAtendidas } from "./regioes.mjs";
+
+/* 🔴 O cartão da marca é uma IMAGEM, e imagem não compila: quando o Grajaú
+   entrou nas regiões atendidas, o cartão continuou dizendo três regiões e o
+   build passou feliz. O carimbo que `cartao-marca.mjs` deixa é conferido
+   aqui, para o build parar em vez de publicar a arte velha. */
+async function conferirCartao() {
+  const esperado = (await regioesAtendidas()).join(" · ");
+  const carimbo = await readFile("scripts/cartao-marca.carimbo", "utf8").catch(
+    () => "",
+  );
+  if (carimbo.trim() !== esperado) {
+    throw new Error(
+      `O cartão da marca está desatualizado.\n` +
+        `  desenhado: ${carimbo.trim() || "(sem carimbo)"}\n` +
+        `  atual:     ${esperado}\n` +
+        `  conserto:  node scripts/cartao-marca.mjs`,
+    );
+  }
+}
 
 const RAIZ = "out";
 let feitos = 0;
@@ -31,5 +51,6 @@ async function varrer(dir) {
   }
 }
 
+await conferirCartao();
 await varrer(RAIZ);
 console.log(`imagens de compartilhamento com extensão: ${feitos}`);

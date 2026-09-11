@@ -16,6 +16,12 @@ export const NOME = `${MARCA} Imóveis`;
 export const DESCRICAO =
   "Imobiliária de duas sócias no Rio, corretoras com CRECI e avaliadoras com CNAI. Compra, venda, temporada e avaliação no Centro, na Tijuca, no Grajaú e na Zona Sul, com a documentação conferida antes da proposta.";
 
+/* As duas frases da marca ficam aqui porque aparecem em lugares que não se
+   olham: a abertura, o rodapé, o cartão de compartilhamento da home e o
+   cartão de cada imóvel. Espalhadas, uma correção sempre esquecia uma. */
+export const FRASE = "Quem mostra o imóvel é quem lê a matrícula.";
+export const SLOGAN = "Aqui seu sonho vira patrimônio.";
+
 /* Canal único da empresa, e não um por sócia: foi decisão delas. Enquanto
    o número não existe a constante fica VAZIA, e quem monta botão de
    WhatsApp tem de tratar isso: `wa.me/` sem número abre o aplicativo sem

@@ -10,20 +10,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { contar, type Finalidade, type Regiao } from "@/lib/imoveis";
+import { REGIOES, contar, type Finalidade } from "@/lib/imoveis";
 import { cn } from "@/lib/utils";
 
-const REGIOES: Regiao[] = ["Centro", "Tijuca", "Zona Sul"];
 /* O `Select.Value` do base-ui mostra o VALOR selecionado, não o texto do
-   item: sem este mapa o campo aparecia escrito "todos" e "todas". */
+   item: sem este mapa o campo aparecia escrito "todos" e "todas". As
+   regiões entram derivadas, porque nome de região é igual ao rótulo dela e
+   repetir a lista aqui foi o que deixou o Grajaú de fora. */
 const ROTULOS: Record<string, string> = {
   todos: "Todos os bairros",
   todas: "Comprar ou temporada",
-  Centro: "Centro",
-  Tijuca: "Tijuca",
-  "Zona Sul": "Zona Sul",
   comprar: "Comprar",
   temporada: "Temporada",
+  ...Object.fromEntries(REGIOES.map((r) => [r, r])),
 };
 const FINALIDADES: { valor: Finalidade; texto: string }[] = [
   { valor: "comprar", texto: "Comprar" },

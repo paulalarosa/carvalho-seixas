@@ -310,6 +310,12 @@ export const BAIRROS: Bairro[] = [
   },
 ];
 
+/* 🔴 As regiões dos filtros saem DAQUI, e não de uma lista escrita à mão em
+   cada componente. Era assim antes, e quando o Grajaú entrou os dois
+   seletores continuaram oferecendo três regiões: o imóvel do Grajaú existia
+   na carteira e não aparecia em filtro nenhum. */
+export const REGIOES: Regiao[] = BAIRROS.map((b) => b.chave);
+
 const BRL = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",

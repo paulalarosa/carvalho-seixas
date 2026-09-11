@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { IMOVEIS, moeda } from "@/lib/imoveis";
-import { MARCA } from "@/lib/site";
+import { MARCA, FRASE } from "@/lib/site";
 
 /* Imagem de compartilhamento POR IMÓVEL.
 
@@ -62,7 +62,7 @@ export default async function Imagem({ params }: PageProps<"/imoveis/[codigo]">)
 
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ display: "flex", fontSize: 74, lineHeight: 1.05, fontWeight: 700, maxWidth: 980 }}>
-            {im ? im.titulo : "Quem mostra o imóvel é quem lê a matrícula."}
+            {im ? im.titulo : FRASE}
           </div>
           {im && (
             <div style={{ display: "flex", alignItems: "baseline", gap: 26 }}>

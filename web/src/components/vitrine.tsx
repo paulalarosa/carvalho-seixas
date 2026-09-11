@@ -11,10 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IMOVEIS, linkZap, type Finalidade, type Imovel, type Regiao } from "@/lib/imoveis";
+import {
+  IMOVEIS,
+  REGIOES,
+  linkZap,
+  type Finalidade,
+  type Imovel,
+  type Regiao,
+} from "@/lib/imoveis";
 import { cn } from "@/lib/utils";
 
-const REGIOES: Regiao[] = ["Centro", "Tijuca", "Zona Sul"];
 const FINALIDADES: [Finalidade, string][] = [
   ["comprar", "Comprar"],
   ["temporada", "Temporada"],

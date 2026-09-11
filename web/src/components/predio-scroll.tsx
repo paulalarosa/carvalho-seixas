@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import cidade from "../../public/abertura-cidade.webp";
-import { MARCA } from "@/lib/site";
+import { MARCA, SLOGAN } from "@/lib/site";
 import type { CenaPredio } from "@/lib/cena-predio";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -209,7 +209,7 @@ export function PredioScroll({ children }: { children: React.ReactNode }) {
             data-cena="dentro"
             className="vidro pointer-events-none absolute bottom-14 left-1/2 max-w-lg -translate-x-1/2 translate-y-4 rounded-3xl px-8 py-6 text-center font-display text-2xl font-semibold text-creme opacity-0 sm:text-3xl"
           >
-            Aqui seu sonho vira patrimônio.
+            {SLOGAN}
           </p>
         </div>
       </div>
